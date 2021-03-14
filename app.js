@@ -29,6 +29,7 @@ apiRouter.post("/", function (req, res) {
       position: "student",
     },
   };
+  res.status(200).send(responseBody);
 });
 
 apiRouter.post("/sayHello", function (req, res) {
