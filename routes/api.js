@@ -160,6 +160,9 @@ apiRouter.post("/", function (req, res) {
     };
     totalQuestionIndex++;
     res.status(200).json(responseBody);
+    // 1 질문 끝나고 breakMsg 보내는 것 까지 실행
+    // 이제 2 질문으로 넘어가는 거 해야함
+    // 추후 매직넘버, 모듈 분리 신경쓰기
   } else {
     const responseBody = createResponseBody(questions);
     res.status(200).json(responseBody);
