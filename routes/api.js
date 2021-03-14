@@ -119,6 +119,7 @@ apiRouter.post("/", function (req, res) {
   users[userId] = Object.create(initScore);
   console.log(users[userId]);
   console.log(users);
+  console.log(initScore);
   //   if (!userId[]) userId[req.body.userRequest.user.id] = Object.create(initScore);
   //   if (index < questions.length) {
   //     if (req.body.userRequest.utterance === answer.one) {
