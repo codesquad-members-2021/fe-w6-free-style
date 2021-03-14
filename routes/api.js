@@ -1,24 +1,12 @@
 const express = require("express");
 const apiRouter = express.Router();
 
-const users = new Map();
+let users = new Map();
 const initScore = {
-  1: {
-    E: 0,
-    I: 0,
-  },
-  2: {
-    S: 0,
-    N: 0,
-  },
-  3: {
-    T: 0,
-    F: 0,
-  },
-  4: {
-    J: 0,
-    P: 0,
-  },
+  1: { E: 0, I: 0 },
+  2: { S: 0, N: 0 },
+  3: { T: 0, F: 0 },
+  4: { J: 0, P: 0 },
 };
 
 const answer = {
@@ -82,7 +70,7 @@ const createResponseBody = (questions) => {
       },
     };
   } else {
-    // index = 0;
+    index = 0;
     return {
       version: "2.0",
       template: {
@@ -93,23 +81,21 @@ const createResponseBody = (questions) => {
             },
           },
         ],
-        //   quickReplies: [
-        //     {
-        //       messageText: "1번",
-        //       action: "block",
-        //       blockId: "604df51fb908ae1e731f0141",
-        //       label: "1번",
-        //     },
-        //     {
-        //       messageText: "2번",
-        //       action: "block",
-        //       blockId: "604df546048a962ecd896158",
-        //       label: "2번",
-        //     },
-        //   ],
       },
     };
   }
+};
+
+const registerNewUser = (map, key, initValue) => {
+  map.set(key, initValue);
+  return map;
+};
+
+const addScore = (map, key, questionNumber, type) => {
+  const currVal = map.get(key);
+  currVal[`${questionNumber}`].type++;
+  map.set(key, currVal);
+  return map;
 };
 
 apiRouter.post("/", function (req, res) {
@@ -118,18 +104,21 @@ apiRouter.post("/", function (req, res) {
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
   if (!users.has(userId)) {
-    const newInitScore = Object.assign({}, initScore);
-    users.set(userId, newInitScore);
+    users = registerNewUser(users, userId, initScore);
+    // const newInitScore = Object.assign({}, initScore);
+    // users.set(userId, newInitScore);
   }
   if (userAnswer === answer.one) {
-    const currVal = users.get(userId);
-    currVal["1"].E++;
-    users.set(userId, currVal);
+    users = addScore(users, userId, 1, E);
+    // const currVal = users.get(userId);
+    // currVal["1"].E++;
+    // users.set(userId, currVal);
     // users[userId]["1"].E++;
   } else if (userAnswer === answer.two) {
-    const currVal = users.get(userId);
-    currVal["1"].I++;
-    users.set(userId, currVal);
+    users = addScore(users, userId, 1, I);
+    // const currVal = users.get(userId);
+    // currVal["1"].I++;
+    // users.set(userId, currVal);
   }
   console.log(userAnswer);
   console.log(users);
