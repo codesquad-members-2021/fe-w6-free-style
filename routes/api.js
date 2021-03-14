@@ -51,7 +51,7 @@ let index = -1;
 
 const createResponseBody = (questions, selectedMsg) => {
   index++;
-  if (index < questions.length) {
+  if (index < questions.length - 1) {
     return {
       version: "2.0",
       template: {
