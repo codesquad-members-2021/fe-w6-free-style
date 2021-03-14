@@ -121,21 +121,13 @@ apiRouter.post("/", function (req, res) {
     const newInitScore = Object.assign({}, initScore);
     users.set(userId, newInitScore);
   }
+  if (userAnswer === answer.one) {
+    users[userId]["1"].E++;
+  } else if (userAnswer === answer.two) {
+    users[userId]["1"].I++;
+  }
   console.log(userAnswer);
   console.log(users);
-  //   if (index >= questions.length) console.log(users[userId]);
-  //   console.log(initScore);
-  //   if (!userId[]) userId[req.body.userRequest.user.id] = Object.create(initScore);
-  //   if (index < questions.length) {
-  //     if (req.body.userRequest.utterance === answer.one) {
-  //       userId[req.body.userRequest.user.id]["1"].E++;
-  //     } else {
-  //       userId[req.body.userRequest.user.id]["1"].I++;
-  //     }
-  //   }
-  //    else {
-  //   console.log(userId[req.body.userRequest.user.id]);
-  //   }
   // 사용자 설정
 
   const responseBody = createResponseBody(questions);
