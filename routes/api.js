@@ -46,6 +46,7 @@ const blockIds = [
   "604e306157027e150c33fd1e", // 1_마무리
 ];
 
+let totalQuestionIndex = 1;
 let index = -1;
 
 const createResponseBody = (questions) => {
@@ -79,14 +80,24 @@ const createResponseBody = (questions) => {
     };
   } else {
     // index = 0;
+    const selectedMsg = users[userId][totalQuestionIndex].E > users[userId][totalQuestionIndex].I ? breakMsg.E : breakMsg.I;
+    totalQuestionIndex++;
     return {
       version: "2.0",
       template: {
         outputs: [
           {
             simpleText: {
-              text: `모두 마쳤습니다.😎`,
+              text: selectedMsg,
             },
+          },
+        ],
+        quickReplies: [
+          {
+            messageText: "레츠고😎",
+            action: "block",
+            blockId: blockIds[index],
+            label: "레츠고😎",
           },
         ],
       },
@@ -114,36 +125,15 @@ apiRouter.post("/", function (req, res) {
     users = registerNewUser(users, userId, initScore);
   }
   if (userAnswer === answer.one) {
-    users = addScore(users, userId, 1, "E");
+    users = addScore(users, userId, totalQuestionIndex, "E");
   } else if (userAnswer === answer.two) {
-    users = addScore(users, userId, 1, "I");
+    users = addScore(users, userId, totalQuestionIndex, "I");
   }
   console.log(userAnswer);
   console.log(users);
   // 사용자 설정
   if (index && !index % 9) {
-    const selectedMsg = users[userId]["1"].E > users[userId]["1"].I ? breakMsg.E : breakMsg.I;
-    const responseBreakMsg = {
-      version: "2.0",
-      template: {
-        outputs: [
-          {
-            simpleText: {
-              text: selectedMsg,
-            },
-          },
-        ],
-        quickReplies: [
-          {
-            messageText: "레츠고😎",
-            action: "block",
-            blockId: blockIds[index],
-            label: "레츠고😎",
-          },
-        ],
-      },
-    };
-    res.status(200).json(responseBreakMsg);
+    const responseBreakMsg = res.status(200).json(responseBreakMsg);
   } else {
     const responseBody = createResponseBody(questions);
     res.status(200).json(responseBody);
