@@ -80,7 +80,6 @@ const createResponseBody = (questions, selectedMsg) => {
     };
   } else {
     // index = 0;
-
     totalQuestionIndex++;
     return {
       version: "2.0",
@@ -132,6 +131,7 @@ apiRouter.post("/", function (req, res) {
   console.log(userAnswer);
   console.log(users);
   // 사용자 설정
+  console.log(`index: ${index}`);
   if (index && !index % 9) {
     const selectedMsg = users[userId][totalQuestionIndex].E > users[userId][totalQuestionIndex].I ? breakMsg.E : breakMsg.I;
     const responseBody = createResponseBody(questions, selectedMsg);
