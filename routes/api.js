@@ -121,14 +121,8 @@ apiRouter.post("/", function (req, res) {
     const newInitScore = Object.assign({}, initScore);
     users.set(userId, newInitScore);
   }
-  if (index < questions.length) {
-    if (userAnswer === answer.one) {
-      users[userId]["1"].E++;
-    } else {
-      users[userId]["1"].I++;
-    }
-  }
-  if (index >= questions.length) console.log(users[userId]);
+  console.log(users);
+  //   if (index >= questions.length) console.log(users[userId]);
   //   console.log(initScore);
   //   if (!userId[]) userId[req.body.userRequest.user.id] = Object.create(initScore);
   //   if (index < questions.length) {
