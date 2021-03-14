@@ -28,8 +28,8 @@ const blockIds = [
 let index = -1;
 
 const createResponseBody = (questions) => {
+  index++;
   if (index < blockIds.length) {
-    index++;
     return {
       version: "2.0",
       template: {
