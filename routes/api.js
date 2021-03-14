@@ -109,13 +109,13 @@ apiRouter.post("/", function (req, res) {
     // users.set(userId, newInitScore);
   }
   if (userAnswer === answer.one) {
-    users = addScore(users, userId, 1, E);
+    users = addScore(users, userId, 1, "E");
     // const currVal = users.get(userId);
     // currVal["1"].E++;
     // users.set(userId, currVal);
     // users[userId]["1"].E++;
   } else if (userAnswer === answer.two) {
-    users = addScore(users, userId, 1, I);
+    users = addScore(users, userId, 1, "I");
     // const currVal = users.get(userId);
     // currVal["1"].I++;
     // users.set(userId, currVal);
