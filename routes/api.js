@@ -1,6 +1,31 @@
 const express = require("express");
 const apiRouter = express.Router();
 
+const userId = {};
+const initScore = {
+  1: {
+    E: 0,
+    I: 0,
+  },
+  2: {
+    S: 0,
+    N: 0,
+  },
+  3: {
+    T: 0,
+    F: 0,
+  },
+  4: {
+    J: 0,
+    P: 0,
+  },
+};
+
+const answer = {
+  one: "1번",
+  two: "2번",
+};
+
 const questions = [
   `1. 나는 여러 친구들과 많이 사귀는 편이다\n2. 나는 몇 명의 친구와 깊이 사귀는 편이다.`,
   `1. 계발활동을 갈 때 새로운 친구들을 만나는 것이 신난다\n2.새로운 계발활동 부서에 갈 때 처음 보는 친구들과 앞으로 어떻게 지낼까 걱정이다.`,
@@ -89,6 +114,18 @@ const createResponseBody = (questions) => {
 
 apiRouter.post("/", function (req, res) {
   console.log(req.body);
+  if (!userId[req.body.userRequest.user.id]) userId[req.body.userRequest.user.id] = Object.create(initScore);
+  if (index < questions.length) {
+    if (req.body.userRequest.utterance === answer.one) {
+      userId[req.body.userRequest.user.id]["1"].E++;
+    } else {
+      userId[req.body.userRequest.user.id]["1"].I++;
+    }
+  } else {
+    console.log(userId[req.body.userRequest.user.id]);
+  }
+  // 사용자 설정
+
   const responseBody = createResponseBody(questions);
   res.status(200).json(responseBody);
 });
