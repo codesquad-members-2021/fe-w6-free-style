@@ -20,6 +20,25 @@ app.use("/users", usersRouter);
 
 app.use("/api", apiRouter);
 
+apiRouter.post("/blockId", function (req, res) {
+  const userRequest = req.body.userRequest;
+  const blockId = userRequest.block.id;
+
+  return res.send({
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          basicCard: {
+            title: "블록ID 입니다",
+            description: blockId,
+          },
+        },
+      ],
+    },
+  });
+});
+
 apiRouter.post("/", function (req, res) {
   const responseBody = {
     version: "2.0",
@@ -34,7 +53,7 @@ apiRouter.post("/", function (req, res) {
       quickReplies: [
         {
           messageText: "손흥민",
-          action: "message",
+          action: "block",
           label: "손흥민",
         },
         {
