@@ -40,17 +40,20 @@ apiRouter.post("/", function (req, res) {
         },
         {
           messageText: "헤리케인",
-          action: "message",
+          action: "block",
+          blockId: "5e1728ebffa7480001c29ffb",
           label: "헤리케인",
         },
         {
           messageText: "에릭센",
-          action: "message",
+          action: "block",
+          blockId: "5e1728ebffa7480001c29ffb",
           label: "에릭센",
         },
         {
           messageText: "요리스",
-          action: "message",
+          action: "block",
+          blockId: "5e1728ebffa7480001c29ffb",
           label: "요리스",
         },
       ],
