@@ -1,7 +1,7 @@
 const express = require("express");
 const apiRouter = express.Router();
 
-const users = new Object();
+const users = new Map();
 const initScore = {
   1: {
     E: 0,
@@ -115,11 +115,11 @@ const createResponseBody = (questions) => {
 apiRouter.post("/", function (req, res) {
   //   console.log(req.body);
   const userId = req.body.userRequest.user.id;
-  console.log(users[userId] ? true : false);
-  users[userId] = Object.create(initScore);
+  console.log(users.has(userId) ? true : false);
+  users.set(userId, Object.create(initScore));
   console.log(users[userId]);
   console.log(users);
-  console.log(initScore);
+  //   console.log(initScore);
   //   if (!userId[]) userId[req.body.userRequest.user.id] = Object.create(initScore);
   //   if (index < questions.length) {
   //     if (req.body.userRequest.utterance === answer.one) {
