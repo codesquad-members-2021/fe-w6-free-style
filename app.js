@@ -20,6 +20,28 @@ app.use("/users", usersRouter);
 
 app.use("/api", apiRouter);
 
+apiRouter.post("/second", function (req, res) {
+  const responseBody = {
+    version: "2.0",
+    template: {
+      outputs: [
+        {
+          simpleText: {
+            text: "두번째 블록으로 왔숨다",
+          },
+        },
+      ],
+      quickReplies: [
+        {
+          messageText: "adela",
+          action: "message",
+          label: "adela",
+        },
+      ],
+    },
+  };
+});
+
 apiRouter.post("/", function (req, res) {
   console.log(req.body);
   const responseBody = {
