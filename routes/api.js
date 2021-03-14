@@ -82,7 +82,7 @@ const createResponseBody = (questions) => {
       },
     };
   } else {
-    index = 0;
+    // index = 0;
     return {
       version: "2.0",
       template: {
