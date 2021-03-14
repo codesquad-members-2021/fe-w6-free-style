@@ -49,7 +49,7 @@ const blockIds = [
 let totalQuestionIndex = 1;
 let index = -1;
 
-const createResponseBody = (questions) => {
+const createResponseBody = (questions, selectedMsg) => {
   index++;
   if (index < questions.length) {
     return {
@@ -80,7 +80,7 @@ const createResponseBody = (questions) => {
     };
   } else {
     // index = 0;
-    const selectedMsg = users[userId][totalQuestionIndex].E > users[userId][totalQuestionIndex].I ? breakMsg.E : breakMsg.I;
+
     totalQuestionIndex++;
     return {
       version: "2.0",
@@ -133,7 +133,9 @@ apiRouter.post("/", function (req, res) {
   console.log(users);
   // 사용자 설정
   if (index && !index % 9) {
-    const responseBreakMsg = res.status(200).json(responseBreakMsg);
+    const selectedMsg = users[userId][totalQuestionIndex].E > users[userId][totalQuestionIndex].I ? breakMsg.E : breakMsg.I;
+    const responseBody = createResponseBody(questions, selectedMsg);
+    res.status(200).json(responseBody);
   } else {
     const responseBody = createResponseBody(questions);
     res.status(200).json(responseBody);
