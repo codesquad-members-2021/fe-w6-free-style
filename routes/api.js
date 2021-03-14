@@ -121,9 +121,10 @@ apiRouter.post("/", function (req, res) {
     } else {
       userId[req.body.userRequest.user.id]["1"].I++;
     }
-  } else {
-    console.log(userId[req.body.userRequest.user.id]);
   }
+  //    else {
+  console.log(userId[req.body.userRequest.user.id]);
+  //   }
   // 사용자 설정
 
   const responseBody = createResponseBody(questions);
