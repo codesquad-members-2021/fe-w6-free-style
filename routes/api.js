@@ -51,7 +51,7 @@ let index = -1;
 
 const createResponseBody = (questions, selectedMsg) => {
   index++;
-  if (index < questions.length - 1) {
+  if (index < questions.length) {
     return {
       version: "2.0",
       template: {
@@ -80,7 +80,6 @@ const createResponseBody = (questions, selectedMsg) => {
     };
   } else {
     // index = 0;
-    totalQuestionIndex++;
     return {
       version: "2.0",
       template: {
@@ -116,6 +115,11 @@ const addScore = (map, key, questionNumber, type) => {
   return map;
 };
 
+const getSelectedMsg = (map, key, questionNumber, types) => {
+  const currVal = map.get(key);
+  return currVal[`${questionNumber}`][types[0]] > currVal[`${questionNumber}`][types[1]] ? breakMsg[types[0]] : breakMsg[types[1]];
+};
+
 apiRouter.post("/", function (req, res) {
   const userRequest = req.body.userRequest;
   const userId = userRequest.user.id;
@@ -133,7 +137,8 @@ apiRouter.post("/", function (req, res) {
   // 사용자 설정
   console.log(`index: ${index}`);
   if (index && !index % 8) {
-    const selectedMsg = users[userId][totalQuestionIndex].E > users[userId][totalQuestionIndex].I ? breakMsg.E : breakMsg.I;
+    const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, ["E", "I"]);
+    totalQuestionIndex++;
     const responseBody = createResponseBody(questions, selectedMsg);
     res.status(200).json(responseBody);
   } else {
