@@ -24,7 +24,14 @@ const questions = [
   `1. 친구들과 함께 공부하면 잘된다.\n2. 나 혼자 공부하면 더 잘 된다.`,
   `1. 나는 나의 생각과 느낌을 말로 표현하는 것이 편하다.\n2. 나는 나의 생각과 느낌을 글로 표현하는 것이 편하다.`,
   `1. 주위 사람들은 내가 활발하다고 말한다.\n2. 주위 사람들은 내가 얌전하다고 말한다.`,
+  // 9번까지 첫번째 유형 질문
+  // 중간에 쉬어가는 말 넣기?
 ];
+
+const breakMsg = {
+  E: "오호, 외향적인 듯한 느낌이 나는군요! 계속해서 가보실까요?",
+  I: "오호, 내향적인 듯한 느낌이 나는군요! 계속해서 가보실까요?",
+};
 
 const blockIds = [
   "604df51fb908ae1e731f0141", // 1_1
@@ -36,6 +43,7 @@ const blockIds = [
   "604e202d57027e150c33fd07", // 1_7
   "604e20354c78c32f12f5fede", // 1_8
   "604e20411690bb7bf77a7d5b", // 1_9
+  "604e306157027e150c33fd1e", // 1_마무리
 ];
 
 let index = -1;
@@ -70,7 +78,7 @@ const createResponseBody = (questions) => {
       },
     };
   } else {
-    index = 0;
+    // index = 0;
     return {
       version: "2.0",
       template: {
@@ -99,33 +107,47 @@ const addScore = (map, key, questionNumber, type) => {
 };
 
 apiRouter.post("/", function (req, res) {
-  //   console.log(req.body);
   const userRequest = req.body.userRequest;
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
   if (!users.has(userId)) {
     users = registerNewUser(users, userId, initScore);
-    // const newInitScore = Object.assign({}, initScore);
-    // users.set(userId, newInitScore);
   }
   if (userAnswer === answer.one) {
     users = addScore(users, userId, 1, "E");
-    // const currVal = users.get(userId);
-    // currVal["1"].E++;
-    // users.set(userId, currVal);
-    // users[userId]["1"].E++;
   } else if (userAnswer === answer.two) {
     users = addScore(users, userId, 1, "I");
-    // const currVal = users.get(userId);
-    // currVal["1"].I++;
-    // users.set(userId, currVal);
   }
   console.log(userAnswer);
   console.log(users);
   // 사용자 설정
-
-  const responseBody = createResponseBody(questions);
-  res.status(200).json(responseBody);
+  if (index && !index % 9) {
+    const selectedMsg = users[userId]["1"].E > users[userId]["1"].I ? breakMsg.E : breakMsg.I;
+    const responseBreakMsg = {
+      version: "2.0",
+      template: {
+        outputs: [
+          {
+            simpleText: {
+              text: selectedMsg,
+            },
+          },
+        ],
+        quickReplies: [
+          {
+            messageText: "레츠고😎",
+            action: "block",
+            blockId: blockIds[index],
+            label: "레츠고😎",
+          },
+        ],
+      },
+    };
+    res.status(200).json(responseBreakMsg);
+  } else {
+    const responseBody = createResponseBody(questions);
+    res.status(200).json(responseBody);
+  }
 });
 
 module.exports = apiRouter;
