@@ -35,7 +35,7 @@ apiRouter.post("/", function (req, res) {
         {
           messageText: "손흥민",
           action: "block",
-          blockId: "5e1728e3ffa7480001c29ff9",
+          blockId: "5e1728ebffa7480001c29ffb",
           label: "손흥민",
         },
         {
