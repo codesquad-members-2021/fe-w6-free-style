@@ -114,13 +114,21 @@ const createResponseBody = (questions) => {
 
 apiRouter.post("/", function (req, res) {
   //   console.log(req.body);
-  const userId = req.body.userRequest.user.id;
-  console.log(users.has(userId) ? true : false);
-  const newInitScore = Object.assign({}, initScore);
-  console.log(newInitScore);
-  users.set(userId, newInitScore);
-  console.log(users[userId]);
-  console.log(users);
+  const userRequest = req.body.userRequest;
+  const userId = userRequest.user.id;
+  const userAnswer = userRequest.utterance;
+  if (users.has(userId)) {
+    const newInitScore = Object.assign({}, initScore);
+    users.set(userId, newInitScore);
+  }
+  if (index < questions.length) {
+    if (userAnswer === answer.one) {
+      users[userId]["1"].E++;
+    } else {
+      users[userId]["1"].I++;
+    }
+  }
+  if (index >= questions.length) console.log(users[userId]);
   //   console.log(initScore);
   //   if (!userId[]) userId[req.body.userRequest.user.id] = Object.create(initScore);
   //   if (index < questions.length) {
