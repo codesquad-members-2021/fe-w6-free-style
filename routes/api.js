@@ -1,7 +1,17 @@
 const express = require("express");
 const apiRouter = express.Router();
 
-const questions = ["1. 나는 여러 친구들과 많이 사귀는 편이다", "2. 나는 몇 명의 친구와 깊이 사귀는 편이다."];
+const questions = [
+  `1. 나는 여러 친구들과 많이 사귀는 편이다\n2. 나는 몇 명의 친구와 깊이 사귀는 편이다.`,
+  `1. 계발활동을 갈 때 새로운 친구들을 만나는 것이 신난다\n2.새로운 계발활동 부서에 갈 때 처음 보는 친구들과 앞으로 어떻게 지낼까 걱정이다.`,
+  `1. 처음 보는 친구들을 만나면 내가 먼저 말한다.\n2. 처음 보는 친구들을 만나면 다른 친구가 나에게 먼저 말한다.`,
+  `1. 나의 생각이나 느낌을 다른 사람에게 이야기하는 편이다.\n2. 나의 생각이나 느낌을 내 마음 속에 간직하는 편이다.`,
+  `1. 나는 친구들과 함께 하는 놀이가 좋다.\n2. 나는 나 혼자 재미있게 하는 놀이가 좋다.`,
+  `1. 나는 많은 친구들에게 이야기하길 좋아한다.\n2. 나는 친한 친구들에게 이야기하기를 좋아한다.`,
+  `1. 친구들과 함께 공부하면 잘된다.\n2. 나 혼자 공부하면 더 잘 된다.`,
+  `1. 나는 나의 생각과 느낌을 말로 표현하는 것이 편하다.\n2. 나는 나의 생각과 느낌을 글로 표현하는 것이 편하다.`,
+  `1. 주위 사람들은 내가 활발하다고 말한다.\n2. 주위 사람들은 내가 얌전하다고 말한다.`,
+];
 
 const blockIds = [
   "604df51fb908ae1e731f0141", // 1_1
@@ -26,7 +36,7 @@ const createResponseBody = (questions) => {
         outputs: [
           {
             simpleText: {
-              text: `${questions[index]}\n${questions[index]}`,
+              text: questions[index],
             },
           },
         ],
@@ -79,7 +89,7 @@ const createResponseBody = (questions) => {
 
 apiRouter.post("/", function (req, res) {
   console.log(req.body);
-  const responseBody = createResponseBody(question);
+  const responseBody = createResponseBody(questions);
   res.status(200).json(responseBody);
 });
 
