@@ -113,17 +113,19 @@ const createResponseBody = (questions) => {
 };
 
 apiRouter.post("/", function (req, res) {
-  console.log(req.body);
-  if (!userId[req.body.userRequest.user.id]) userId[req.body.userRequest.user.id] = Object.create(initScore);
-  if (index < questions.length) {
-    if (req.body.userRequest.utterance === answer.one) {
-      userId[req.body.userRequest.user.id]["1"].E++;
-    } else {
-      userId[req.body.userRequest.user.id]["1"].I++;
-    }
-  }
+  //   console.log(req.body);
+  const userId = req.body.userRequest.user.id;
+  console.log(userId);
+  //   if (!userId[]) userId[req.body.userRequest.user.id] = Object.create(initScore);
+  //   if (index < questions.length) {
+  //     if (req.body.userRequest.utterance === answer.one) {
+  //       userId[req.body.userRequest.user.id]["1"].E++;
+  //     } else {
+  //       userId[req.body.userRequest.user.id]["1"].I++;
+  //     }
+  //   }
   //    else {
-  console.log(userId[req.body.userRequest.user.id]);
+  //   console.log(userId[req.body.userRequest.user.id]);
   //   }
   // 사용자 설정
 
