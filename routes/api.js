@@ -49,7 +49,7 @@ const blockIds = [
 let totalQuestionIndex = 1;
 let index = -1;
 
-const createResponseBody = (questions, selectedMsg) => {
+const createResponseBody = (questions) => {
   index++;
   if (index < questions.length) {
     return {
@@ -138,8 +138,27 @@ apiRouter.post("/", function (req, res) {
   console.log(`index: ${index}`);
   if (index && index % 7 === 0) {
     const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, ["E", "I"]);
+    const responseBody = {
+      version: "2.0",
+      template: {
+        outputs: [
+          {
+            simpleText: {
+              text: selectedMsg,
+            },
+          },
+        ],
+        quickReplies: [
+          {
+            messageText: "레츠고😎",
+            action: "block",
+            blockId: blockIds[index],
+            label: "레츠고😎",
+          },
+        ],
+      },
+    };
     totalQuestionIndex++;
-    const responseBody = createResponseBody(questions, selectedMsg);
     res.status(200).json(responseBody);
   } else {
     const responseBody = createResponseBody(questions);
