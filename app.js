@@ -26,49 +26,18 @@ apiRouter.post("/", function (req, res) {
     template: {
       outputs: [
         {
-          simpleText: {
-            text: "간단한 텍스트 요소입니다.",
+          quickReplies: {
+            // 여기까지 고침
+            label: "응",
+            action: "block",
+            messageText: "다음 블록으로 이동하시겠습니까?",
+            blockId: 1,
+            // text: "간단한 텍스트 요소입니다.",
           },
         },
       ],
     },
   };
-  res.status(200).send(responseBody);
-});
-
-apiRouter.post("/sayHello", function (req, res) {
-  const responseBody = {
-    version: "2.0",
-    template: {
-      outputs: [
-        {
-          simpleText: {
-            text: "hello I'm Adela",
-          },
-        },
-      ],
-    },
-  };
-  res.status(200).send(responseBody);
-});
-
-apiRouter.post("/showHello", function (req, res) {
-  console.log(req.body);
-
-  const responseBody = {
-    version: "2.0",
-    template: {
-      outputs: [
-        {
-          simpleImage: {
-            imageUrl: "https://t1.daumcdn.net/friends/prod/category/M001_friends_ryan2.jpg",
-            altText: "hello I'm Adela",
-          },
-        },
-      ],
-    },
-  };
-
   res.status(200).send(responseBody);
 });
 
