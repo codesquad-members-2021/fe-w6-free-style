@@ -117,7 +117,7 @@ apiRouter.post("/", function (req, res) {
   const userRequest = req.body.userRequest;
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
-  if (users.has(userId)) {
+  if (!users.has(userId)) {
     const newInitScore = Object.assign({}, initScore);
     users.set(userId, newInitScore);
   }
