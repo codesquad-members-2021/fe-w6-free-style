@@ -26,14 +26,31 @@ apiRouter.post("/", function (req, res) {
     template: {
       outputs: [
         {
-          quickReplies: {
-            // 여기까지 고침
-            label: "응",
-            action: "block",
-            messageText: "다음 블록으로 이동하시겠습니까?",
-            blockId: 1,
-            // text: "간단한 텍스트 요소입니다.",
+          simpleText: {
+            text: "토트넘 선수 리스트입니다.",
           },
+        },
+      ],
+      quickReplies: [
+        {
+          messageText: "손흥민",
+          action: "message",
+          label: "손흥민",
+        },
+        {
+          messageText: "헤리케인",
+          action: "message",
+          label: "헤리케인",
+        },
+        {
+          messageText: "에릭센",
+          action: "message",
+          label: "에릭센",
+        },
+        {
+          messageText: "요리스",
+          action: "message",
+          label: "요리스",
         },
       ],
     },
