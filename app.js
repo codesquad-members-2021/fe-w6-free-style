@@ -20,6 +20,17 @@ app.use("/users", usersRouter);
 
 app.use("/api", apiRouter);
 
+apiRouter.post("/", function (req, res) {
+  const responseBody = {
+    version: "2.0",
+    data: {
+      msg: "HI",
+      name: "Aela",
+      position: "student",
+    },
+  };
+});
+
 apiRouter.post("/sayHello", function (req, res) {
   const responseBody = {
     version: "2.0",
