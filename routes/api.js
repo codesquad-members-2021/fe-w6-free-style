@@ -132,7 +132,7 @@ apiRouter.post("/", function (req, res) {
   console.log(users);
   // 사용자 설정
   console.log(`index: ${index}`);
-  if (index && !index % 9) {
+  if (index && !index % 8) {
     const selectedMsg = users[userId][totalQuestionIndex].E > users[userId][totalQuestionIndex].I ? breakMsg.E : breakMsg.I;
     const responseBody = createResponseBody(questions, selectedMsg);
     res.status(200).json(responseBody);
