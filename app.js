@@ -21,6 +21,7 @@ app.use("/users", usersRouter);
 app.use("/api", apiRouter);
 
 apiRouter.post("/", function (req, res) {
+  console.log(req.body);
   const responseBody = {
     version: "2.0",
     template: {
