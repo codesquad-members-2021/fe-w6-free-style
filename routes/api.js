@@ -3,10 +3,10 @@ const apiRouter = express.Router();
 
 let users = new Map();
 const initScore = {
-  0: { E: 0, I: 0 },
-  1: { S: 0, N: 0 },
-  2: { T: 0, F: 0 },
-  3: { J: 0, P: 0 },
+  // 0: { E: 0, I: 0 },
+  0: { S: 0, N: 0 },
+  1: { T: 0, F: 0 },
+  2: { J: 0, P: 0 },
 };
 
 const answer = {
