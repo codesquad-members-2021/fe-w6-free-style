@@ -7,7 +7,8 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/result", function (req, res, next) {
-  const { type, scores } = req.query.result;
+  const type = req.query.type;
+  const scores = req.query.scores;
   res.send({ type, scores });
 });
 
