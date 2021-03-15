@@ -48,7 +48,8 @@ const updateResult = (map, key, questionNumber, types) => {
 
 const registerNewUser = (map, key, initValue) => {
   if (map.has(key)) map.delete(key);
-  map.set(key, initValue);
+  const newInitValue = Object.assign({}, initValue);
+  map.set(key, newInitValue);
   return map;
 };
 
