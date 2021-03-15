@@ -5,6 +5,11 @@ $backgroundColor: rgb(16, 20, 33);
   flex-direction: row;
 }
 
+.flex-cloumn {
+  display: flex;
+  flex-direction: column;
+}
+
 .flex {
   display: flex;
 }
@@ -37,8 +42,24 @@ $backgroundColor: rgb(16, 20, 33);
   background: transparent;
 }
 
+.Layout__item {
+  position: relative;
+  flex-shrink: 0;
+  height: 14px;
+  width: 14px;
+}
+
+.first {
+  margin-right: -2px;
+}
+
+// 이상하다
+body .padding__top {
+  padding: 20px;
+}
+
 .MainLayout__Wrapper {
-  display: flex;
+  // display: flex;
   flex-direction: row;
   -webkit-box-pack: center;
   justify-content: center;
@@ -86,13 +107,6 @@ $backgroundColor: rgb(16, 20, 33);
           color: rgb(207, 207, 207);
           font-weight: bold;
         }
-
-        .Layout__item {
-          position: relative;
-          flex-shrink: 0;
-          height: 14px;
-          width: 14px;
-        }
       }
     }
   }
@@ -115,6 +129,8 @@ $backgroundColor: rgb(16, 20, 33);
     border-radius: 16px;
     margin-bottom: 16px;
     padding: 0px;
+    // 억지로 넣은 부분
+    flex-direction: column;
 
     .Layout__Title--Menu {
       -webkit-box-align: center;
@@ -183,5 +199,65 @@ $backgroundColor: rgb(16, 20, 33);
         }
       }
     }
+  }
+
+  .Layout__Title--Tab {
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+    padding-right: 12px;
+
+    .Tab__Menu--Box {
+      display: flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+
+      .Tab__Menu {
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+        font-size: 14px;
+        border-radius: 6px;
+        flex: 1 1 0%;
+        cursor: pointer;
+        position: relative;
+        color: rgb(207, 207, 207);
+        font-weight: bold;
+        padding: 6px 0px 10px;
+
+        &::before {
+          content: '';
+          width: 24px;
+          height: 2px;
+          background: rgb(207, 207, 207);
+          position: absolute;
+          bottom: 0px;
+          left: calc(50% + 8px);
+          transform: translateX(-50%);
+        }
+
+        .Tab__svg {
+          svg {
+            fill: rgb(207, 207, 207);
+            transition: all 0.2s ease-out 0s;
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+
+    .Tab__Flex {
+      flex: 1 1 0%;
+    }
+  }
+
+  .Tab__Animation {
+    animation-duration: 0.4s;
+    animation-fill-mode: both;
+    animation-name: fadeInUp;
+    animation-delay: 200ms;
   }
 }
