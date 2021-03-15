@@ -172,6 +172,8 @@ apiRouter.post("/", function (req, res) {
     users = registerNewUser(users, userId, initScore);
   }
   console.log(`============ answers[index] ===========`);
+  console.log(index);
+  console.log(answers);
   console.log(answers[index]);
   console.log(userAnswer);
   if (userAnswer === answers[index].one) {
