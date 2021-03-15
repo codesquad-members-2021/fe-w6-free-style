@@ -10,7 +10,8 @@ let index = -1;
 const startUtterances = ["시작", "레츠고😎", "고고~", "예스! 킵고잉!", "궁금해! 두구두구.."];
 
 apiRouter.post("/", function (req, res) {
-  console.log(req.body);
+  // console.log(req.body);
+  console.log(`index: ${index}`);
   const userRequest = req.body.userRequest;
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
