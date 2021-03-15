@@ -175,13 +175,12 @@ apiRouter.post("/", function (req, res) {
   console.log(answers);
   console.log(answers[index]);
   console.log(userAnswer);
+  console.log(users);
   if (userAnswer === answers[index].one) {
     users = addScore(users, userId, totalQuestionIndex, types[totalQuestionIndex].one);
   } else if (userAnswer === answers[index].two) {
     users = addScore(users, userId, totalQuestionIndex, types[totalQuestionIndex].two);
   }
-  console.log(userAnswer);
-  console.log(users);
   // 사용자 설정
   if (index && index % 8 === 0) {
     const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, [types[totalQuestionIndex].one, types[totalQuestionIndex].two]);
@@ -206,7 +205,6 @@ apiRouter.post("/", function (req, res) {
       },
     };
     totalQuestionIndex++;
-    index++;
     res.status(200).json(responseBody);
     // 1 질문 끝나고 breakMsg 보내는 것 까지 실행
     // 이제 2 질문으로 넘어가는 거 해야함
