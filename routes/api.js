@@ -89,7 +89,7 @@ const breakBlockIds = [
   "604e306157027e150c33fd1e", // 1_마무리
 ];
 
-let totalQuestionIndex = 1;
+let totalQuestionIndex = 0;
 let index = -1;
 
 const createResponseBody = (questions) => {
@@ -164,6 +164,7 @@ const getSelectedMsg = (map, key, questionNumber, types) => {
 };
 
 apiRouter.post("/", function (req, res) {
+  console.log(req.body);
   const userRequest = req.body.userRequest;
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
