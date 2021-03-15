@@ -3,10 +3,10 @@ const apiRouter = express.Router();
 
 let users = new Map();
 const initScore = {
-  1: { E: 0, I: 0 },
-  2: { S: 0, N: 0 },
-  3: { T: 0, F: 0 },
-  4: { J: 0, P: 0 },
+  0: { E: 0, I: 0 },
+  1: { S: 0, N: 0 },
+  2: { T: 0, F: 0 },
+  3: { J: 0, P: 0 },
 };
 
 const answer = {
@@ -171,6 +171,9 @@ apiRouter.post("/", function (req, res) {
   if (!users.has(userId)) {
     users = registerNewUser(users, userId, initScore);
   }
+  console.log(`============ answers[index] ===========`);
+  console.log(answers[index]);
+  console.log(userAnswer);
   if (userAnswer === answers[index].one) {
     users = addScore(users, userId, totalQuestionIndex, types[totalQuestionIndex].one);
   } else if (userAnswer === answers[index].two) {
