@@ -18,6 +18,9 @@ apiRouter.post("/", function (req, res) {
   console.log(`============ answers[index] ===========`);
   console.log(userAnswer);
   console.log(users);
+  console.log(answers[index].one);
+  console.log(userAnswer === answers[index].one);
+  // index++;
   if (userAnswer === answers[index].one) {
     console.log("one checked");
     console.log(types[totalQuestionIndex].one);
@@ -56,8 +59,9 @@ apiRouter.post("/", function (req, res) {
     // 이제 2 질문으로 넘어가는 거 해야함
     // 추후 매직넘버, 모듈 분리 신경쓰기
   } else {
-    const responseBody = createResponseBody(questions, index);
     index++;
+    const responseBody = createResponseBody(questions, index);
+    // index++;
     res.status(200).json(responseBody);
   }
 });
