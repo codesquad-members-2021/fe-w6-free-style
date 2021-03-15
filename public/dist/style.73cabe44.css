@@ -1,2 +1,202 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.header {
+  position: fixed;
+  width: 100%;
+  height: 65px;
+  display: grid;
+  padding: 20px;
+  grid-template-columns: 0.2fr 5fr 1fr;
+}
+.header .header__logo {
+  font-size: 3rem;
+  text-align: center;
+  color: #2a8947;
+}
+
+.header__info-container .header__title {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  padding-left: 10px;
+}
+.header__info-container .header__menu-bar {
+  display: flex;
+}
+.header__info-container .header__menu-bar .header__menu {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 10px;
+  border-radius: 5px;
+}
+.header__info-container .header__menu-bar .header__menu:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.header__nav .nav-btn {
+  margin-right: 20px;
+}
+.header__nav .btn-comment {
+  font-size: 1.5rem;
+  color: #2a8947;
+}
+.header__nav .btn-share {
+  font-size: 1rem;
+  width: 80px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 8px;
+  background-color: #2a8947;
+  color: white;
+}
+.header__nav .btn-user {
+  font-size: 1.3rem;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  color: white;
+  margin-right: 60px;
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 100%;
+}
 
 /*# sourceMappingURL=/style.73cabe44.css.map */
