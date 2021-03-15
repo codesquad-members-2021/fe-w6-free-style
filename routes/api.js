@@ -68,6 +68,7 @@ apiRouter.post("/", function (req, res) {
         },
       };
       res.status(200).json(responseBody);
+      if (index === questions.length - 1) console.log(`index 지금 여기 있음: ${index}`);
       if (index === questions.length) {
         console.log(`===================================[ the end ]====================================`);
       }
