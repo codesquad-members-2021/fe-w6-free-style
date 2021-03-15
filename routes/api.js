@@ -55,9 +55,9 @@ apiRouter.post("/", function (req, res) {
 
     // when all the questions of this part was done
     if (index && index % 9 === 8) {
-      const types = [types[totalQuestionIndex].one, types[totalQuestionIndex].two];
-      const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, types);
-      users = updateResult(users, userId, totalQuestionIndex, types);
+      const typeArr = [types[totalQuestionIndex].one, types[totalQuestionIndex].two];
+      const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, typeArr);
+      users = updateResult(users, userId, totalQuestionIndex, typeArr);
       totalQuestionIndex++;
       const responseBody = {
         version: "2.0",
