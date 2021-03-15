@@ -7,7 +7,7 @@ let users = new Map();
 // let totalQuestionIndex = 0;
 // let index = 0;
 
-const startUtterances = ["시작하기", "시작", "레츠고😎", "고고~", "예스! 킵고잉!", "궁금해! 두구두구.."];
+const startUtterances = ["시작", "레츠고😎", "고고~", "예스! 킵고잉!", "궁금해! 두구두구.."];
 
 apiRouter.post("/", function (req, res) {
   // console.log(`index: ${index}`);
