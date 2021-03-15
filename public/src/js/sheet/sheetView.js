@@ -9,31 +9,34 @@ class SheetView {
   constructor(sheet) {
     this.sheet = sheet;
     this.sheetModel = new SheetModel();
-    this.sheetData = this.sheetModel.sheetData;
   }
   init() {
     this.render();
   }
   _makeColumnIndex() {
-    let columnIndexList = td();
-    for (let code = ASCII.A; code <= ASCII.Z; code++) {
-      columnIndexList += td({ value: String.fromCharCode(code) });
-    }
+    const columnIndexList = this.sheetModel
+      .getColumnIndex()
+      .reduce((acc, value) => acc + td({ value }), '');
     const columnIndxHTML = tr({ value: columnIndexList, classes: ['column-index'] });
     return columnIndxHTML;
   }
-  _makeShell(idx) {
-    const indexShell = makeRowIndexHTML(idx);
-    let shellInputHTML = '';
-    for (let i = 1; i <= this.total; i++) {
-      shellInputHTML += makeShellHTML();
-    }
-    const shellHTML = indexShell + shellInputHTML;
-    return shellHTML;
+  _makeRowSheet(arr) {
+    const rowSheet = arr.reduce((acc, value, idx) => {
+      if (idx === 0) return acc + makeRowIndexHTML(value);
+      return acc + makeShellHTML();
+    }, '');
+    const rowSheetHTML = tr({ value: rowSheet });
+    return rowSheetHTML;
+  }
+  _makeSheet() {
+    const sheetData = this.sheetModel.getSheetData().slice(1);
+    const sheetHTML = sheetData.reduce((acc, rowData) => acc + this._makeRowSheet(rowData), '');
+    return sheetHTML;
   }
   render() {
     const ColumnIndex = this._makeColumnIndex();
-    this.sheet.innerHTML = ColumnIndex;
+    const sheetHTML = this._makeSheet();
+    this.sheet.innerHTML = ColumnIndex + sheetHTML;
   }
 }
 
