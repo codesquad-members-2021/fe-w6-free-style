@@ -1,5 +1,5 @@
-import Sheet from './shell/shell';
+import SheetView from './sheet/sheetView';
 
-const sheetContainer = document.querySelector('#sheet');
-const sheet = new Sheet(sheetContainer);
-sheet.init();
+const sheet = document.querySelector('#sheet');
+const sheetView = new SheetView(sheet);
+sheetView.init();

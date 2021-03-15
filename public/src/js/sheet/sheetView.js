@@ -1,13 +1,15 @@
 import { makeRowIndexHTML, makeShellHTML, td, tr } from './htmlTemplate.js';
+import SheetModel from './sheetModel';
 const ASCII = {
   A: 65,
   Z: 90,
 };
 
-class Sheet {
-  constructor(sheetContainer) {
-    this.sheetContainer = sheetContainer;
-    this.total = ASCII.Z - ASCII.A + 1;
+class SheetView {
+  constructor(sheet) {
+    this.sheet = sheet;
+    this.sheetModel = new SheetModel();
+    this.sheetData = this.sheetModel.sheetData;
   }
   init() {
     this.render();
@@ -31,8 +33,8 @@ class Sheet {
   }
   render() {
     const ColumnIndex = this._makeColumnIndex();
-    this.sheetContainer.innerHTML = ColumnIndex;
+    this.sheet.innerHTML = ColumnIndex;
   }
 }
 
-export default Sheet;
+export default SheetView;
