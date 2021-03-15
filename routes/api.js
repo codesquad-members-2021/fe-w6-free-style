@@ -27,8 +27,19 @@ apiRouter.post("/", function (req, res) {
       const userValue = users.get(userId);
       const scoreArr = [userValue["0"], userValue["1"], userValue["2"], userValue["3"]];
       console.log(scoreArr);
+      const scores = scoreArr.reduce((prev, curr) => {
+        const currArr = Object.entries(curr);
+        const score = currArr.reduce((acc, val) => {
+          const [key, value] = val;
+          acc += `${key}/${value}/`;
+          return acc;
+        }, ``);
+        prev += score;
+        return prev;
+      }, ``);
+
       const result = userValue.result.join("");
-      const url = `http://34.64.132.100:3000/result/${result}`;
+      const url = `http://34.64.132.100:3000/result/${result}/scores/${scores}`;
       // const url = `http://34.64.132.100:3000/result/${result}/scores/${scores}`;
       const responseBody = {
         version: "2.0",
