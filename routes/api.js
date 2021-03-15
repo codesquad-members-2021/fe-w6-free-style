@@ -2,12 +2,6 @@ const express = require("express");
 const apiRouter = express.Router();
 
 let users = new Map();
-const initScore = {
-  // 0: { E: 0, I: 0 },
-  0: { S: 0, N: 0 },
-  1: { T: 0, F: 0 },
-  2: { J: 0, P: 0 },
-};
 
 const answer = {
   one: "1번",
@@ -57,13 +51,6 @@ const breakMsg = {
   N: "현실적이기보다는 이상주의자에 가까운 것 같은데요? 계속해서 가보실까요?",
 };
 
-const types = [
-  // { one: "E", two: "I" },
-  { one: "S", two: "N" },
-  { one: "T", two: "F" },
-  { one: "J", two: "P" },
-];
-
 const blockIds = [
   // "604df51fb908ae1e731f0141", // 1_1
   // "604df546048a962ecd896158", // 1_2
@@ -92,76 +79,6 @@ const breakBlockIds = [
 let totalQuestionIndex = 0;
 let index = 0;
 
-const createResponseBody = (questions) => {
-  if (index < questions.length) {
-    return {
-      version: "2.0",
-      template: {
-        outputs: [
-          {
-            simpleText: {
-              text: questions[index],
-            },
-          },
-        ],
-        quickReplies: [
-          {
-            messageText: answers[index].one,
-            action: "block",
-            blockId: blockIds[index],
-            label: answers[index].one,
-          },
-          {
-            messageText: answers[index].two,
-            action: "block",
-            blockId: blockIds[index],
-            label: answers[index].two,
-          },
-        ],
-      },
-    };
-  } else {
-    // index = 0;
-    return {
-      version: "2.0",
-      template: {
-        outputs: [
-          {
-            simpleText: {
-              text: selectedMsg,
-            },
-          },
-        ],
-        quickReplies: [
-          {
-            messageText: "레츠고😎",
-            action: "block",
-            blockId: blockIds[index],
-            label: "레츠고😎",
-          },
-        ],
-      },
-    };
-  }
-};
-
-const registerNewUser = (map, key, initValue) => {
-  map.set(key, initValue);
-  return map;
-};
-
-const addScore = (map, key, questionNumber, type) => {
-  const currVal = map.get(key);
-  currVal[`${questionNumber}`][type]++;
-  map.set(key, currVal);
-  return map;
-};
-
-const getSelectedMsg = (map, key, questionNumber, types) => {
-  const currVal = map.get(key);
-  return currVal[`${questionNumber}`][types[0]] > currVal[`${questionNumber}`][types[1]] ? breakMsg[types[0]] : breakMsg[types[1]];
-};
-
 apiRouter.post("/", function (req, res) {
   console.log(req.body);
   const userRequest = req.body.userRequest;
@@ -177,8 +94,12 @@ apiRouter.post("/", function (req, res) {
   console.log(userAnswer);
   console.log(users);
   if (userAnswer === answers[index].one) {
+    console.log("one checked");
+    console.log(types[totalQuestionIndex].one);
     users = addScore(users, userId, totalQuestionIndex, types[totalQuestionIndex].one);
   } else if (userAnswer === answers[index].two) {
+    console.log("two checked");
+    console.log(types[totalQuestionIndex].two);
     users = addScore(users, userId, totalQuestionIndex, types[totalQuestionIndex].two);
   }
   // 사용자 설정
