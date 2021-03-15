@@ -15,34 +15,38 @@ apiRouter.post("/", function (req, res) {
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
   if (startUtterances.some((e) => e === userAnswer)) {
+    // when the answer is the beginning signal
     index++;
     const responseBody = createResponseBody(questions, index);
-    // index++;
     res.status(200).json(responseBody);
   } else {
+    // when the answer is the answer of the question
     if (!users.has(userId)) {
+      // save the user's id
       users = registerNewUser(users, userId, initScore);
     }
+
+    // console.log ... for debugging on the ssh google terminal
     console.log(`============ answers[index] ===========`);
     console.log(userAnswer);
-    console.log(users);
     if (index >= 0) {
       console.log(answers[index].one);
       console.log(userAnswer === answers[index].one);
     }
-    // index++;
+    // console.log ... end
+
     if (userAnswer === answers[index].one) {
-      console.log("one checked");
-      console.log(types[totalQuestionIndex].one);
       users = addScore(users, userId, totalQuestionIndex, types[totalQuestionIndex].one);
     } else if (userAnswer === answers[index].two) {
-      console.log("two checked");
-      console.log(types[totalQuestionIndex].two);
       users = addScore(users, userId, totalQuestionIndex, types[totalQuestionIndex].two);
+    } else {
+      // if the user type other letters ... for exceptional situation
     }
-    // 사용자 설정
+
+    // when all the question of this part was done
     if (index && index % 8 === 0) {
       const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, [types[totalQuestionIndex].one, types[totalQuestionIndex].two]);
+      totalQuestionIndex++;
       const responseBody = {
         version: "2.0",
         template: {
@@ -55,23 +59,21 @@ apiRouter.post("/", function (req, res) {
           ],
           quickReplies: [
             {
-              messageText: "레츠고😎",
+              messageText: startUtterances[totalQuestionIndex],
               action: "block",
-              blockId: blockIds[index],
-              label: "레츠고😎",
+              blockId: blockIds[++index],
+              label: startUtterances[totalQuestionIndex],
             },
           ],
         },
       };
-      totalQuestionIndex++;
       res.status(200).json(responseBody);
-      // 1 질문 끝나고 breakMsg 보내는 것 까지 실행
-      // 이제 2 질문으로 넘어가는 거 해야함
-      // 추후 매직넘버, 모듈 분리 신경쓰기
+      if (index === questions.length) {
+        console.log(`===================================[ the end ]====================================`);
+      }
     } else {
       index++;
       const responseBody = createResponseBody(questions, index);
-      // index++;
       res.status(200).json(responseBody);
     }
   }
