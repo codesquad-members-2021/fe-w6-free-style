@@ -7,7 +7,7 @@ let users = new Map();
 let totalQuestionIndex = 0;
 let index = -1;
 
-const startUtterances = ["시작", "레츠고😎", "고고~", "예스! 킵고잉!"];
+const startUtterances = ["시작", "레츠고😎", "고고~", "예스! 킵고잉!", "궁금해! 두구두구.."];
 
 apiRouter.post("/", function (req, res) {
   console.log(req.body);
@@ -16,8 +16,16 @@ apiRouter.post("/", function (req, res) {
   const userAnswer = userRequest.utterance;
   if (startUtterances.some((e) => e === userAnswer)) {
     // when the answer is the beginning signal
+    if (index === questions.length - 1) console.log(`index 지금 여기 있음: ${index}`);
+    if (index === questions.length) {
+      console.log(`= 1 ==================================[ the end ]====================================`);
+    }
     index++;
     const responseBody = createResponseBody(questions, index);
+    if (index === questions.length - 1) console.log(`index 지금 여기 있음: ${index}`);
+    if (index === questions.length) {
+      console.log(`= 2 ==================================[ the end ]====================================`);
+    }
     res.status(200).json(responseBody);
   } else {
     // when the answer is the answer of the question
@@ -68,10 +76,6 @@ apiRouter.post("/", function (req, res) {
         },
       };
       res.status(200).json(responseBody);
-      if (index === questions.length - 1) console.log(`index 지금 여기 있음: ${index}`);
-      if (index === questions.length) {
-        console.log(`===================================[ the end ]====================================`);
-      }
     } else {
       index++;
       const responseBody = createResponseBody(questions, index);
