@@ -16,7 +16,7 @@ const initScore = {
 
 const addScore = (map, key, questionNumber, type) => {
   const currVal = map.get(key);
-  currVal[`${questionNumber}`][type]++;
+  ++currVal[`${questionNumber}`][type];
   map.set(key, currVal);
   return map;
 };
