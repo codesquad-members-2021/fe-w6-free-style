@@ -5,7 +5,7 @@ const { answer, questions, answers, breakMsg, breakBlockIds, blockIds } = requir
 let users = new Map();
 
 let totalQuestionIndex = 0;
-let index = 0;
+let index = -1;
 
 apiRouter.post("/", function (req, res) {
   console.log(req.body);
@@ -16,11 +16,9 @@ apiRouter.post("/", function (req, res) {
     users = registerNewUser(users, userId, initScore);
   }
   console.log(`============ answers[index] ===========`);
-  console.log("index", index);
-  console.log(answers);
-  console.log(answers[index]);
   console.log(userAnswer);
   console.log(users);
+  index++;
   if (userAnswer === answers[index].one) {
     console.log("one checked");
     console.log(types[totalQuestionIndex].one);
@@ -60,7 +58,7 @@ apiRouter.post("/", function (req, res) {
     // 추후 매직넘버, 모듈 분리 신경쓰기
   } else {
     const responseBody = createResponseBody(questions, index);
-    index++;
+    // index++;
     res.status(200).json(responseBody);
   }
 });
