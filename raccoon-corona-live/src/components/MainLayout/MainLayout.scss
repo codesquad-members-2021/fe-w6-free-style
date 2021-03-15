@@ -1,0 +1,28 @@
+$backgroundColor: rgb(16, 20, 33);
+
+.MainLayout__Wrapper {
+  display: flex;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  justify-content: center;
+  background: $backgroundColor;
+  padding: 40px 0px;
+
+  .MainLayout__MenuContainer {
+    width: 240px;
+    display: flex;
+    position: sticky;
+    top: 40px;
+    margin-right: 80px;
+    height: fit-content;
+  }
+}
+
+.Layout__SCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.MainLayout__Main {
+  max-width: 510px;
+}
