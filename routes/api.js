@@ -26,12 +26,11 @@ apiRouter.post("/", function (req, res) {
       // create url including user's result, then send it to chatbot as a message
       const userValue = users.get(userId);
       const scoreArr = [userValue["0"], userValue["1"], userValue["2"], userValue["3"]];
-      console.log(scoreArr);
       const scores = scoreArr.reduce((prev, curr) => {
         const currArr = Object.entries(curr);
         const score = currArr.reduce((acc, val) => {
           const [key, value] = val;
-          acc += `${key}/${value}/`;
+          acc += value;
           return acc;
         }, ``);
         prev += score;
@@ -39,8 +38,7 @@ apiRouter.post("/", function (req, res) {
       }, ``);
 
       const result = userValue.result.join("");
-      const url = `http://34.64.132.100:3000/result/${result}/scores/${scores}`;
-      // const url = `http://34.64.132.100:3000/result/${result}/scores/${scores}`;
+      const url = `http://34.64.132.100:3000/result?type=${result}&scores?${scores}`;
       const responseBody = {
         version: "2.0",
         template: {

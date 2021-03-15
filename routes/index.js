@@ -8,6 +8,7 @@ router.get("/", function (req, res, next) {
 
 router.get("/result/:result/scores/:scores", function (req, res, next) {
   console.log(`result: ${req.params.result}, scores: ${req.params.scores}`);
+  res.send({ result: req.params.result, scores: req.params.scores });
 });
 
 module.exports = router;
