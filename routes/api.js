@@ -111,8 +111,8 @@ apiRouter.post("/", function (req, res) {
 });
 
 apiRouter.get("/result", function (req, res, next) {
-  const { type, scores } = req.query.result;
-  console.log(types);
+  const type = req.query.type;
+  const scores = req.query.scores;
   res.send({ type, scores });
 });
 
