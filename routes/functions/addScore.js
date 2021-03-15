@@ -1,3 +1,5 @@
+const { answer, questions, answers, breakMsg, breakBlockIds } = require("./qna.js");
+
 const types = [
   // { one: "E", two: "I" },
   { one: "S", two: "N" },
