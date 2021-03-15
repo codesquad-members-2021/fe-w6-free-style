@@ -1,5 +1,7 @@
 table {
   border-collapse: collapse;
+  border-spacing: 0;
+  border-style: none;
   font-size: 0.8rem;
 }
 td {
@@ -33,4 +35,8 @@ td:first-child {
   text-align: center;
   font-weight: 600;
   line-height: 26px;
+}
+
+.selected {
+  background-color: rgb(199, 199, 255);
 }

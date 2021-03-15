@@ -1,5 +1,6 @@
 import { makeRowIndexHTML, makeShellHTML, td, tr } from './htmlTemplate.js';
 import SheetModel from './sheetModel';
+import Select from './feature/select';
 const ASCII = {
   A: 65,
   Z: 90,
@@ -9,6 +10,7 @@ class SheetView {
   constructor(sheet) {
     this.sheet = sheet;
     this.sheetModel = new SheetModel();
+    this.selectSheet = new Select(sheet);
   }
   init() {
     this.render();
