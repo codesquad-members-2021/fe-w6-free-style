@@ -1,10 +1,11 @@
 import React from 'react';
+import './MainLayout.scss';
 
 function MainLayoutMenuSection(props) {
   return (
     <div className="MainLayout__MenuSection">
-      {props.menu.map((menu) => (
-        <Menu menu={menu} />
+      {props.menu.map((menu, idx) => (
+        <Menu menu={menu} key={idx} />
       ))}
     </div>
   );

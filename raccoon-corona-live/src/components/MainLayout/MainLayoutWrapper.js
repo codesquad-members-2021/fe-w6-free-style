@@ -1,4 +1,5 @@
 import React from 'react';
+import LayoutTitle from './LayoutTitle/LayoutTitle';
 import './MainLayout.scss';
 import MainLayoutMenuSection from './MainLayoutMenuSection';
 
@@ -11,7 +12,9 @@ function MainLayoutWrapper() {
         <MainLayoutMenuSection menu={upperBoxMenu} />
         <MainLayoutMenuSection menu={bottomBoxMenu} />
       </div>
-      <div className="MainLayout__Main"></div>
+      <div className="MainLayout__Main">
+        <LayoutTitle />
+      </div>
     </div>
   );
 }
