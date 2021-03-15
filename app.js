@@ -1,19 +1,34 @@
-const express = require('express');
-const path = require('path');
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = express()
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
-const mainRouter = require('./routes/main');
 
-const app = express();
 
-app.set('views', path.join(__dirname, 'public/main/views'));
+
+app.use(express.static('public'))
+
+app.listen(3000, function () {
+    console.log("start! express server on port 3000")
+})
+
+
 app.set('view engine', 'ejs');
 
-app.listen(3000, function() {
-    console.log('서버 오픈');
-});
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', mainRouter);
+app.get('/main', function (req, res) {
+    res.render("main")
+})
 
-module.exports = app;
+app.post('/login', function (req, res) {
+    if (req.body.login == 1301) {
+        res.render('loginSuccess')
+    } else {
+        res.render('loginFail', { 'login': req.body.login });
+    }
+})
+
+app.get('/write', function (req, res) {
+    res.render('write');
+})
