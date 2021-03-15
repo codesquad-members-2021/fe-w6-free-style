@@ -113,7 +113,8 @@ apiRouter.post("/", function (req, res) {
 apiRouter.get("/result", function (req, res, next) {
   const type = req.query.type;
   const scores = req.query.scores;
-  res.send({ type, scores });
+  console.log(type, scores);
+  res.send({ type, scores: scores.split("") });
 });
 
 module.exports = apiRouter;
