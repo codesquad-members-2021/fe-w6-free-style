@@ -8,7 +8,6 @@ class Sheet {
   constructor(sheetContainer) {
     this.sheetContainer = sheetContainer;
     this.total = ASCII.Z - ASCII.A + 1;
-    this.initMaxRow = 1000;
   }
   init() {
     this.render();
