@@ -1,5 +1,6 @@
 const express = require("express");
 const apiRouter = express.Router();
+const { types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody } = require("./functions/addScore.js");
 
 let users = new Map();
 
