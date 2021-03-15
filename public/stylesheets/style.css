@@ -1,0 +1,25 @@
+#chatLog{
+	width: 50%; 
+	height: 500px;
+}
+#name{ 
+	width: 10%; 
+}
+
+#message{ 
+	width: 35%; 
+}
+
+.title {
+	margin-top:100px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
+	width: 50%;
+	height: 45px;
+	font-size: 20px;
+	background-color:rgb(28, 243, 250);
+	border-radius: .25rem .25rem 0 0;
+	font-weight: bold;
+	font-size: 200%;
+}
