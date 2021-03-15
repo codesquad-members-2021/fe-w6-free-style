@@ -28,19 +28,22 @@
     </div>
 
     <div class="roulette">
+        <div class="roulette__arrow">
+            <img src="./public/images/arrow.png" alt="arrow">
+        </div>
         <canvas class="roulette__circle" width="300" height="300"></canvas>
-        <ul class="roulette__item">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-        <span class="roulette__controller">
+        <div class="roulette__controller">
             <button class="roulette__controller--minus-button">-</button>
             <span class="roulette__controller--count">3</span>
             <button class="roulette__controller--plus-button">+</button>
+            <button class="roulette__controller--set-button">SET</button>
             <button class="roulette__controller--roll-button">ROLL</button>
-        </span>
+        </div>
+        <ul class="roulette__item">
+            <li><input type="text"></li>
+            <li><input type="text"></li>
+            <li><input type="text"></li>
+        </ul>
     </div>
 
     <div class="output">
