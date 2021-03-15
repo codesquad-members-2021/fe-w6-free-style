@@ -1,4 +1,4 @@
-const { answer, questions, answers, breakMsg, breakBlockIds, blockIds } = require("./qna.js");
+const { questions, answers, breakMsg, blockIds } = require("./qna.js");
 
 const types = [
   { one: "E", two: "I" },
@@ -13,6 +13,8 @@ const initScore = {
   2: { T: 0, F: 0 },
   3: { J: 0, P: 0 },
   result: [],
+  index: 0,
+  totalQuestionIndex: 0,
 };
 
 const addScore = (map, key, questionNumber, type) => {
@@ -26,14 +28,11 @@ const getSelectedMsg = (map, key, questionNumber, types) => {
   const currVal = map.get(key);
   let result = null;
   if (currVal[`${questionNumber}`][types[0]]) {
-    // currVal.result.push(types[0]);
     result = breakMsg[types[0]];
   } else {
-    // currVal.result.push(types[1]);
     result = breakMsg[types[1]];
   }
   return result;
-  //   return currVal[`${questionNumber}`][types[0]] > currVal[`${questionNumber}`][types[1]] ?  : breakMsg[types[1]];
 };
 
 const updateResult = (map, key, questionNumber, types) => {
@@ -48,7 +47,13 @@ const updateResult = (map, key, questionNumber, types) => {
 };
 
 const registerNewUser = (map, key, initValue) => {
+  if (map.has(key)) map.delete(key);
   map.set(key, initValue);
+  return map;
+};
+
+const deleteUser = (map, key) => {
+  map.delete(key);
   return map;
 };
 
@@ -83,4 +88,4 @@ const createResponseBody = (questions, index) => {
   }
 };
 
-module.exports = { updateResult, types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody };
+module.exports = { deleteUser, updateResult, types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody };
