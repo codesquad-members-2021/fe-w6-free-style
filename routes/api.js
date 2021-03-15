@@ -52,7 +52,7 @@ apiRouter.post("/", function (req, res) {
     }
 
     // when all the question of this part was done
-    if (index && index % 8 === 0) {
+    if (index && index % 9 === 8) {
       const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, [types[totalQuestionIndex].one, types[totalQuestionIndex].two]);
       totalQuestionIndex++;
       const responseBody = {
