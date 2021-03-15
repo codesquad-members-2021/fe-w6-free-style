@@ -27,7 +27,7 @@ const addScore = (map, key, questionNumber, type) => {
 const getSelectedMsg = (map, key, questionNumber, types) => {
   const currVal = map.get(key);
   let result = null;
-  if (currVal[`${questionNumber}`][types[0]]) {
+  if (currVal[`${questionNumber}`][types[0]] > currVal[`${questionNumber}`][types[1]]) {
     result = breakMsg[types[0]];
   } else {
     result = breakMsg[types[1]];
