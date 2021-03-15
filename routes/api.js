@@ -6,7 +6,7 @@ let users = new Map();
 
 // let totalQuestionIndex = 0;
 // let index = 0;
-
+const beginningUtterance = "시작하기";
 const startUtterances = ["시작", "레츠고😎", "고고~", "예스! 킵고잉!", "궁금해! 두구두구.."];
 
 apiRouter.post("/", function (req, res) {
@@ -15,6 +15,8 @@ apiRouter.post("/", function (req, res) {
   const userRequest = req.body.userRequest;
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
+
+  if (userAnswer === beginningUtterance) return;
 
   if (startUtterances.some((e) => e === userAnswer)) {
     if (userAnswer === startUtterances[0]) users = registerNewUser(users, userId, initScore);
