@@ -16,16 +16,8 @@ apiRouter.post("/", function (req, res) {
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
   if (startUtterances.some((e) => e === userAnswer)) {
-    // when the answer is the beginning signal
-    if (index === questions.length - 1) console.log(`index 지금 여기 있음: ${index}`);
-    if (index === questions.length) {
-      console.log(`= 1 ==================================[ the end ]====================================`);
-    }
+    // when the answer is the beginning || end signal
     const responseBody = createResponseBody(questions, index);
-    if (index === questions.length - 1) console.log(`index 지금 여기 있음: ${index}`);
-    if (index === questions.length) {
-      console.log(`= 2 ==================================[ the end ]====================================`);
-    }
     res.status(200).json(responseBody);
   } else {
     // when the answer is the answer of the question
