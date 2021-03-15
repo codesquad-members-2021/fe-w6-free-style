@@ -29,7 +29,7 @@ const registerNewUser = (map, key, initValue) => {
   return map;
 };
 
-const createResponseBody = (questions) => {
+const createResponseBody = (questions, index) => {
   if (index < questions.length) {
     return {
       version: "2.0",
