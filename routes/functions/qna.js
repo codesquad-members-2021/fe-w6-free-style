@@ -71,4 +71,4 @@ const breakBlockIds = [
   "604e306157027e150c33fd1e", // 1_마무리
 ];
 
-module.exports = { answer, questions, answers, breakMsg, breakBlockIds };
+module.exports = { answer, questions, answers, breakMsg, breakBlockIds, blockIds };

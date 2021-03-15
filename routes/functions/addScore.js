@@ -1,4 +1,4 @@
-const { answer, questions, answers, breakMsg, breakBlockIds } = require("./qna.js");
+const { answer, questions, answers, breakMsg, breakBlockIds, blockIds } = require("./qna.js");
 
 const types = [
   // { one: "E", two: "I" },
