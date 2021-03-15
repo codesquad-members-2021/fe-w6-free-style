@@ -6,9 +6,9 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 
-router.get("/result/:result/scores/:scores", function (req, res, next) {
-  console.log(`result: ${req.params.result}, scores: ${req.params.scores}`);
-  res.send({ result: req.params.result, scores: req.params.scores });
+router.get("/result", function (req, res, next) {
+  const { type, scores } = req.query.result;
+  res.send({ type, scores });
 });
 
 module.exports = router;
