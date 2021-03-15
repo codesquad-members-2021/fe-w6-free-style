@@ -1,7 +1,7 @@
 const express = require("express");
 const apiRouter = express.Router();
 const { types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody } = require("./functions/addScore.js");
-const { answer, questions, answers, breakMsg, breakBlockIds } = require("./functions/qna.js");
+const { answer, questions, answers, breakMsg, breakBlockIds, blockIds } = require("./functions/qna.js");
 let users = new Map();
 
 let totalQuestionIndex = 0;
