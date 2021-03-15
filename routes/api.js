@@ -132,7 +132,7 @@ apiRouter.post("/", function (req, res) {
     // 이제 2 질문으로 넘어가는 거 해야함
     // 추후 매직넘버, 모듈 분리 신경쓰기
   } else {
-    const responseBody = createResponseBody(questions);
+    const responseBody = createResponseBody(questions, index);
     index++;
     res.status(200).json(responseBody);
   }
