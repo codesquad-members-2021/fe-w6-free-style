@@ -24,8 +24,14 @@ apiRouter.post("/", function (req, res) {
     // when the answer is the beginning || end signal
     if (index === questions.length) {
       // create url including user's result, then send it to chatbot as a message
-      const result = users.get(userId).result.join("");
-      const url = `http://34.64.132.100:3000/result=${result}`;
+      const userValue = users.get(userId);
+      const scores = Object.entries(userValue).reduce((acc, val, i, array) => {
+        const [key, value] = val;
+        acc += i === array.length - 1 ? `${key}/${value}` : `${key}/${value}/`;
+        return acc;
+      }, ``);
+      const result = userValue.result.join("");
+      const url = `http://34.64.132.100:3000/result/${result}/scores/${scores}`;
       const responseBody = {
         version: "2.0",
         template: {
