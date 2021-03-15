@@ -6,7 +6,7 @@ const path = require('path');
 const indexRouter = require('./routes/index');
 const ejs = require('ejs');
 
-const port = 3000;
+const port = 8000;
 
 // app.set('views', './views');
 // app.set('view engine', 'ejs');
@@ -20,19 +20,28 @@ app.use('/',indexRouter);
 
 io.on('connection', function(socket){ 
   	console.log('user connected: ', socket.id);  
-  	var name = "익명";                 
+  	let name = "Pengdori";                
 	socket.name = name;
-  	io.to(socket.id).emit('create name', name);   
+  	io.to(socket.id).emit('create name', name);
+	let name2 = "Guest"; 
+	socket.name2 = name2;
+	io.to(socket.id).emit('create name2',name2);
 	
 	socket.on('disconnect', function(){ 
 	  console.log('user disconnected: '+ socket.id + ' ' + socket.name);
 	});
 
 	socket.on('send message', function(name, text){ 
-		var msg = name + ' : ' + text;
+		let msg = name + ' : ' + text;
 		socket.name = name;
     	console.log(msg);
     	io.emit('receive message', msg);
+	});
+	socket.on('send message2', function(name, text){ 
+		let msg = name + ' : ' + text;
+		socket.name = name;
+    	console.log(msg);
+    	io.emit('receive message2', msg);
 	});
 });
 
