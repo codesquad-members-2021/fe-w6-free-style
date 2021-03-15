@@ -136,7 +136,7 @@ apiRouter.post("/", function (req, res) {
   console.log(users);
   // 사용자 설정
   console.log(`index: ${index}`);
-  if (index && index % 7 === 0) {
+  if (index && index % 8 === 0) {
     const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, ["E", "I"]);
     const responseBody = {
       version: "2.0",
