@@ -1,6 +1,6 @@
 const express = require("express");
 const apiRouter = express.Router();
-const { types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody } = require("./functions/addScore.js");
+const { updateResult, types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody } = require("./functions/addScore.js");
 const { answer, questions, answers, breakMsg, breakBlockIds, blockIds } = require("./functions/qna.js");
 let users = new Map();
 
@@ -18,6 +18,7 @@ apiRouter.post("/", function (req, res) {
     // when the answer is the beginning || end signal
     if (index === questions.length) {
       // create url including user's result, then send it to chatbot as a message
+      console.log(users);
       const result = users[userId].result.join("");
       const url = `http://34.64.132.100:3000/result=${result}`;
       const responseBody = {
@@ -54,7 +55,9 @@ apiRouter.post("/", function (req, res) {
 
     // when all the questions of this part was done
     if (index && index % 9 === 8) {
-      const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, [types[totalQuestionIndex].one, types[totalQuestionIndex].two]);
+      const types = [types[totalQuestionIndex].one, types[totalQuestionIndex].two];
+      const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, types);
+      users = updateResult(users, userId, totalQuestionIndex, types);
       totalQuestionIndex++;
       const responseBody = {
         version: "2.0",

@@ -26,14 +26,25 @@ const getSelectedMsg = (map, key, questionNumber, types) => {
   const currVal = map.get(key);
   let result = null;
   if (currVal[`${questionNumber}`][types[0]]) {
-    currVal.result.push(types[0]);
+    // currVal.result.push(types[0]);
     result = breakMsg[types[0]];
   } else {
-    currVal.result.push(types[1]);
+    // currVal.result.push(types[1]);
     result = breakMsg[types[1]];
   }
   return result;
   //   return currVal[`${questionNumber}`][types[0]] > currVal[`${questionNumber}`][types[1]] ?  : breakMsg[types[1]];
+};
+
+const updateResult = (map, key, questionNumber, types) => {
+  const currVal = map.get(key);
+  if (currVal[`${questionNumber}`][types[0]] > currVal[`${questionNumber}`][types[1]]) {
+    currVal[`${questionNumber}`].result.push(types[0]);
+  } else {
+    currVal[`${questionNumber}`].result.push(types[1]);
+  }
+  map.set(key, currVal);
+  return map;
 };
 
 const registerNewUser = (map, key, initValue) => {
@@ -72,4 +83,4 @@ const createResponseBody = (questions, index) => {
   }
 };
 
-module.exports = { types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody };
+module.exports = { updateResult, types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody };
