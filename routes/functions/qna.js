@@ -1,8 +1,3 @@
-const answer = {
-  one: "1번",
-  two: "2번",
-};
-
 const questions = [
   // first part question
   `나는  ___________ 사귀는 편이다.`,
@@ -144,8 +139,4 @@ const blockIds = [
   "604f0e5f48341a06c552af6e", // result
 ];
 
-const breakBlockIds = [
-  "604e306157027e150c33fd1e", // 1_마무리
-];
-
-module.exports = { answer, questions, answers, breakMsg, breakBlockIds, blockIds };
+module.exports = { questions, answers, breakMsg, blockIds };
