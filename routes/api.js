@@ -16,6 +16,7 @@ apiRouter.post("/", function (req, res) {
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
   if (startUtterances.some((e) => e === userAnswer)) {
+    console.log(userAnswer);
     // when the answer is the beginning || end signal
     const responseBody = createResponseBody(questions, index);
     res.status(200).json(responseBody);
@@ -26,15 +27,6 @@ apiRouter.post("/", function (req, res) {
       users = registerNewUser(users, userId, initScore);
     }
 
-    // console.log ... for debugging on the ssh google terminal
-    console.log(`============ answers[index] ===========`);
-    console.log(userAnswer);
-    if (index >= 0) {
-      console.log(answers[index].one);
-      console.log(userAnswer === answers[index].one);
-    }
-    // console.log ... end
-
     if (userAnswer === answers[index].one) {
       users = addScore(users, userId, totalQuestionIndex, types[totalQuestionIndex].one);
     } else if (userAnswer === answers[index].two) {
@@ -43,7 +35,7 @@ apiRouter.post("/", function (req, res) {
       // if the user type other letters ... for exceptional situation
     }
 
-    // when all the question of this part was done
+    // when all the questions of this part was done
     if (index && index % 9 === 8) {
       const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, [types[totalQuestionIndex].one, types[totalQuestionIndex].two]);
       totalQuestionIndex++;
