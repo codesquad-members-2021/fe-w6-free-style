@@ -25,8 +25,8 @@ class Select {
     this._addSelected(target);
   }
   handleMouseup({ target }) {
-    if (!this.isMouseDown || !this._isParentTd(target)) return;
     this.isMouseDown = false;
+    if (!this.isMouseDown || !this._isParentTd(target)) return;
     this._addSelected(target);
   }
   _isParentTd(node) {
