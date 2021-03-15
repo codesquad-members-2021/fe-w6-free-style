@@ -40,8 +40,18 @@ const registerNewUser = (map, key, initValue) => {
   map.set(key, initValue);
   return map;
 };
+const getUserResult = (map, key) => {
+  const currVal = map.get(key);
+  return currVal.result;
+};
 
-const createResponseBody = (questions, index) => {
+const setResultMessage = (info) => {
+  const { map, key } = info;
+  const result = getUserResult(map, key);
+  return `http://34.64.132.100:3000/result=${result.join("")}`;
+};
+
+const createResponseBody = (questions, index, info) => {
   if (index < questions.length) {
     return {
       version: "2.0",
@@ -49,24 +59,33 @@ const createResponseBody = (questions, index) => {
         outputs: [
           {
             simpleText: {
-              text: questions[index],
+              text: index < questions.length ? questions[index] : setResultMessage(info),
             },
           },
         ],
-        quickReplies: [
-          {
-            messageText: answers[index].one,
-            action: "block",
-            blockId: blockIds[index],
-            label: answers[index].one,
-          },
-          {
-            messageText: answers[index].two,
-            action: "block",
-            blockId: blockIds[index],
-            label: answers[index].two,
-          },
-        ],
+        quickReplies:
+          index < questions.length
+            ? [
+                {
+                  messageText: answers[index].one,
+                  action: "block",
+                  blockId: blockIds[index],
+                  label: answers[index].one,
+                },
+                {
+                  messageText: answers[index].two,
+                  action: "block",
+                  blockId: blockIds[index],
+                  label: answers[index].two,
+                },
+              ]
+            : [
+                {
+                  messageText: "보러가야징",
+                  action: "message",
+                  label: "보러가야징",
+                },
+              ],
       },
     };
   }
