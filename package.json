@@ -5,7 +5,8 @@
     "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "nodemon app.js",
+        "start": "webpack -w | nodemon app.js",
+        "start:app": "nodemon app.js",
         "build:babel": "babel public/js -w -d public/dist/js",
         "build:webpack": "webpack -w",
         "build:sass": "sass --watch public/sass:public/css"

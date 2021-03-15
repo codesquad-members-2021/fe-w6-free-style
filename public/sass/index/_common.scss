@@ -1,0 +1,21 @@
+@for $i from 1 through 9 {
+    .col-#{$i} {
+        width: $oneWidth * $i;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+// 전체 Wrapper
+.all-wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
