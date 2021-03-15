@@ -19,7 +19,7 @@ apiRouter.post("/", function (req, res) {
     if (index === questions.length) {
       // create url including user's result, then send it to chatbot as a message
       console.log(users);
-      const result = users[userId].result.join("");
+      const result = users.get(userId).result.join("");
       const url = `http://34.64.132.100:3000/result=${result}`;
       const responseBody = {
         version: "2.0",
