@@ -90,10 +90,9 @@ const breakBlockIds = [
 ];
 
 let totalQuestionIndex = 0;
-let index = -1;
+let index = 0;
 
 const createResponseBody = (questions) => {
-  index++;
   if (index < questions.length) {
     return {
       version: "2.0",
@@ -216,6 +215,7 @@ apiRouter.post("/", function (req, res) {
     const responseBody = createResponseBody(questions);
     res.status(200).json(responseBody);
   }
+  index++;
 });
 
 module.exports = apiRouter;
