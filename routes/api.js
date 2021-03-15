@@ -16,8 +16,6 @@ apiRouter.post("/", function (req, res) {
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
 
-  if (userAnswer === beginningUtterance) return;
-
   if (startUtterances.some((e) => e === userAnswer)) {
     if (userAnswer === startUtterances[0]) users = registerNewUser(users, userId, initScore);
 
@@ -82,7 +80,7 @@ apiRouter.post("/", function (req, res) {
             {
               messageText: startUtterances[users.get(userId).totalQuestionIndex],
               action: "block",
-              blockId: blockIds[++users.get(userId).totalQuestionIndex],
+              blockId: blockIds[++users.get(userId).index],
               label: startUtterances[users.get(userId).totalQuestionIndex],
             },
           ],
