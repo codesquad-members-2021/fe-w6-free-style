@@ -18,8 +18,10 @@ apiRouter.post("/", function (req, res) {
   console.log(`============ answers[index] ===========`);
   console.log(userAnswer);
   console.log(users);
-  console.log(answers[index].one);
-  console.log(userAnswer === answers[index].one);
+  if (index >= 0) {
+    console.log(answers[index].one);
+    console.log(userAnswer === answers[index].one);
+  }
   // index++;
   if (userAnswer === answers[index].one) {
     console.log("one checked");
