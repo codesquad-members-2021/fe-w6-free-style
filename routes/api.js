@@ -38,7 +38,7 @@ apiRouter.post("/", function (req, res) {
       }, ``);
 
       const result = userValue.result.join("");
-      const url = `http://34.64.132.100:3000/result?type=${result}&scores?${scores}`;
+      const url = `http://34.64.132.100:3000/api/result?type=${result}&scores?${scores}`;
       const responseBody = {
         version: "2.0",
         template: {
@@ -108,6 +108,12 @@ apiRouter.post("/", function (req, res) {
       res.status(200).json(responseBody);
     }
   }
+});
+
+apiRouter.get("/result", function (req, res, next) {
+  const { type, scores } = req.query.result;
+  console.log(types);
+  res.send({ type, scores });
 });
 
 module.exports = apiRouter;
