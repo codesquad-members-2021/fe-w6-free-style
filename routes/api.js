@@ -80,7 +80,7 @@ apiRouter.post("/", function (req, res) {
             {
               messageText: startUtterances[users.get(userId).totalQuestionIndex],
               action: "block",
-              blockId: blockIds[++index],
+              blockId: blockIds[++users.get(userId).totalQuestionIndex],
               label: startUtterances[users.get(userId).totalQuestionIndex],
             },
           ],
