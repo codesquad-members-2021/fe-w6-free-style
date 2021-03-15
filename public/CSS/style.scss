@@ -1,0 +1,47 @@
+@import "triangle.scss";
+.unseen{
+    visibility: hidden;
+}
+.input {
+	margin-top: 1rem;
+	margin-left: 1rem;
+	&__user-list {
+        border: 1px solid black;
+        border-radius: 0.7rem;
+		position: relative;
+		padding: 0.5rem;
+        padding-top: 0rem;
+		height: 10rem;
+		width: 18rem;
+		background-color: white;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+		li {
+			padding-top: 0.5rem;
+            input{
+                width: 8rem;
+            }
+		}
+	}
+    &__start-button{
+        margin-top: 1rem;
+        width: 19rem;
+    }
+    align-items: center;
+}
+
+.roulette{
+    width: 19rem;
+    margin-left: 1rem;
+    &__controller{
+        display: flex;
+        // border: 1px solid black;
+        padding: 0.5rem;
+        width: 18rem;
+        justify-content: space-evenly;
+        // align-items: center;
+    }
+}
