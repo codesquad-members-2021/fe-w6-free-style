@@ -1,7 +1,7 @@
 import React from 'react';
 
 function TitleTab() {
-  return <div>Raccoon</div>;
+  return <div>tab</div>;
 }
 
 export default TitleTab;

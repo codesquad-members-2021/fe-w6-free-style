@@ -4,7 +4,7 @@ import TitleTab from './TitleTab';
 
 function LayoutTitle() {
   return (
-    <div className="Layout__SBox Layout__Title flex flex-row">
+    <div className="Layout__Title flex flex-row">
       <TitleMenu />
       <TitleTab />
     </div>

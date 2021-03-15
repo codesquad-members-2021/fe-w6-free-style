@@ -16,6 +16,27 @@ $backgroundColor: rgb(16, 20, 33);
   justify-content: center;
 }
 
+.basic--box {
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  font-weight: bold;
+  outline: none;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  transition: all 0.3s ease-out 0s;
+  flex-shrink: 0;
+  min-height: 40px;
+  color: rgb(207, 207, 207);
+  cursor: pointer;
+  width: 60px;
+  height: 32px;
+  background: transparent;
+}
+
 .MainLayout__Wrapper {
   display: flex;
   flex-direction: row;
@@ -31,6 +52,8 @@ $backgroundColor: rgb(16, 20, 33);
     top: 40px;
     margin-right: 80px;
     height: fit-content;
+    // test
+    display: none;
 
     .MainLayout__MenuSection {
       background: rgb(25, 31, 44);
@@ -92,5 +115,36 @@ $backgroundColor: rgb(16, 20, 33);
     border-radius: 16px;
     margin-bottom: 16px;
     padding: 0px;
+
+    .Layout__Title--Menu {
+      -webkit-box-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+      padding: 12px 4px 4px;
+
+      .Airplane__Button {
+        .Airplane__Box {
+          position: relative;
+          flex-shrink: 0;
+          height: 20px;
+          width: 20px;
+        }
+        .Layout__Center--Box {
+          fill: rgb(207, 207, 207);
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: center;
+          justify-content: center;
+
+          svg {
+            transition: all 0.3s ease 0s;
+            width: 100%;
+            height: 100%;
+            fill: rgb(207, 207, 207);
+          }
+        }
+      }
+    }
   }
 }
