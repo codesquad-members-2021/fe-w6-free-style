@@ -21,7 +21,7 @@ apiRouter.post("/", function (req, res) {
     if (index === questions.length) {
       console.log(`= 1 ==================================[ the end ]====================================`);
     }
-    index++;
+    // index++;
     const responseBody = createResponseBody(questions, index);
     if (index === questions.length - 1) console.log(`index 지금 여기 있음: ${index}`);
     if (index === questions.length) {
