@@ -26,15 +26,15 @@ const questions = [
   // `1. 주위 사람들은 내가 활발하다고 말한다.\n2. 주위 사람들은 내가 얌전하다고 말한다.`,
   // 9번까지 첫번째 유형 질문
   // 중간에 쉬어가는 말 넣기?
-  `나는 친구들에게 ( )에 대해 얘기하는 것을 좋아한다.`,
-  `나는 ( )을/를 좋아한다.`,
-  `어려운 일에 부딪히면 ( ).`,
-  `나는 무엇을 할 때 ( ).`,
-  `나는 ( )를 좋아한다.`,
-  `나는 ( )이 중요하다고 생각한다.`,
-  `나는 ( )대로 하는 편이다.`,
-  `나는 ( ).`,
-  `나는 ( )는 얘기를 많이 듣는 편이다.`,
+  `나는 친구들에게 ___________에 대해 얘기하는 것을 좋아한다.`,
+  `나는 ___________을/를 좋아한다.`,
+  `어려운 일에 부딪히면 ___________.`,
+  `나는 무엇을 할 때 ___________.`,
+  `나는 ___________를 좋아한다.`,
+  `나는 ___________이 중요하다고 생각한다.`,
+  `나는 ___________대로 하는 편이다.`,
+  `나는 ___________.`,
+  `나는 ___________는 얘기를 많이 듣는 편이다.`,
 ];
 
 const answers = [
@@ -171,7 +171,7 @@ apiRouter.post("/", function (req, res) {
     users = registerNewUser(users, userId, initScore);
   }
   console.log(`============ answers[index] ===========`);
-  console.log(index);
+  console.log("index", index);
   console.log(answers);
   console.log(answers[index]);
   console.log(userAnswer);
@@ -183,7 +183,6 @@ apiRouter.post("/", function (req, res) {
   console.log(userAnswer);
   console.log(users);
   // 사용자 설정
-  console.log(`index: ${index}`);
   if (index && index % 8 === 0) {
     const selectedMsg = getSelectedMsg(users, userId, totalQuestionIndex, [types[totalQuestionIndex].one, types[totalQuestionIndex].two]);
     const responseBody = {
@@ -207,15 +206,16 @@ apiRouter.post("/", function (req, res) {
       },
     };
     totalQuestionIndex++;
+    index++;
     res.status(200).json(responseBody);
     // 1 질문 끝나고 breakMsg 보내는 것 까지 실행
     // 이제 2 질문으로 넘어가는 거 해야함
     // 추후 매직넘버, 모듈 분리 신경쓰기
   } else {
     const responseBody = createResponseBody(questions);
+    index++;
     res.status(200).json(responseBody);
   }
-  index++;
 });
 
 module.exports = apiRouter;
