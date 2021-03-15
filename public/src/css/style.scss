@@ -3,3 +3,9 @@
 @import './partials/featureBar.scss';
 @import './partials/functionBar.scss';
 @import './partials/shell.scss';
+
+main {
+  position: absolute;
+  top: 170px;
+  z-index: -1;
+}

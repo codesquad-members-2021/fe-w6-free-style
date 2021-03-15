@@ -1,9 +1,10 @@
-body {
-  margin-top: 95px;
-}
-.header {
+header {
+  width: 100%;
   position: fixed;
-  top: 0;
+  z-index: 99999;
+  background-color: white;
+}
+.header__menu-container {
   width: 100%;
   height: 65px;
   display: grid;
