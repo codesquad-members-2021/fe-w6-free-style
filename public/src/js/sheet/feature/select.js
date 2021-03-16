@@ -42,8 +42,8 @@ class Select {
   _selectCell(endNode) {
     const { attributes } = endNode;
     const endIdx = { column: attributes.x.value, row: attributes.y.value };
-    const blockCellIdxList = this._makeBlockCellIdx(this.startIdx, endIdx);
-    blockCellIdxList.forEach((node) => {
+    this._setSelectData(this.startIdx, endIdx);
+    this.selectData.forEach((node) => {
       const { column, row } = node;
       const selectCell = _.$td({ x: column, y: row }, this.sheet);
       this._addSelected(selectCell);
@@ -72,8 +72,8 @@ class Select {
   }
   _clearCheckCells() {
     if (!this.checkData.start || !this.checkData.end) return;
-    const blockCellIdxList = this._makeBlockCellIdx(this.checkData.start, this.checkData.end);
-    blockCellIdxList.forEach((node) => {
+    this._setSelectData(this.checkData.start, this.checkData.end);
+    this.selectData.forEach((node) => {
       const { column, row } = node;
       const checkCell = _.$td({ x: column, y: row }, this.sheet);
       this._removeSelected(checkCell);
@@ -102,15 +102,25 @@ class Select {
     const startRow = this.startIdx.row;
     const endColumn = attributes.x.value;
     const endRow = attributes.y.value;
-
+    const [minColumn, maxColumn] = [
+      Math.min(startColumn, endColumn),
+      Math.max(startColumn, endColumn),
+    ];
+    const [minRow, maxRow] = [Math.min(startRow, endRow), Math.max(startRow, endRow)];
     this.checkData.start = {
-      column: Math.min(startColumn, endColumn),
-      row: Math.min(startRow, endRow),
+      column: minColumn,
+      row: minRow,
     };
     this.checkData.end = {
-      column: Math.max(startColumn, endColumn),
-      row: Math.max(startRow, endRow),
+      column: maxColumn,
+      row: maxRow,
     };
+  }
+  _setSelectData(start, end) {
+    this.selectData = this._makeBlockCellIdx(start, end);
+  }
+  getSelectData() {
+    return this.selectData;
   }
 }
 
