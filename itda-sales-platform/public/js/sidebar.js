@@ -1,5 +1,4 @@
-import utill from './utill.js';
-const _ = utill;
+import _ from './utill.js';
 
 const toggleNav = _.$('.toggle-nav');
 const sidebarOverlay = _.$('.sidebar-overlay');
