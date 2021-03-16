@@ -1,4 +1,4 @@
-import utill from '../utill.js';
+import utill from './utill.js';
 const _ = utill;
 
 const cartOverlay = _.$('.cart-overlay');
@@ -10,4 +10,4 @@ _.addEvent(closeCartBtn, 'click', () => _.removeClass(cartOverlay, "show"));
 
 const openCart = () => _.addClass(cartOverlay, 'show');
 
-export { openCart };
+// export { openCart };

@@ -1,3 +1,3 @@
 //글로벌 import
-import './toggleSidebar.js';
-import './cart/toggleCart.js';
+import './sidebar.js';
+import './cart.js';
