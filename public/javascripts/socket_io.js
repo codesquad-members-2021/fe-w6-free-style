@@ -29,6 +29,11 @@ socket.on('receive message', function({ msg, socketId }) {
     if(socket.id === socketId) {
         _.addClass(text, float_right);
     }
+
+
+
+    
+
     // 새로운 채팅 추가시 자동으로 스크롤 다운. // scrollTop = 현재 스크롤값  scrollHeight = 변한 값
     chatLog.scrollTop = chatLog.scrollHeight;
 });
