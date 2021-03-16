@@ -116,7 +116,7 @@
             <ul class="banner__list list__box">
                 <% for(let i = 0; i < 5; i++) { %>
                     <li class="banner__item list__item"><a href="#">
-                        <img src= <%= banner.mallEventList[i].imgurl %> alt= <%= banner.mallEventList[i].text %>>
+                        <img src= <%= banner.mallEventList[i].imgurl %> alt= <%= banner.mallEventList[i].text %> >
                         <span class="list__title"><%= banner.mallEventList[i].text %></span>
                         <span class="list__des"><%= banner.mallEventList[i].text2 %></span>
                         <span class="list__theme">테마</span>
@@ -124,7 +124,6 @@
                 <% } %>
             </ul>
         </div> <!-- .content__banner -->
-
         <div class="showMore">더보기(1/n건)</div>
 
         <div class="content__theme">

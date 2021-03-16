@@ -1,4 +1,5 @@
 import Carousel from './carousel.js';
+import MoreData from './moreData.js';
 
 const ref = {
     bannerRef: {
@@ -9,7 +10,11 @@ const ref = {
         pagingIcons: document.querySelectorAll('.num_page'),
         slideTime: 400,
         slideNum: 3
+    },
+    moreData: {
+        moreBtn: document.querySelector('.showMore')
     }
 }
-
+console.log(banner);
 const carousel = new Carousel(ref);
+const moreData = new MoreData(ref); // URL 인자로 넘겨줘야 함
