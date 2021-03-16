@@ -1,12 +1,14 @@
 import React from 'react';
+import Axios from './Axios';
 import ChartBox from './ChartBox';
 
 function SectionChart() {
-    return (
+  return (
     <div className="Section__Chart">
-        <ChartBox />
+      <ChartBox />
+      <Axios />
     </div>
-    )
+  );
 }
 
 export default SectionChart;
