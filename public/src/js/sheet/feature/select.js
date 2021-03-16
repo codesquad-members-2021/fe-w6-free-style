@@ -5,6 +5,7 @@ class Select {
     this.sheet = sheet;
     this.isMouseDown = false;
     this.startIdx = {};
+    this.endIdx = {};
     this.checkData = {};
     this.selectData = [];
     this.init();
@@ -18,31 +19,43 @@ class Select {
     this.sheet.addEventListener('mouseup', this.handleMouseup.bind(this));
   }
   handleMousedown({ target }) {
-    if (!this._isParentTd(target)) return;
-    const targetCell = target.parentElement;
     this.isMouseDown = true;
-    this._clearCheckCells();
-    this._setStartIdx(targetCell);
-    this._setCheckIdx(targetCell);
-    this._selectCell(targetCell);
+    if (!this._isParentTd(target)) return;
+    this._dragSelectMousedown(target);
   }
   handleMouseover({ target }) {
     if (!this.isMouseDown || !this._isParentTd(target)) return;
-    const targetCell = target.parentElement;
-    this._clearCheckCells();
-    this._setCheckIdx(targetCell);
-    this._selectCell(targetCell);
+    this._dragSelectMouseover(target);
   }
   handleMouseup({ target }) {
     this.isMouseDown = false;
     if (!this.isMouseDown || !this._isParentTd(target)) return;
-    const targetCell = target.parentElement;
-    this._setCheckIdx(targetCell);
+    this._dragSelectMouseup(target);
   }
-  _selectCell(endNode) {
-    const { attributes } = endNode;
-    const endIdx = { column: attributes.x.value, row: attributes.y.value };
-    this._setSelectData(this.startIdx, endIdx);
+  _dragSelectMousedown(target) {
+    const targetCell = target.parentElement;
+    this._clearCheckCells();
+    this._setStartIdx(targetCell);
+    this._setEndIdx(targetCell); //start 및 end index setting
+    this._setCheckIdx(); // check(start~end)인덱스 세팅
+    this._setSelectData(); //check인덱스 바탕으로 selectData세팅
+    this._selectCell(); //select
+  }
+  _dragSelectMouseover(target) {
+    const targetCell = target.parentElement;
+    this._clearCheckCells();
+    this._setEndIdx(targetCell); //end index setting
+    this._setCheckIdx(); // check(start~end)인덱스 세팅
+    this._setSelectData(); //check인덱스 바탕으로 selectData세팅
+    this._selectCell(); //select
+  }
+  _dragSelectMouseup(target) {
+    const targetCell = target.parentElement;
+    this._setEndIdx(targetCell); //end index setting
+    this._setCheckIdx(); // check(start~end)인덱스 세팅
+    this._setSelectData(); //check인덱스 바탕으로 selectData세팅
+  }
+  _selectCell() {
     this.selectData.forEach((node) => {
       const { column, row } = node;
       const selectCell = _.$td({ x: column, y: row }, this.sheet);
@@ -65,14 +78,14 @@ class Select {
     this.startIdx.column = attributes.x.value;
     this.startIdx.row = attributes.y.value;
   }
-  _setCheckIdx(target) {
+  _setEndIdx(target) {
     const { attributes } = target;
-    this.checkData.start = { column: this.startIdx.column, row: this.startIdx.row };
-    this.checkData.end = { column: attributes.x.value, row: attributes.y.value };
+    this.endIdx.column = attributes.x.value;
+    this.endIdx.row = attributes.y.value;
   }
   _clearCheckCells() {
     if (!this.checkData.start || !this.checkData.end) return;
-    this._setSelectData(this.checkData.start, this.checkData.end);
+    this._setSelectData();
     this.selectData.forEach((node) => {
       const { column, row } = node;
       const checkCell = _.$td({ x: column, y: row }, this.sheet);
@@ -96,17 +109,15 @@ class Select {
     }
     return blockCellIdxList;
   }
-  _setCheckIdx(node) {
-    const { attributes } = node;
-    const startColumn = this.startIdx.column;
-    const startRow = this.startIdx.row;
-    const endColumn = attributes.x.value;
-    const endRow = attributes.y.value;
+  _setCheckIdx() {
     const [minColumn, maxColumn] = [
-      Math.min(startColumn, endColumn),
-      Math.max(startColumn, endColumn),
+      Math.min(this.startIdx.column, this.startIdx.row),
+      Math.max(this.startIdx.column, this.startIdx.row),
     ];
-    const [minRow, maxRow] = [Math.min(startRow, endRow), Math.max(startRow, endRow)];
+    const [minRow, maxRow] = [
+      Math.min(this.endIdx.column, this.endIdx.row),
+      Math.max(this.endIdx.column, this.endIdx.row),
+    ];
     this.checkData.start = {
       column: minColumn,
       row: minRow,
@@ -116,8 +127,8 @@ class Select {
       row: maxRow,
     };
   }
-  _setSelectData(start, end) {
-    this.selectData = this._makeBlockCellIdx(start, end);
+  _setSelectData() {
+    this.selectData = this._makeBlockCellIdx(this.startIdx, this.endIdx);
   }
   getSelectData() {
     return this.selectData;
