@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="../public/CSS/reset.css">
-    <link rel="stylesheet" href="../public/CSS/style.css">
+    <link rel="stylesheet" href="./public/CSS/reset.css">
+    <link rel="stylesheet" href="./public/CSS/style.css">
 </head>
+
 <body>
     <div class="side-bar">
 
@@ -29,9 +31,11 @@
 
     <div class="roulette">
         <div class="roulette__arrow">
-            <img src="../public/images/arrow.png" alt="arrow">
+            <img src="./public/images/arrow.png" alt="arrow">
         </div>
-        <canvas class="roulette__circle" width="300" height="300"></canvas>
+        <div class="roulette__circle--wrapper">
+            <canvas class="roulette__circle" width="300" height="300"></canvas>
+        </div>
         <div class="roulette__controller">
             <button class="roulette__controller--minus-button">-</button>
             <span class="roulette__controller--count">3</span>
@@ -45,13 +49,27 @@
             <li><input type="text"></li>
         </ul>
     </div>
-
     <div class="output">
-
+        <ul class="output__team-blue">
+            <li><span class="slide-item"></span></li>
+            <li><span class="slide-item"></span></li>
+            <li><span class="slide-item"></span></li>
+            <li><span class="slide-item"></span></li>
+            <li><span class="slide-item"></span></li>
+        </ul>
+        <ul class="output__team-red">
+            <li><span class="slide-item"></span></li>
+            <li><span class="slide-item"></span></li>
+            <li><span class="slide-item"></span></li>
+            <li><span class="slide-item"></span></li>
+            <li><span class="slide-item"></span></li>
+        </ul>
     </div>
 
 
 
-    <script type="module" src="../public/JS/main.js"></script>
+
+    <script type="module" src="./public/JS/main.js"></script>
 </body>
+
 </html>
