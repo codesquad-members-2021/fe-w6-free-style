@@ -1,4 +1,5 @@
 @charset "UTF-8";
-@import 'index/reset';
-@import 'index/vars';
-@import 'index/common';
+@import 'partial/reset';
+@import 'partial/vars';
+@import 'partial/common';
+@import 'partial/auth';

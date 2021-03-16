@@ -1,11 +1,45 @@
-<!-- auth : login -->
+<!-- auth : login (main) -->
 <!DOCTYPE html>
 <html>
     <head>
         <title><%= title %></title>
-        <%- include('./partial/vendors.html') %> 
+        <%- include('./partial/vendors.html') %>
     </head>
-    <body>
-        login
+    <body class="auth">
+        <div class="auth__wrapper animation__fadeDown">
+            <div class="auth__content">
+                <div class="animation__fadeIn fadeIn--first">
+                    <h2>MD Todo</h2>
+                </div>
+
+                <form class="auth__content__form" method="POST" action="">
+                    <input
+                        class="animation__fadeIn fadeIn--second"
+                        type="text"                        
+                        name="userid"
+                        id="userid"                                                
+                        placeholder="ID"
+                        autocomplete="off"
+                    />
+                    <input
+                        class="animation__fadeIn fadeIn--third"
+                        type="password"
+                        name="userpwd"
+                        id="userpwd"                                                
+                        placeholder="Password"
+                        autocomplete="off"
+                    />
+                    <input
+                        type="submit"
+                        class="animation__fadeIn fadeIn--fourth"
+                        value="Login"
+                    />
+                </form>
+
+                <div class="auth__footer">
+                    <a href="/auth/register">Register</a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

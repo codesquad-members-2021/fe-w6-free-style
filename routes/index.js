@@ -3,8 +3,9 @@ import express from "express";
 const router = express.Router();
 
 // index: [GET, / ] 
+    // (auth/login 페이지로 이동. 로그인되어 있다면 todo로 이동)
 router.get('/', (req, res) => {
-    res.render('index', { title: 'MD Todo list' });
+    res.redirect('/auth/login');
 });
 
 export default router;

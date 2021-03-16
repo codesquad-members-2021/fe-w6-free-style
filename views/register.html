@@ -3,9 +3,44 @@
 <html>
     <head>
         <title><%= title %></title>
-        <%- include('./partial/vendors.html') %> 
+        <%- include('./partial/vendors.html') %>
     </head>
-    <body>
-        register
+    <body class="auth">
+        <div class="auth__wrapper">
+            <div class="auth__content">
+                <div>
+                    <h2>MD Todo</h2>
+                </div>
+
+                <form class="auth__content__form" method="POST" action="">
+                    <input
+                        type="text"
+                        name="userid"
+                        id="userid"                        
+                        placeholder="ID"
+                        autocomplete="off"
+                    />
+                    <input
+                        type="password"
+                        name="userpwd"
+                        id="userpwd"                        
+                        placeholder="Password"
+                        autocomplete="off"
+                    />
+                    <input
+                        type="password"
+                        name="userpwd_chk"
+                        id="userpwd_chk"                        
+                        placeholder="Password (Confirm)"
+                        autocomplete="off"
+                    />
+                    <input type="submit" value="Confirm" />                                        
+                </form>
+
+                <div class="auth__footer">
+                    <a href="/auth/login">Login</a>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
