@@ -4,10 +4,14 @@ class Select {
   constructor(sheet) {
     this.sheet = sheet;
     this.isMouseDown = false;
+    this.isDropMouseDown = false;
     this.startIdx = {};
     this.endIdx = {};
     this.checkData = {};
     this.selectData = [];
+    this.dropData = [];
+    this.startDropIdx = {};
+    this.endDropIdx = {};
     this.init();
   }
   init() {
@@ -19,8 +23,8 @@ class Select {
     this.sheet.addEventListener('mouseup', this.handleMouseup.bind(this));
   }
   handleMousedown({ target }) {
-    this.isMouseDown = true;
     if (!this._isParentTd(target)) return;
+    this.isMouseDown = true;
     this._dragSelectMousedown(target);
   }
   handleMouseover({ target }) {
@@ -39,7 +43,7 @@ class Select {
     this._setEndIdx(targetCell); //start 및 end index setting
     this._setCheckIdx(); // check(start~end)인덱스 세팅
     this._setSelectData(); //check인덱스 바탕으로 selectData세팅
-    this._selectCell(); //select
+    this._selectCell(this.selectData); //select
   }
   _dragSelectMouseover(target) {
     const targetCell = target.parentElement;
@@ -47,7 +51,7 @@ class Select {
     this._setEndIdx(targetCell); //end index setting
     this._setCheckIdx(); // check(start~end)인덱스 세팅
     this._setSelectData(); //check인덱스 바탕으로 selectData세팅
-    this._selectCell(); //select
+    this._selectCell(this.selectData); //select
   }
   _dragSelectMouseup(target) {
     const targetCell = target.parentElement;
@@ -55,8 +59,19 @@ class Select {
     this._setCheckIdx(); // check(start~end)인덱스 세팅
     this._setSelectData(); //check인덱스 바탕으로 selectData세팅
   }
-  _selectCell() {
-    this.selectData.forEach((node) => {
+  _dragDropMousedown(target) {
+    this._setStartDropIdx(target);
+  }
+  _dragDropMouseover(target) {}
+  _dragDropMouseup(target) {
+    this._clearCheckCells();
+    this._setEndDropIdx(target);
+    const moveIndex = this._getMoveDropIdx();
+    this._setDropData(moveIndex);
+    this._selectCell(this.dropData);
+  }
+  _selectCell(selectData) {
+    selectData.forEach((node) => {
       const { column, row } = node;
       const selectCell = _.$td({ x: column, y: row }, this.sheet);
       this._addSelected(selectCell);
@@ -132,6 +147,28 @@ class Select {
   }
   getSelectData() {
     return this.selectData;
+  }
+  _setStartDropIdx(target) {
+    const { attributes } = target;
+    this.endIdx.column = attributes.x.value;
+    this.endIdx.row = attributes.y.value;
+  }
+  _setEndDropIdx(target) {
+    const { attributes } = target;
+    this.endIdx.column = attributes.x.value;
+    this.endIdx.row = attributes.y.value;
+  }
+  _setDropData(moveIdx) {
+    const { column: moveColumn, row: moveRow } = moveIdx;
+    this.dropData = this.selectData.map((location) => {
+      const { column, row } = location;
+      return { column: column + moveColumn, row: row + moveRow };
+    });
+  }
+  _getMoveDropIdx() {
+    const moveColumn = this.startDropIdx.column - this.endDropIdx.column;
+    const moveRow = this.startDropIdx.row - this.endDropIdx.row;
+    return { column: moveColumn, row: moveRow };
   }
 }
 
