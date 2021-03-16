@@ -87,4 +87,13 @@
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
 }
+
+.output {
+  position: relative;
+  width: 905px;
+  height: 640px;
+  left: 350px;
+  top: -637px;
+  border: 1px solid black;
+}
 /*# sourceMappingURL=style.css.map */

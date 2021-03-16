@@ -33,24 +33,24 @@
 }
 
 .roulette {
-    position: relative;
-    width: 19rem;
+	position: relative;
+	width: 19rem;
 	margin-left: 1rem;
-    &__arrow{
-        display: flex;
-        position: absolute;
-        top: 13px;
-        left: 140px;
-        transform: rotate(180deg);
-        width: 20px;
-        height: 20px;
-        z-index: 2;
-    }
+	&__arrow {
+		display: flex;
+		position: absolute;
+		top: 13px;
+		left: 140px;
+		transform: rotate(180deg);
+		width: 20px;
+		height: 20px;
+		z-index: 2;
+	}
 	&__item {
-        text-align: center;
-        li{
-            padding-top: 0.5rem;
-        }
+		text-align: center;
+		li {
+			padding-top: 0.5rem;
+		}
 	}
 	&__controller {
 		display: flex;
@@ -59,4 +59,12 @@
 		width: 18rem;
 		justify-content: space-evenly;
 	}
+}
+.output {
+	position: relative;
+	width: 905px;
+	height: 640px;
+	left:350px;
+	top:-637px;
+	border:1px solid black;
 }
