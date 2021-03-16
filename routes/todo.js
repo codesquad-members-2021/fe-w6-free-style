@@ -1,4 +1,4 @@
-import express from "express";
+const express = require('express');
 
 const router = express.Router();
 
@@ -7,4 +7,4 @@ router.get('/', (req, res) => {
     res.render('todo', { title: 'MD Todo list' });
 });
 
-export default router;
+module.exports = router;

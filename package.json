@@ -28,8 +28,11 @@
         "ejs": "^3.1.6",
         "express": "^4.17.1",
         "jquery": "^3.6.0",
+        "mysql2": "^2.2.5",
         "nodemon": "^2.0.7",
-        "sass": "^1.32.8"
+        "sass": "^1.32.8",
+        "sequelize": "^6.5.1",
+        "sequelize-cli": "^6.2.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.13.10",
@@ -43,6 +46,5 @@
         "style-loader": "^2.0.0",
         "webpack": "^5.25.1",
         "webpack-cli": "^4.5.0"
-    },
-    "type": "module"
+    }
 }

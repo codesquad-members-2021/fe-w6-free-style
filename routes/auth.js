@@ -1,5 +1,4 @@
-import express from "express";
-
+const express = require('express');
 const router = express.Router();
 
 // auth: [GET, /auth/login ] 
@@ -12,4 +11,4 @@ router.get('/register', (req, res) => {
     res.render('register', { title: 'MD Todo list' });
 });
 
-export default router;
+module.exports = router;

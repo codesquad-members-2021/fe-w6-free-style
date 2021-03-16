@@ -1,7 +1,8 @@
-const path = require('path');
+import path from 'path';
 // MiniCssExtractPlugin, 컴파일된 css를 별도의 CSS 파일로 분리할 때 사용
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
+const __dirname = path.resolve();
 const config = {
     // entry file
     entry: [
@@ -48,4 +49,5 @@ const config = {
     // https://webpack.js.org/concepts/mode/#mode-development
     mode: 'development',
 };
-module.exports = config;
+
+export default config;
