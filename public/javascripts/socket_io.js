@@ -1,42 +1,34 @@
+import { _, DOM, CLASS_LIST } from "./utill.js"
 const socket = io();
+const { name, message, chatLog } = DOM;
+const { float_right } = CLASS_LIST;
 
-$('#left-chat').on('submit', function(e) { 
-    socket.emit('send message', $('#name').val(), $('#message').val());
-    $('#message').val('');
-    $('#message').focus();
+
+DOM.chat.addEventListener('submit', function(e) { 
+    socket.emit('send message', name.value, message.value, socket.id);
+    message.value = '';
+    console.log(socket.id)
+    // message.focus();
     e.preventDefault();
 });
 
 socket.on('create name', function(name){ 
-    $('#name').val(name);
+    DOM.name.value = name;
 });
 
-socket.on('receive message', function(msg){ 
-    $('.chatLog').append(msg+'\n');
+socket.on('receive message', function({ msg, socketId }) { 
+    const speech_bubble = document.createElement('div');
+    speech_bubble.classList.add('speech_bubble');
+    const text = document.createElement('div');
+    text.classList.add('bubble');
+    text.innerHTML = msg;
+    console.log(msg)
+    speech_bubble.append(text);
+    chatLog.append(speech_bubble);
 
-    // 새로운 채팅 추가시 자동으로 스크롤 다운.
-    $('.chatLog').scrollTop($('.chatLog')[0].scrollHeight);
+    if(socket.id === socketId) {
+        _.addClass(text, float_right);
+    }
+    // 새로운 채팅 추가시 자동으로 스크롤 다운. // scrollTop = 현재 스크롤값  scrollHeight = 변한 값
+    chatLog.scrollTop = chatLog.scrollHeight;
 });
-
-$('#right-chat').on('submit', function(e) { 
-    socket.emit('send message2', $('#name2').val(), $('#message2').val());
-    $('#message2').val('');
-    $('#message2').focus();
-    e.preventDefault();
-});
-
-socket.on('create name2', function(name){ 
-    $('#name2').val(name);
-});
-
-socket.on('receive message2', function(msg){ 
-    $('.chatLog').append(msg+'\n');
-
-    // 새로운 채팅 추가시 자동으로 스크롤 다운.
-    $('.chatLog').scrollTop($('.chatLog')[0].scrollHeight);
-});
-
-
-
-
-

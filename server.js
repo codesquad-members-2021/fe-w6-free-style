@@ -6,7 +6,7 @@ const path = require('path');
 const indexRouter = require('./routes/index');
 const ejs = require('ejs');
 
-const port = 8000;
+const port = 8080;
 
 // app.set('views', './views');
 // app.set('view engine', 'ejs');
@@ -18,30 +18,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/',indexRouter);
 
+let count=1;
 io.on('connection', function(socket){ 
   	console.log('user connected: ', socket.id);  
-  	let name = "Pengdori";                
+  	let name = `익명${count++}`;                
 	socket.name = name;
   	io.to(socket.id).emit('create name', name);
-	let name2 = "Guest"; 
-	socket.name2 = name2;
-	io.to(socket.id).emit('create name2',name2);
 	
 	socket.on('disconnect', function(){ 
 	  console.log('user disconnected: '+ socket.id + ' ' + socket.name);
 	});
 
-	socket.on('send message', function(name, text){ 
-		let msg = name + ' : ' + text;
+	socket.on('send message', function(name, text, socketId){ 
+		let msg = name + "<br>" + text;
 		socket.name = name;
-    	console.log(msg);
-    	io.emit('receive message', msg);
-	});
-	socket.on('send message2', function(name, text){ 
-		let msg = name + ' : ' + text;
-		socket.name = name;
-    	console.log(msg);
-    	io.emit('receive message2', msg);
+    	console.log(`${msg}  socket.id:${socket.id}`);
+    	io.emit('receive message', { msg, socketId} );
 	});
 });
 

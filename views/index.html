@@ -8,41 +8,28 @@
 	<title>Chat</title>
 	<link rel="stylesheet" href="/stylesheets/style.css">
 	<script src='/socket.io/socket.io.js'></script>
-	<script src='//code.jquery.com/jquery-1.11.1.js'></script>
 </head>
 
 <body>
-	<header id="head">
+	<center id="head">
 		<div id="background" autocomplete=off>
 			<div class="chat_box">
-				<div class="title">Pengdori World</div>
 				<div>
-					<textarea class="form-control chatLog" readonly=''></textarea>
+					<div class="title">Pengdori Chat World</div>
+					<div class="version">ver 1.0.1</div>
 				</div>
-				<form id="left-chat" class="chat" autocomplete=off>
+				<div class="textarea_box">
+					<div class="form-control chatLog"></div>
+				</div>
+				<form id="chat" class="chat" autocomplete=off>
 					<input type="text" id="name" class="form-contorl">
 					<input type="text" id="message" class="form-contorl">
-					<button id="btn" class="btn btn-primary" type="submit">전송</button>
+					<button class="btn btn-primary" type="submit">전송</button>
 				</form>
 			</div>
 		</div>
-
-		<div id="background2" autocomplete=off>
-			<div class="chat_box">
-				<div class="title">Guest World</div>
-				<div>
-					<textarea class="form-control chatLog" readonly=''></textarea>
-				</div>
-				<form id="right-chat" class="chat" autocomplete=off>
-					<input type="text" id="name2" class="form-contorl">
-					<input type="text" id="message2" class="form-contorl">
-					<button id="btn2" class="btn btn-primary" type="submit">전송</button>
-				</form>
-			</div>
-		</div>
-	</header>
-	<script src="/javascripts/socket_io.js"></script>
+	</center>
+	<script src="/javascripts/socket_io.js" type="module"></script>
 </body>
 
 </html>
-
