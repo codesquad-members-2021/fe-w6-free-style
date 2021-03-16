@@ -16,7 +16,7 @@ export class Roulette {
 
 	drawWheel() {
 		const color = ["lightcoral", "powderblue", "khaki", "palegreen", "peachpuff", "plum"];
-		let lastLocation = 0;
+		let lastLocation = -2 * Math.PI * 1/4; // 초기값을 화살표와
 		for (let i = 1; i <= this.sumPizza; i++) {
 			this.ctx.beginPath();
 			this.ctx.lineTo(this.data.xLocation, this.data.yLocation);
@@ -32,9 +32,9 @@ export class Roulette {
 
 	drawItem() {
 		const items = [..._.$a("input", this.data.rouletteItem)].map((e) => e.value);
-		console.log(items);
-		const modifier = Math.PI / this.sumPizza;
+		const modifier = Math.PI / this.sumPizza -2 * Math.PI * 1/4;
 		const maxWidth = 80 + 60 / this.sumPizza;
+		this.ctx.font = "20px gothic"
 		this.ctx.textAlign = "center";
 		this.ctx.textBaseline = "middle";
 		this.ctx.fillStyle = "black";
