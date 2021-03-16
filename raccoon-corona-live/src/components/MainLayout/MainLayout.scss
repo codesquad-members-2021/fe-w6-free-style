@@ -458,7 +458,7 @@ body .padding__top {
   }
 }
 
-@mixin Container {
+@mixin Container() {
   background: rgb(25, 31, 44);
   border: 1px solid rgba(207, 207, 207, 0.125);
   box-shadow: rgb(0, 0, 0) -1px 1px 6px;
@@ -469,7 +469,8 @@ body .padding__top {
 }
 
 .Section__Chart {
-  @include Container() .Chart__Box {
+  @include Container();
+  .Chart__Box {
     margin-bottom: 6px;
     position: relative;
   }
@@ -524,7 +525,9 @@ body .padding__top {
 }
 
 .Section__Add__Chart {
-  @include Container() .Add__Chart__Box {
+  @include Container();
+
+  .Add__Chart__Box {
     -webkit-box-pack: center;
     justify-content: center;
     -webkit-box-align: center;
@@ -559,7 +562,8 @@ body .padding__top {
 }
 
 .Section__Map {
-  @include Container() .map--margin {
+  @include Container();
+  .map--margin {
     margin-top: 12px;
   }
 
