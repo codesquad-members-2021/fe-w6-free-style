@@ -2,7 +2,7 @@ import React from 'react';
 import TitleMenu from './TitleMenu';
 import TitleTab from './TitleTab';
 
-function LayoutTitle() {
+function TitleLayout() {
   return (
     <div className="Layout__Title flex flex-column">
       <TitleMenu />
@@ -11,4 +11,4 @@ function LayoutTitle() {
   );
 }
 
-export default LayoutTitle;
+export default TitleLayout;

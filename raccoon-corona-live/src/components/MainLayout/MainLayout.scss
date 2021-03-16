@@ -5,7 +5,7 @@ $backgroundColor: rgb(16, 20, 33);
   flex-direction: row;
 }
 
-.flex-cloumn {
+.flex-column {
   display: flex;
   flex-direction: column;
 }
@@ -261,3 +261,67 @@ body .padding__top {
     animation-delay: 200ms;
   }
 }
+
+
+.Section__All__Person {
+  background: rgb(25, 31, 44);
+  border: 1px solid rgba(207, 207, 207, 0.125);
+  box-shadow: rgb(0, 0, 0) -1px 1px 6px;
+  z-index: -1;
+  padding: 12px;
+  border-radius: 16px;
+  margin-bottom: 16px;
+
+  .Person__Type__List {
+    margin: 0px 10px;
+    padding: 6px 8px;
+    border-radius: 12px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+  
+    .Person__Type__Box {
+      div {
+        text-align: center;
+      }
+      .Person__Type {
+        font-size: 12px;
+        opacity: 0.7;
+        margin-bottom: 0px;
+  
+     
+      }
+      .Person__Number {
+        font-size: 18px;
+        font-weight: bold;
+        opacity: 1;
+        margin-bottom: 4px;
+        color: rgb(235, 83, 116);   
+  
+      }
+      .Person__Change {
+        font-size: 11.5px;
+        border-radius: 50px;
+        opacity: 0.8;
+        -webkit-box-align: center;
+        align-items: center;
+        padding: 0px 6px 0px 8px;
+        font-weight: bold;
+        color: rgb(235, 83, 116);
+        background: rgba(235, 83, 116, 0.082);
+
+      }
+    }
+  }
+
+}
+
+.Section__Today {
+  z-index: -1;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    background: transparent;
+    border: transparent;
+    padding: 0px;
+    box-shadow: none;
+}
+
