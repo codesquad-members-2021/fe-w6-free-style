@@ -15,7 +15,7 @@ class SheetView {
   }
   init() {
     this.render();
-    this.selectSheet = new Select(sheet);
+    this.selectSheet = new Select(this.sheet, this.sheetModel);
   }
   _makeColumnIndex() {
     const columnIndexList = this.sheetModel

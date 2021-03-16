@@ -1,12 +1,13 @@
 import { _ } from '../../util/util';
 
 class Select {
-  constructor(sheet) {
+  constructor(sheet, sheetModel) {
     this.sheet = sheet;
-    this.isMouseDown = false;
-    this.isDropMouseDown = false;
-    this.startIdx = {};
-    this.endIdx = {};
+    this.sheetModel = sheetModel;
+    this.isSelectMousedown = false;
+    this.isDropMousedown = false;
+    this.selectIdx = {};
+    this.dropIdx = {};
     this.checkData = {};
     this.selectData = [];
     this.dropData = [];
@@ -23,21 +24,21 @@ class Select {
     this.sheet.addEventListener('mouseup', this.handleMouseup.bind(this));
   }
   handleMousedown({ target }) {
-    if (!this._isParentTd(target)) return;
-    this.isMouseDown = true;
-    this._dragSelectMousedown(target);
+    if (this._isParentTd(target)) this._dragSelectMousedown(target);
+    else this._dragDropMousedown(target);
   }
   handleMouseover({ target }) {
-    if (!this.isMouseDown || !this._isParentTd(target)) return;
-    this._dragSelectMouseover(target);
+    if (this.isSelectMousedown && this._isParentTd(target)) this._dragSelectMouseover(target);
+    if (this.isDropMousedown) this._dragDropMouseover(target);
   }
   handleMouseup({ target }) {
-    this.isMouseDown = false;
-    if (!this.isMouseDown || !this._isParentTd(target)) return;
-    this._dragSelectMouseup(target);
+    // if (!this.isMouseDown || !this._isParentTd(target)) return;
+    if (this.isSelectMousedown && this._isParentTd(target)) this._dragSelectMouseup(target);
+    if (this.isDropMouseup) this._dragDropMouseup(target);
   }
   _dragSelectMousedown(target) {
     const targetCell = target.parentElement;
+    this._toggleSelectStatus();
     this._clearCheckCells();
     this._setStartIdx(targetCell);
     this._setEndIdx(targetCell); //start 및 end index setting
@@ -55,6 +56,7 @@ class Select {
   }
   _dragSelectMouseup(target) {
     const targetCell = target.parentElement;
+    this._toggleSelectStatus();
     this._setEndIdx(targetCell); //end index setting
     this._setCheckIdx(); // check(start~end)인덱스 세팅
     this._setSelectData(); //check인덱스 바탕으로 selectData세팅
@@ -90,13 +92,11 @@ class Select {
   }
   _setStartIdx(target) {
     const { attributes } = target;
-    this.startIdx.column = attributes.x.value;
-    this.startIdx.row = attributes.y.value;
+    this.selectIdx.start = { column: attributes.x.value, row: attributes.y.value };
   }
   _setEndIdx(target) {
     const { attributes } = target;
-    this.endIdx.column = attributes.x.value;
-    this.endIdx.row = attributes.y.value;
+    this.selectIdx.end = { column: attributes.x.value, row: attributes.y.value };
   }
   _clearCheckCells() {
     if (!this.checkData.start || !this.checkData.end) return;
@@ -125,14 +125,12 @@ class Select {
     return blockCellIdxList;
   }
   _setCheckIdx() {
+    const { start, end } = this.selectIdx;
     const [minColumn, maxColumn] = [
-      Math.min(this.startIdx.column, this.startIdx.row),
-      Math.max(this.startIdx.column, this.startIdx.row),
+      Math.min(start.column, end.column),
+      Math.max(start.column, end.column),
     ];
-    const [minRow, maxRow] = [
-      Math.min(this.endIdx.column, this.endIdx.row),
-      Math.max(this.endIdx.column, this.endIdx.row),
-    ];
+    const [minRow, maxRow] = [Math.min(start.row, end.row), Math.max(start.row, end.row)];
     this.checkData.start = {
       column: minColumn,
       row: minRow,
@@ -143,20 +141,19 @@ class Select {
     };
   }
   _setSelectData() {
-    this.selectData = this._makeBlockCellIdx(this.startIdx, this.endIdx);
+    const { start, end } = this.selectIdx;
+    this.selectData = this._makeBlockCellIdx(start, end);
   }
   getSelectData() {
     return this.selectData;
   }
   _setStartDropIdx(target) {
     const { attributes } = target;
-    this.endIdx.column = attributes.x.value;
-    this.endIdx.row = attributes.y.value;
+    this.selectIdx.start = { column: attributes.x.value, row: attributes.y.value };
   }
   _setEndDropIdx(target) {
     const { attributes } = target;
-    this.endIdx.column = attributes.x.value;
-    this.endIdx.row = attributes.y.value;
+    this.selectIdx.end = { column: attributes.x.value, row: attributes.y.value };
   }
   _setDropData(moveIdx) {
     const { column: moveColumn, row: moveRow } = moveIdx;
@@ -166,9 +163,16 @@ class Select {
     });
   }
   _getMoveDropIdx() {
-    const moveColumn = this.startDropIdx.column - this.endDropIdx.column;
-    const moveRow = this.startDropIdx.row - this.endDropIdx.row;
+    const { start, end } = this.dropIdx;
+    const moveColumn = start.column - end.column;
+    const moveRow = start.row - end.row;
     return { column: moveColumn, row: moveRow };
+  }
+  _toggleSelectStatus() {
+    this.isSelectMousedown = !this.isSelectMousedown;
+  }
+  _toggleDropStatus() {
+    this.isDropMousedown = !this.isDropMousedown;
   }
 }
 
