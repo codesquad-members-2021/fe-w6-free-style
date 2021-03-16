@@ -2,9 +2,9 @@ import express from "express";
 
 const router = express.Router();
 
-// index: [GET, / ] 
+// todo: [GET, /todo/ ] 
 router.get('/', (req, res) => {
-    res.render('index', { title: 'MD Todo list' });
+    res.render('todo', { title: 'MD Todo list' });
 });
 
 export default router;
