@@ -1,9 +1,18 @@
 import React from 'react';
 
-function TabMenu(props) {
-  console.log(props);
+function TabMenuList(props) {
   return (
     <div className="Tab__Menu--Box Tab__Flex flex flex-row">
+      {props.menu.map((menu, idx) => (
+        <TabMenu menu={menu} key={idx} />
+      ))}
+    </div>
+  )
+}
+
+function TabMenu({ menu }) {
+  return (
+
       <div className="Tab__Menu flex flex-row first">
         <div size="14" className="Tab__svg Layout__item flex-row center">
           <svg version="1.1" x="0px" y="0px" viewBox="324.331 450.063 60 92" enable-background="new 324.331 450.063 60 92">
@@ -18,10 +27,9 @@ function TabMenu(props) {
             </g>
           </svg>
         </div>
-        <span>국내 </span>
+        <span>{menu} </span>
       </div>
-    </div>
   );
 }
 
-export default TabMenu;
+export default TabMenuList;
