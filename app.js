@@ -20,6 +20,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('port', process.env.SERVER_PORT || 4000);
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/vendors', vendorsRouter);
 app.use('/', indexRouter); 
