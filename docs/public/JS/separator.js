@@ -1,4 +1,4 @@
-import {_} from './util.js'
+import { _ } from "./util.js";
 export class Separator {
 	constructor(data) {
 		this.data = data;
@@ -6,8 +6,10 @@ export class Separator {
 	}
 
 	separateUser() {
-		const list = [...this.data.userList];
-		this.data.slideItems.forEach((v, i) => (v.innerHTML = list.splice(Math.floor(Math.random() * (list.length - i)), 1)[0].value));
+		const index = new Set();
+		while (index.size < 10) index.add(Math.floor(Math.random() * 10));
+        const indexArr = [...index]
+		this.data.slideItems.forEach((v, i) => (v.innerHTML = this.data.userList[indexArr[i]].value));
 	}
 
 	async slide() {

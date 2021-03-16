@@ -103,6 +103,7 @@
   left: 340px;
   top: 16px;
   border: 1px solid black;
+  overflow: hidden;
 }
 
 .output ul {
