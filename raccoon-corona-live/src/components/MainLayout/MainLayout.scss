@@ -228,7 +228,7 @@ body .padding__top {
         padding: 6px 0px 10px;
 
         &::before {
-          content: "";
+          content: '';
           width: 24px;
           height: 2px;
           background: rgb(207, 207, 207);
@@ -396,7 +396,7 @@ body .padding__top {
             transform: translate(0px, -2px);
 
             &::before {
-              content: "vs";
+              content: 'vs';
               margin-right: 4px;
               opacity: 0.7;
             }
@@ -469,9 +469,7 @@ body .padding__top {
 }
 
 .Section__Chart {
-  @include Container()
-
-  .Chart__Box {
+  @include Container() .Chart__Box {
     margin-bottom: 6px;
     position: relative;
   }
@@ -526,9 +524,7 @@ body .padding__top {
 }
 
 .Section__Add__Chart {
-  @include Container()
-
-  .Add__Chart__Box {
+  @include Container() .Add__Chart__Box {
     -webkit-box-pack: center;
     justify-content: center;
     -webkit-box-align: center;
@@ -563,14 +559,11 @@ body .padding__top {
 }
 
 .Section__Map {
-  @include Container()
-
-  .map--margin {
+  @include Container() .map--margin {
     margin-top: 12px;
   }
 
   .Map__Upper {
-
     padding: 0px 12px;
     .Upper__Menu__Box {
       border-radius: 12px;
