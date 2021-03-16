@@ -16,6 +16,22 @@ const createResult = (jsonData) => {
              <div class="head">${detail[1].head}</div>
              <div class="body">${detail[1].body}</div>
         </div>
+        <div class="people">
+            <span>
+                <div class="people__name">${people[0].name}</div>
+                <img src=${people[0].imageUrl} >
+            </span>
+            <span>
+                <div class="people__name">${people[1].name}</div>
+                <img src=${people[1].imageUrl} >
+            </span>
+            <span>
+                <div class="people__name">${people[2].name}</div>
+                <img src=${people[2].imageUrl} >
+            </span>
+        </div>
     </div>
     `;
 };
+
+module.exports = createResult;
