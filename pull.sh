@@ -1,2 +1,2 @@
-git pull origin chatbot
+git pull origin web
 npm start

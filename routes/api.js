@@ -15,9 +15,10 @@ apiRouter.post("/", function (req, res) {
   const userRequest = req.body.userRequest;
   const userId = userRequest.user.id;
   const userAnswer = userRequest.utterance;
+  if (users.has(userId)) users = registerNewUser(users, userId, initScore);
 
   if (startUtterances.some((e) => e === userAnswer)) {
-    if (userAnswer === startUtterances[0]) users = registerNewUser(users, userId, initScore);
+    // if (userAnswer === startUtterances[0]) users = registerNewUser(users, userId, initScore);
 
     const index = users.get(userId).index;
 
@@ -25,18 +26,8 @@ apiRouter.post("/", function (req, res) {
     if (index === questions.length) {
       // create url including user's result, then send it to chatbot as a message
       const userValue = users.get(userId);
-      const scoreArr = [userValue["0"], userValue["1"], userValue["2"], userValue["3"]];
-      const scores = scoreArr.reduce((prev, curr) => {
-        const currArr = Object.entries(curr);
-        const score = currArr.reduce((acc, val) => {
-          const [key, value] = val;
-          acc += value;
-          return acc;
-        }, ``);
-        prev += score;
-        return prev;
-      }, ``);
-
+      const scoreArr = [userValue["0"].E, userValue["0"].I, userValue["1"].S, userValue["1"].N, userValue["2"].T, userValue["2"].F, userValue["3"].J, userValue["3"].P];
+      const scores = scoreArr.reduce((acc, val) => acc + val, ``);
       const result = userValue.result.join("");
       const url = `http://34.64.132.100:3000/api/result?type=${result}&scores=${scores}`;
       const responseBody = {

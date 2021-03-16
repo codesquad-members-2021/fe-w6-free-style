@@ -5,6 +5,9 @@ const request = async (url) => {
   return data;
 };
 
-const { types, scores } = request(_.search());
-const scoreArr = scores.split("");
-console.log(types, scoreArr);
+const data = request(_.local);
+console.log(data);
+
+// const { types, scores } = request(_.search());
+// const scoreArr = scores.split("");
+// console.log(types, scoreArr);
