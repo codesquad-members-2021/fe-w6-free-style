@@ -24,17 +24,19 @@ apiRouter.post("/", function (req, res) {
       const scores = scoreArr.reduce((acc, val) => acc + val, ``);
       const result = userValue.result.join("");
 
-      try {
-        const resultBody = createResultBody(result, scores);
-        users = deleteUser(users, userId);
-        res.status(200).json(resultBody);
-      } catch (e) {
-        console.log(userValue);
-        console.log(scoreArr);
-        console.log(scores);
-        console.log(result);
-        console.log(users);
-      }
+      const resultBody = createResultBody(result, scores);
+      console.log(resultBody);
+      users = deleteUser(users, userId);
+      res.status(200).json(resultBody);
+      // try {
+
+      // } catch (e) {
+      //   console.log(userValue);
+      //   console.log(scoreArr);
+      //   console.log(scores);
+      //   console.log(result);
+      //   console.log(users);
+      // }
     } else {
       const responseBody = createResponseBody(questions, index, blockIds, answers);
       res.status(200).json(responseBody);
