@@ -14,18 +14,22 @@ DOM.chat.addEventListener('submit', function(e) {
 window.addEventListener('DOMContentLoaded', () => {
     let user = prompt("사용하실 이름을 입력하세요.");
     socket.emit('User name', user);
+});
+
+// name 채팅창에 적어주기
+socket.on('create name', function(name){ 
+    DOM.name.value = name;
+});
+
+socket.on('connect message', function(name, socketId) {
     const connect_speech_bubble = _.$create('div');
     const text = _.$create('div');
     _.addClass(connect_speech_bubble, 'disconnect_speech_bubble');
     _.addClass(text, 'disconnect_speaker');
-    _.addHTML(text, `${user}님이 채팅방에 들어오셨습니다.`);
+    socket.id !== socketId ? _.addHTML(text, `${name}님이 접속하였습니다.`) : _.addHTML(text, `${name}님은 채팅방에 접속하셨습니다.`);
     _.append(connect_speech_bubble, text);
     _.append(chatLog, connect_speech_bubble);
-});
-
-socket.on('create name', function(name){ 
-    DOM.name.value = name;
-});
+})
 
 // 상대방 연결이 종료되었을때 상대방 이름과함께 종료되었다고 띄우기
 socket.on('disconnect message', function(name) {

@@ -16,12 +16,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/',indexRouter);
 
 let count=1;
-io.on('connection', async function(socket){ 
+io.on('connection', function(socket){ 
 	let user = null;
 	socket.on('User name', function(name) {
 		user = name;
   		io.to(socket.id).emit('create name', name);
+		io.emit('connect message', user, socket.id);
 	})
+
+	
 	
 	socket.on('disconnect', function(){ 
 	  	io.emit('disconnect message', user);
