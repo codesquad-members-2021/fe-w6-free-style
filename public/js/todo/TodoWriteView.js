@@ -1,31 +1,46 @@
-import _ from "../util.js";
+import _ from '../util.js';
 import TodoWriteEditor from './TodoWriteEditor.js';
 
 class TodoWriteView {
-    constructor(editorReference) {
-        this.editorReference = editorReference;
-        this.editor = null;       
+    constructor(todoWriteReference) {
+        this.todoWriteReference = todoWriteReference;
+        this.editor = null;
     }
 
     init = () => {
-        this.setEditor(this.editorReference);
+        const { editorWrapper, editorOptions, editorBtnsWrapper } = this.todoWriteReference;
 
-        // test only
-        const { submitBtn } = this.editorReference;
-        _.addEvent(submitBtn, 'click', () => this.createTodo())
-    }
+        this.setEditor(editorWrapper, editorOptions);
+        this.setEditorBtnsClickEvent(editorBtnsWrapper);
+    };
 
-    setEditor = (editorReference) => {
-        const { editorWrapper, editorOptions } = editorReference;
-        if (!editorWrapper) return;
+    setEditor = (editorWrapper, editorOptions) =>
+        (this.editor = new TodoWriteEditor(editorWrapper, editorOptions));
 
-        this.editor = new TodoWriteEditor(editorWrapper, editorOptions);
-    }
+    setEditorBtnsClickEvent = (editorBtnsWrapper) => {
+        _.addEvent(editorBtnsWrapper, 'click', (e) =>
+            this.editorBtnsClickHandler(e),
+        );
+    };
 
-    createTodo = () => {
-        console.log(this.editor.getHtml());
-        console.log(this.editor.getMarkdown())
-    }
-};
+    editorBtnsClickHandler = (e) => {
+        const { target } = e;
+        if (target.tagName !== 'BUTTON') return;
+
+        // test..
+        switch (target.id) {
+            case 'todo-writeConfirm':
+                console.log(this.editor.getHtml());
+                break;
+
+            case 'todo-writeCancel':
+                location.href = "/todo";
+                break;
+
+            default:
+                break;
+        }
+    };
+}
 
 export default TodoWriteView;
