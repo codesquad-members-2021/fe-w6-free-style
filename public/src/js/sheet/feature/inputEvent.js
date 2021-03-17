@@ -16,16 +16,22 @@ class InputEvent {
     this.sheet.addEventListener('input', this.handleSheetInput.bind(this));
   }
   handleFnInput({ target }) {
-    const selectInput = this.sheetModel.getLastInput();
-    selectInput.value = this.functionInput.value;
+    this._setSheetInputValue();
   }
   handleSheetInput({ target }) {
     if (!this._isParentTd(target)) return;
-    const selectInput = this.sheetModel.getLastInput();
-    this.functionInput.value = selectInput.value;
+    this._setFunctionInputValue();
   }
   _isParentTd(node) {
     return node.parentElement.tagName === 'TD';
+  }
+  _setFunctionInputValue() {
+    const selectInput = this.sheetModel.getLastInput();
+    this.functionInput.value = selectInput.value;
+  }
+  _setSheetInputValue() {
+    const selectInput = this.sheetModel.getLastInput();
+    selectInput.value = this.functionInput.value;
   }
 }
 

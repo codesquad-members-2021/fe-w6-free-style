@@ -23,22 +23,27 @@ class KeyboardEvent {
   }
   addEvent() {
     this.sheet.addEventListener('mousedown', this.handleMousedown.bind(this));
-    this.functionInput.addEventListener('keydown', this.handleKeydown.bind(this));
-    this.sheet.addEventListener('keydown', this.handleKeydown.bind(this));
+    this.functionInput.addEventListener('keydown', this.handleFnKeydown.bind(this));
+    this.sheet.addEventListener('keydown', this.handleSheetKeydown.bind(this));
   }
   handleMousedown({ target }) {
     if (this._isIndexCell(target)) return;
     this._focusCell(target);
   }
-  handleKeydown(e) {
-    const { keyCode } = e;
+  handleSheetKeydown({ keyCode }) {
+    this._commonKeyboardEvent(keyCode);
+    if (keyCode === KEYCODE.DELETD) this._handleDelete();
+  }
+  handleFnKeydown({ keyCode }) {
+    this._commonKeyboardEvent(keyCode);
+  }
+  _commonKeyboardEvent(keyCode) {
     if (keyCode === KEYCODE.ENTER) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
     if (keyCode === KEYCODE.TAB) this._handleMoveCell({ moveColumn: 1, moveRow: 0, isTab: true });
     if (keyCode === KEYCODE.LEFT) this._handleMoveCell({ moveColumn: -1, moveRow: 0 });
     if (keyCode === KEYCODE.RIGHT) this._handleMoveCell({ moveColumn: 1, moveRow: 0 });
     if (keyCode === KEYCODE.UP) this._handleMoveCell({ moveColumn: 0, moveRow: -1 });
     if (keyCode === KEYCODE.DOWN) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
-    if (keyCode === KEYCODE.DELETD) this._handleDelete();
   }
   _handleMoveCell(column, row) {
     const selectCell = this.sheetModel.getLastCell();
