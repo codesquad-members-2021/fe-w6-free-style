@@ -1,34 +1,43 @@
+const createSummary = (summary) => {
+  return summary.reduce((acc, val) => {
+    const { quote, text, author } = val;
+    acc += `<span class="summary__quote">${quote}</span>${author ? `<span class="summary__author">${author}</span>` : ""}<p class="summary__text">${text}</p>`;
+    return acc;
+  }, ``);
+};
+
+const createDetail = (detail) => {
+  return detail.reduce((acc, val) => {
+    const { head, body } = val;
+    acc += `<span class="detail__head">${head}</span><p class="detail__body">${body}</p>`;
+    return acc;
+  }, ``);
+};
+
+const createPeople = (people) => {
+  return (
+    people.reduce((acc, val) => {
+      const { name, imageUrl } = val;
+      acc += `<span class="people__name">${name}</span><img class="people__image" src="${imageUrl}">`;
+      return acc;
+    }, `<span class="people__info">`) + `</span>`
+  );
+};
+
 const createResult = (jsonData) => {
   const { type, content } = jsonData;
   const { title, summary, detail, people } = content;
   return /*html*/ `
     <div class="detail">
-        <div class="title">${type}: ${title}</div>
+        <strong class="title">${type}: ${title}</strong>
         <div class="summary">
-            <div class="quote">${summary[0].quote}</div>
-            <div class="text">${summary[0].text}</div>
-            <div class="quote">${summary[1].quote}</div>
-            <div class="text">${summary[1].text}</div>
+            ${createSummary(summary)}
         </div>
         <div class="detail">
-             <div class="head">${detail[0].head}</div>
-             <div class="body">${detail[0].body}</div>
-             <div class="head">${detail[1].head}</div>
-             <div class="body">${detail[1].body}</div>
+             ${createDetail(detail)}
         </div>
         <div class="people">
-            <span>
-                <div class="people__name">${people[0].name}</div>
-                <img src=${people[0].imageUrl} >
-            </span>
-            <span>
-                <div class="people__name">${people[1].name}</div>
-                <img src=${people[1].imageUrl} >
-            </span>
-            <span>
-                <div class="people__name">${people[2].name}</div>
-                <img src=${people[2].imageUrl} >
-            </span>
+            ${createPeople(people)}
         </div>
     </div>
     `;
