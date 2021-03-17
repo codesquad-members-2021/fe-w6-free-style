@@ -1,6 +1,6 @@
 const express = require("express");
 const apiRouter = express.Router();
-const { deleteUser, updateResult, types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody } = require("./functions/addScore.js");
+const { updateResult, types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody } = require("./functions/addScore.js");
 const { questions, answers, breakMsg, blockIds } = require("./functions/qna.js");
 let users = new Map();
 
@@ -51,8 +51,8 @@ apiRouter.post("/", function (req, res) {
           ],
         },
       };
-      users = deleteUser(users, userId);
       console.log(users);
+
       res.status(200).json(responseBody);
     } else {
       const responseBody = createResponseBody(questions, index);
