@@ -1,9 +1,9 @@
 import { _ } from '../../util/util';
 
 class Select {
-  constructor(sheet, sheetModel) {
+  constructor(sheet, model) {
     this.sheet = sheet;
-    this.sheetModel = sheetModel;
+    this.sheetModel = model;
     this.isSelectMousedown = false;
     this.isDropMousedown = false;
     this.selectIdx = {};

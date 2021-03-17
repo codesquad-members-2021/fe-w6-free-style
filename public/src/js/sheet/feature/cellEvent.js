@@ -9,9 +9,10 @@ const KEYCODE = {
   DELETD: 46,
 };
 class CellEvent {
-  constructor(sheet, sheetModel) {
+  constructor({ sheet, model, cellNameBox }) {
     this.sheet = sheet;
-    this.sheetModel = sheetModel;
+    this.sheetModel = model;
+    this.cellNameBox = cellNameBox;
     this.focusedCell;
     this.focusedInput;
     this.init();
@@ -41,11 +42,13 @@ class CellEvent {
     const { column: focusColumn, row: rowColumn } = this._getLocation(this.focusedCell);
     this.sheetModel.setData({ column: focusColumn, row: rowColumn, value: inputValue });
     this._moveFocusedCell(column, row);
+    this._setCellNameBox();
   }
   _focusCell(target) {
     if (this.focusedCell) this._removeFocused();
     this._setFocused(target);
     this._addFocused();
+    this._setCellNameBox();
   }
   _addFocused() {
     this.focusedCell.classList.add('focused');
@@ -97,12 +100,21 @@ class CellEvent {
   _focusOutInput() {
     this.focusedInput.blur();
   }
+  _setInputValue(value) {
+    this.focusedInput.value = value;
+  }
   _getInputValue() {
     return this.focusedInput.value;
   }
   _getLocation(node) {
     const { attributes } = node;
     return { column: attributes.x.value, row: attributes.y.value };
+  }
+  _setCellNameBox() {
+    const { column, row } = this._getLocation(this.focusedCell);
+    const columnAsciiNum = 'A'.charCodeAt() + column * 1 - 1;
+    const cellName = String.fromCharCode(columnAsciiNum) + row;
+    this.cellNameBox.innerHTML = cellName;
   }
 }
 

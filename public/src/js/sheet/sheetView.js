@@ -1,19 +1,28 @@
 import { makeRowIndexHTML, makeShellHTML, td, tr } from './htmlTemplate.js';
 import SheetModel from './sheetModel';
 import Select from './feature/select';
-import { add } from '../util/util.js';
+import { add, _ } from '../util/util.js';
 import CellEvent from './feature/cellEvent.js';
+import FunctionBar from './feature/functionBar.js';
 class SheetView {
   constructor(sheet) {
     this.sheet = sheet;
     this.sheetModel = new SheetModel();
+    this.cellNameBox = _.$('.namebox');
     this.cellEvent;
     this.selectSheet;
   }
   init() {
     this.render();
-    this.cellEvent = new CellEvent(this.sheet, this.sheetModel);
-    this.selectSheet = new Select(this.sheet, this.sheetModel);
+    this.cellEvent = new CellEvent({
+      sheet: this.sheet,
+      model: this.sheetModel,
+      cellNameBox: this.cellNameBox,
+    });
+    this.functionBar = new FunctionBar({
+      cellNameBox: this.cellNameBox,
+    });
+    // this.selectSheet = new Select(this.sheet, this.sheetModel);
   }
   _makeColumnIndex() {
     const columnIndexList = this.sheetModel
