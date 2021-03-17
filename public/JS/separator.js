@@ -8,8 +8,22 @@ export class Separator {
 	separateUser() {
 		const index = new Set();
 		while (index.size < 10) index.add(Math.floor(Math.random() * 10));
-        const indexArr = [...index]
-		this.data.slideItems.forEach((v, i) => (v.innerHTML = this.data.userList[indexArr[i]].value));
+		const indexArr = [...index];
+		this.data.slideItems.forEach((v, i) => {
+			v.innerHTML = this.data.userList[indexArr[i]].value;
+
+			fetch(`/users/?userID=${this.data.userList[indexArr[i]].value}`)
+			.then((v) => v.json())
+			.then((response) =>
+				response.forEach((e) => {
+					if (e.queueType === "RANKED_SOLO_5x5") {
+						v.innerHTML += `: ${e.tier} - ${e.rank}`;
+						status = "on"
+					} 
+					console.log(e)
+				})
+			);
+		});
 	}
 
 	async slide() {
