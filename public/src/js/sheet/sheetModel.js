@@ -6,6 +6,7 @@ const ASCII = {
 class SheetModel {
   constructor() {
     this.maxRow = 50;
+    this.maxColumn = ASCII.Z - ASCII.A + 1;
     this.sheetData;
     this.init();
   }
@@ -26,9 +27,8 @@ class SheetModel {
   //maxRow-row, totalColumn-column 만드는 메소드
   setsheetData() {
     //Max+1: column index 넣기 위한 자리 / total+1: row index 넣기 위한 자리
-    const totalColumn = ASCII.Z - ASCII.A + 1;
     this.sheetData = Array.from(Array(this.maxRow + 1), (_, idx) =>
-      new Array(totalColumn + 1).fill('').map((_, i) => (i ? '' : idx))
+      new Array(this.maxColumn + 1).fill('').map((_, i) => (i ? '' : idx))
     );
   }
   getSheetData() {

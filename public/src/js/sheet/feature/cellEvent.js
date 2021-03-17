@@ -2,6 +2,10 @@ import { _ } from '../../util/util';
 const KEYCODE = {
   TAB: 9,
   ENTER: 13,
+  LEFT: 37,
+  UP: 38,
+  RIGHT: 39,
+  DOWN: 40,
   DELETD: 46,
 };
 class CellEvent {
@@ -25,21 +29,18 @@ class CellEvent {
   }
   handleKeydown(e) {
     const { keyCode } = e;
-    console.log(keyCode);
-    if (keyCode === KEYCODE.ENTER) this._handleEnter();
-    if (keyCode === KEYCODE.TAB) this._handleTab();
+    if (keyCode === KEYCODE.ENTER) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
+    if (keyCode === KEYCODE.TAB) this._handleMoveCell({ moveColumn: 1, moveRow: 0, isTab: true });
+    if (keyCode === KEYCODE.LEFT) this._handleMoveCell({ moveColumn: -1, moveRow: 0 });
+    if (keyCode === KEYCODE.RIGHT) this._handleMoveCell({ moveColumn: 1, moveRow: 0 });
+    if (keyCode === KEYCODE.UP) this._handleMoveCell({ moveColumn: 0, moveRow: -1 });
+    if (keyCode === KEYCODE.DOWN) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
   }
-  _handleEnter() {
+  _handleMoveCell(column, row) {
     const inputValue = this._getInputValue(this.focusedCell);
     const { column: focusColumn, row: rowColumn } = this._getLocation(this.focusedCell);
     this.sheetModel.setData({ column: focusColumn, row: rowColumn, value: inputValue });
-    this._moveFocusedCell(0, 1);
-  }
-  _handleTab() {
-    const inputValue = this._getInputValue(this.focusedCell);
-    const { column: focusColumn, row: rowColumn } = this._getLocation(this.focusedCell);
-    this.sheetModel.setData({ column: focusColumn, row: rowColumn, value: inputValue });
-    this._moveFocusedCell(1, 0);
+    this._moveFocusedCell(column, row);
   }
   _focusCell(target) {
     if (this.focusedCell) this._removeFocused();
@@ -68,18 +69,23 @@ class CellEvent {
     }
   }
   _setNewFocusedCell(moveColumn, moveRow) {
-    const { column: focusColumn, row: rowColumn } = this._getLocation(this.focusedCell);
-    const newFocusedCell = _.$td(
-      { x: focusColumn * 1 + moveColumn, y: rowColumn * 1 + moveRow },
-      this.sheet
-    );
+    const { column: focusColumn, row: focusRow } = this._getLocation(this.focusedCell);
+    const moveIdx = { column: focusColumn * 1 + moveColumn, row: focusRow * 1 + moveRow };
+    if (
+      moveIdx.column <= 0 ||
+      moveIdx.column > this.sheetModel.maxColumn ||
+      moveIdx.row <= 0 ||
+      moveIdx.row > this.sheetModel.maxRow
+    )
+      return;
+    const newFocusedCell = _.$td({ x: moveIdx.column, y: moveIdx.row }, this.sheet);
     this._setFocused(newFocusedCell);
   }
-  _moveFocusedCell(moveColumn, moveRow) {
-    this._focusOutInput();
+  _moveFocusedCell({ moveColumn, moveRow, isTab = false }) {
+    if (!isTab) this._focusOutInput();
     this._removeFocused();
     this._setNewFocusedCell(moveColumn, moveRow);
-    this._focusInput();
+    if (!isTab) this._focusInput();
     this._addFocused();
   }
   _isParentTd(node) {
