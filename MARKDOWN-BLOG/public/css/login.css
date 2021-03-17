@@ -1,0 +1,41 @@
+.login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.login-page .home-btn {
+  color: #24b424;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  width: fit-content;
+  position: relative;
+  padding: 25px;
+  left: 40%;
+  margin: 50px;
+  display: block;
+}
+.login-page .login-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  position: relative;
+  top: 50%;
+  left: 40%;
+  height: 2rem;
+  background-color: lightgray;
+  width: fit-content;
+}
+.login-page .login-container .login-form {
+  padding: 10px;
+}
+.login-page .login-container .login-form input[type=submit] {
+  color: white;
+  background-color: #177aeb;
+  height: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=login.css.map */
