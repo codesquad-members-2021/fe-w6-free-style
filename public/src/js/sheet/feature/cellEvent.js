@@ -49,18 +49,27 @@ class CellEvent {
     this._clearInput();
   }
   _focusCell(target) {
-    if (this.focusedCell) this._removeFocused();
+    if (this._getLastCell()) this._removeFocused();
     this._setFocused(target);
     this._addFocused();
     this._setCellNameBox();
   }
   _addFocused() {
-    this.focusedCell.classList.add('focused');
+    const selectData = this.sheetModel.getSelectData();
+    selectData.forEach(({ cell }) => {
+      const { column, row } = this._getLocation(cell);
+      const focusedCell = _.$td({ x: column, y: row }, this.sheet);
+      focusedCell.classList.add('focused');
+    });
   }
   _removeFocused() {
-    const { column, row } = this._getLocation(this.focusedCell);
-    const focusedCell = _.$td({ x: column, y: row }, this.sheet);
-    focusedCell.classList.remove('focused');
+    const selectData = this.sheetModel.getSelectData();
+    console.log(selectData);
+    selectData.forEach(({ cell }) => {
+      const { column, row } = this._getLocation(cell);
+      const focusedCell = _.$td({ x: column, y: row }, this.sheet);
+      focusedCell.classList.remove('focused');
+    });
   }
   _isIndexCell(node) {
     const nodeParent = node.parentElement;
@@ -68,15 +77,18 @@ class CellEvent {
   }
   _setFocused(node) {
     if (this._isParentTd(node)) {
-      this.focusedInput = node;
-      this.focusedCell = node.parentElement;
+      const input = node;
+      const cell = node.parentElement;
+      this.sheetModel.setSelectData([{ cell, input }]);
     } else {
-      this.focusedCell = node;
-      this.focusedInput = node.firstElementChild;
+      const input = node.firstElementChild;
+      const cell = node;
+      this.sheetModel.setSelectData([{ cell, input }]);
     }
   }
   _setNewFocusedCell(moveColumn, moveRow) {
-    const { column: focusColumn, row: focusRow } = this._getLocation(this.focusedCell);
+    const selectCell = this.sheetModel.getSelectData()[0];
+    const { column: focusColumn, row: focusRow } = this._getLocation(selectCell);
     const moveIdx = { column: focusColumn * 1 + moveColumn, row: focusRow * 1 + moveRow };
     if (
       moveIdx.column <= 0 ||
@@ -87,6 +99,7 @@ class CellEvent {
       return;
     const newFocusedCell = _.$td({ x: moveIdx.column, y: moveIdx.row }, this.sheet);
     this._setFocused(newFocusedCell);
+    1;
   }
   _moveFocusedCell({ moveColumn, moveRow, isTab = false }) {
     if (!isTab) this._focusOutInput();
@@ -99,29 +112,48 @@ class CellEvent {
     return node.parentElement.tagName === 'TD';
   }
   _focusInput() {
-    this.focusedInput.focus();
+    const input = this._getLastInput();
+    input.focus();
   }
   _focusOutInput() {
-    this.focusedInput.blur();
+    const input = this._getLastInput();
+    input.blur();
   }
   _clearInput() {
-    this.focusedInput.value = '';
+    const input = this._getLastInput();
+    input.value = '';
   }
   _setInputValue(value) {
-    this.focusedInput.value = value;
+    const input = this._getLastInput();
+    input.value = value;
   }
   _getInputValue() {
-    return this.focusedInput.value;
+    const input = this._getLastInput();
+    return input.value;
   }
   _getLocation(node) {
     const { attributes } = node;
     return { column: attributes.x.value, row: attributes.y.value };
   }
   _setCellNameBox() {
-    const { column, row } = this._getLocation(this.focusedCell);
+    const selectData = this.sheetModel.getSelectData();
+    const { cell: lastSelectCell } = selectData[selectData.length - 1];
+    const { column, row } = this._getLocation(lastSelectCell);
     const columnAsciiNum = 'A'.charCodeAt() + column * 1 - 1;
     const cellName = String.fromCharCode(columnAsciiNum) + row;
     this.cellNameBox.innerHTML = cellName;
+  }
+  _getLastInput() {
+    const selectData = this.sheetModel.getSelectData();
+    if (!selectData.length) return null;
+    const { input: lastInput } = selectData[selectData.length - 1];
+    return lastInput;
+  }
+  _getLastCell() {
+    const selectData = this.sheetModel.getSelectData();
+    if (!selectData.length) return null;
+    const { cell: lastCell } = selectData[selectData.length - 1];
+    return lastCell;
   }
 }
 
