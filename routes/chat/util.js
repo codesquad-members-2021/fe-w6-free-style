@@ -4,7 +4,7 @@ const questionNumbers = {
   0: "energy",
   1: "information",
   2: "decision",
-  3: "lifecycle",
+  3: "lifestyle",
 };
 
 module.exports = { eachBlocksize, hostNumber, questionNumbers };
