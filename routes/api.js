@@ -15,7 +15,8 @@ apiRouter.post("/", function (req, res) {
     if (userAnswer === startUtterances || !users.has(userId)) users = registerNewUser(users, userId);
 
     const index = users.get(userId).index;
-
+    console.log(index);
+    console.log(questions.length);
     // when the answer is the beginning || end signal
     if (index === questions.length) {
       // create url including user's result, then send it to chatbot as a message
