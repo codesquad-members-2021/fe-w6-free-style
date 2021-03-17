@@ -2,19 +2,17 @@ import { makeRowIndexHTML, makeShellHTML, td, tr } from './htmlTemplate.js';
 import SheetModel from './sheetModel';
 import Select from './feature/select';
 import { add } from '../util/util.js';
-const ASCII = {
-  A: 65,
-  Z: 90,
-};
-
+import CellEvent from './feature/cellEvent.js';
 class SheetView {
   constructor(sheet) {
     this.sheet = sheet;
     this.sheetModel = new SheetModel();
+    this.cellEvent;
     this.selectSheet;
   }
   init() {
     this.render();
+    this.cellEvent = new CellEvent(this.sheet, this.sheetModel);
     this.selectSheet = new Select(this.sheet, this.sheetModel);
   }
   _makeColumnIndex() {

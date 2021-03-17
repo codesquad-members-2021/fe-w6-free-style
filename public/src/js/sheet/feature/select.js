@@ -14,7 +14,7 @@ class Select {
     this.dropData = [];
     this.startDropIdx = {};
     this.endDropIdx = {};
-    this.init();
+    // this.init();
   }
   init() {
     this.addEvent();
@@ -76,6 +76,7 @@ class Select {
     this.beforeSelectData = this.selectData;
     this._updateSelectData(moveIndex);
   }
+
   _selectCell(selectData) {
     selectData.forEach((node) => {
       const { column, row } = node;

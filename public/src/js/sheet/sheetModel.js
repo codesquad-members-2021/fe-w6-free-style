@@ -34,9 +34,8 @@ class SheetModel {
   getSheetData() {
     return this.sheetData;
   }
-  setData(row, col, value) {
+  setData({ col, row, value }) {
     this.sheetData[row][col] = value;
-    return value;
   }
   getData(row, col) {
     return this.sheetData[row][col];
