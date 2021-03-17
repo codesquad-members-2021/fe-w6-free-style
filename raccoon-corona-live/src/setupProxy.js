@@ -1,6 +1,6 @@
-import { createProxyMiddleware } from 'http-proxy-middleware';
-// eslint-disable-next-line
-export default function (app) {
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
+module.exports = function (app) {
   app.use(
     '/openapi/service/rest/Covid19/getCovid19InfStateJson',
     createProxyMiddleware({
@@ -8,4 +8,4 @@ export default function (app) {
       changeOrigin: true,
     })
   );
-}
+};
