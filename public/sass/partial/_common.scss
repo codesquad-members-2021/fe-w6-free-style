@@ -2,13 +2,12 @@ a {
     text-decoration: none;
 }
 
-body.todo {
-    padding-top: 56px;
+body.wrap {    
+    background-color: $all--bgColor;
+    font-family: $all--fontFamily;
 }
 
-body.auth {
-    background-color: $auth--bgColor;
-    font-family: 'Poppins', sans-serif;
+body.h-100vh {
     height: 100vh;
 }
 
@@ -84,12 +83,3 @@ button {
     animation-duration: 1s;    
     animation-fill-mode: both;
 }
-
-
-
-
-
-
-
-
-  

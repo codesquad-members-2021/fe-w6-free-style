@@ -1,0 +1,21 @@
+.todo__wrapper {    
+    width: 100%;
+    min-height: 100%;    
+}
+
+// Nav
+.todo__nav {
+    &__pt-56 {
+        padding-top: 56px;
+    }
+}
+
+// Footer
+.todo__footer {    
+    &__text {
+        font-size: 12px;
+    }
+    &__pb-34 {
+        padding-bottom: 34px;
+    }    
+}
