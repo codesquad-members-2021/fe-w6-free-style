@@ -1,4 +1,6 @@
+echo -e "commit -m "
+read
 git init
 git add .
-git commit -m "commit"
-git push origin web
+git commit -m "$REPLY"
+git push origin web2

@@ -1,2 +1,2 @@
-git pull origin web
+git pull origin web2
 npm start
