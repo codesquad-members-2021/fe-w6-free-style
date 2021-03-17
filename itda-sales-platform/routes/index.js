@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-/* GET home page. */
+/* 디폴트 홈페이지 */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
