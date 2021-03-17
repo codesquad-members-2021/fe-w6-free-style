@@ -83,10 +83,6 @@ class KeyboardEvent {
       focusedCell.classList.remove('focused');
     });
   }
-  _isIndexCell(node) {
-    const nodeParent = node.parentElement;
-    return node.classList.contains('row-index') || nodeParent.classList.contains('column-index');
-  }
   _setFocused(node) {
     if (this._isParentTd(node)) {
       const input = node;

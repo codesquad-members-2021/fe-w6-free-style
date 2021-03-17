@@ -6,7 +6,7 @@ class Select {
     this.sheetModel = model;
     this.isSelectMousedown = false;
     this.isDropMousedown = false;
-    // this.init();
+    this.init();
   }
   init() {
     this.addEvent();
@@ -17,6 +17,8 @@ class Select {
     this.sheet.addEventListener('mouseup', this.handleMouseup.bind(this));
   }
   handleMousedown({ target }) {
+    if (this._isIndexCell(target)) return;
+    this._focusCell(target);
     if (this._isParentTd(target)) this._dragSelectMousedown(target);
   }
   handleMouseover({ target }) {
@@ -27,112 +29,100 @@ class Select {
   }
   _dragSelectMousedown(target) {
     this._toggleSelectStatus();
-    this._clearCheckCells();
-    this._setStartIdx(target);
-    this._setEndIdx(target); //start 및 end index setting
-    this._setCheckIdx(); // check(start~end)인덱스 세팅
-    this._setSelectData(); //check인덱스 바탕으로 selectData세팅
-    this._selectCell(this.selectData); //select
+    this._clearSelectCell();
+    this._setFirstSelectData(target);
+    this._setSelectData();
+    this._selectCell();
   }
   _dragSelectMouseover(target) {
-    const targetCell = target.parentElement;
-    this._clearCheckCells();
-    this._setEndIdx(targetCell); //end index setting
-    this._setCheckIdx(); // check(start~end)인덱스 세팅
-    this._setSelectData(); //check인덱스 바탕으로 selectData세팅
-    this._selectCell(this.selectData); //select
+    this._clearSelectCell();
+    this._addSelectData(target);
+    this._setSelectData();
+    this._selectCell();
   }
   _dragSelectMouseup(target) {
     this._toggleSelectStatus();
-    this._setEndIdx(target); //end index setting
-    this._setCheckIdx(); // check(start~end)인덱스 세팅
-    this._setSelectData(); //check인덱스 바탕으로 selectData세팅
+    // this._setSelectData();
   }
-  //check
-  _selectCell(selectData) {
-    selectData.forEach((node) => {
-      const { column, row } = node;
-      const selectCell = _.$td({ x: column, y: row }, this.sheet);
-      this._addSelected(selectCell);
+  _selectCell() {
+    const selectData = this.sheetModel.getSelectData();
+    selectData.forEach(({ cell, input }) => {
+      this._addSelected(cell);
+      this._addSelected(input);
     });
   }
-  //check
   _isParentTd(node) {
     return node.parentElement.tagName === 'TD';
   }
-  //check
   _addSelected(node) {
     node.classList.add('selected');
-    node.firstElementChild.classList.add('selected');
   }
-  //check
   _removeSelected(node) {
     node.classList.remove('selected');
-    node.firstElementChild.classList.remove('selected');
   }
-  //need
-  _setStartIdx(target) {
-    if (this._isParentTd(target)) target = target.parentElement;
-    const { attributes } = target;
-    this.selectIdx.start = { column: attributes.x.value, row: attributes.y.value };
+  _setFirstSelectData(node) {
+    if (this._isParentTd(node)) {
+      const input = node;
+      const cell = node.parentElement;
+      this.sheetModel.setSelectData([{ cell, input }]);
+    } else {
+      const input = node.firstElementChild;
+      const cell = node;
+      this.sheetModel.setSelectData([{ cell, input }]);
+    }
   }
-  //need
-  _setEndIdx(target) {
-    if (this._isParentTd(target)) target = target.parentElement;
-    const { attributes } = target;
-    this.selectIdx.end = { column: attributes.x.value, row: attributes.y.value };
+  _addSelectData(node) {
+    if (this._isParentTd(node)) {
+      const input = node;
+      const cell = node.parentElement;
+      this.sheetModel.addSelectData({ cell, input });
+    } else {
+      const input = node.firstElementChild;
+      const cell = node;
+      this.sheetModel.addSelectData({ cell, input });
+    }
   }
-  //need
-  _clearCheckCells() {
-    const { start, end } = this.checkData;
-    if (!start || !end) return;
-    this._setSelectData();
-    this.selectData.forEach((node) => {
-      const { column, row } = node;
-      const checkCell = _.$td({ x: column, y: row }, this.sheet);
-      this._removeSelected(checkCell);
+  //select cell들 .selected 클래스 제거
+  _clearSelectCell() {
+    const selectData = this.sheetModel.getSelectData();
+    console.log(selectData);
+    if (!selectData.length) return;
+    selectData.forEach(({ cell, input }) => {
+      this._removeSelected(cell);
+      this._removeSelected(input);
     });
-    this.beforeSelectData.forEach((node) => {
-      const { column, row } = node;
-      const checkCell = _.$td({ x: column, y: row }, this.sheet);
-      this._removeSelected(checkCell);
-    });
   }
-  //need
-  _makeBlockCellIdx(start, end) {
-    const blockCellIdxList = [];
-    const { column: startColumn, row: startRow } = start; //need
-    const { column: endColumn, row: endRow } = end; //need
+  //블락 잡힌 범위 cell,input 구해주는 메소드
+  _getSelectBlockCells({ cell: firstCell }, { cell: lastCell }) {
+    const selectBlockCellList = [];
+    const { column: firstColumn, row: firstRow } = this._getLocation(firstCell);
+    const { column: lastColumn, row: lastRow } = this._getLocation(lastCell);
+
     const [minColumn, maxColumn] = [
-      Math.min(startColumn, endColumn),
-      Math.max(startColumn, endColumn),
+      Math.min(firstColumn, lastColumn),
+      Math.max(firstColumn, lastColumn),
     ];
-    const [minRow, maxRow] = [Math.min(startRow, endRow), Math.max(startRow, endRow)];
+    const [minRow, maxRow] = [Math.min(firstRow, lastRow), Math.max(firstRow, lastRow)];
+
     for (let column = minColumn; column <= maxColumn; column++) {
       for (let row = minRow; row <= maxRow; row++) {
-        const cellIdx = { column, row };
-        blockCellIdxList.push(cellIdx);
+        const selectCell = _.$td({ x: column, y: row }, this.sheet);
+        const selectInput = selectCell.firstElementChild;
+        selectBlockCellList.push({ cell: selectCell, input: selectInput });
       }
     }
-    return blockCellIdxList;
+    return selectBlockCellList;
   }
-  //need
+  //select-block된 cell,input데이터 모델에 setting
   _setSelectData() {
-    const { start, end } = this.selectIdx;
-    this.selectData = this._makeBlockCellIdx(start, end);
+    const firstData = this.sheetModel.getFirstData();
+    const lastData = this.sheetModel.getLastData();
+    const selectBlockCellList = this._getSelectBlockCells(firstData, lastData);
+    this.sheetModel.setSelectData(selectBlockCellList);
   }
-  //need
-  _updateSelectData(moveIdx) {
-    const { start, end } = this.selectIdx;
-    const { moveColumn, moveRow } = moveIdx;
-    start.column += moveColumn;
-    end.column += moveColumn;
-    start.row += moveRow;
-    end.row += moveRow;
-  }
-  //need
-  getSelectData() {
-    return this.selectData;
+  _getLocation(cell) {
+    const { attributes } = cell;
+    return { column: attributes.x.value, row: attributes.y.value };
   }
   //check
   _toggleSelectStatus() {
@@ -141,6 +131,10 @@ class Select {
   //check
   _toggleDropStatus() {
     this.isDropMousedown = !this.isDropMousedown;
+  }
+  _isIndexCell(node) {
+    const nodeParent = node.parentElement;
+    return node.classList.contains('row-index') || nodeParent.classList.contains('column-index');
   }
 }
 

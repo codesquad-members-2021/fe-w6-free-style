@@ -8,6 +8,7 @@ class SheetModel {
     this.maxRow = 50;
     this.maxColumn = ASCII.Z - ASCII.A + 1;
     this.sheetData;
+    this.focusData;
     this.selectData = []; //{cell,input} 형태로 저장
     this.init();
   }
@@ -53,15 +54,13 @@ class SheetModel {
   clearSelectData() {
     this.selectData = [];
   }
-  getFirstInput() {
+  getFirstData() {
     if (!this.selectData.length) return null;
-    const { input: firstInput } = this.selectData[0];
-    return firstInput;
+    return this.selectData[0];
   }
-  getFirstCell() {
+  getLastData() {
     if (!this.selectData.length) return null;
-    const { cell: firstCell } = this.selectData[0];
-    return firstCell;
+    return this.selectData[this.selectData.length - 1];
   }
   getLastInput() {
     if (!this.selectData.length) return null;

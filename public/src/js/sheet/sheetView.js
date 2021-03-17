@@ -27,7 +27,7 @@ class SheetView {
       cellNameBox: this.cellNameBox,
       functionInput: this.functionInput,
     });
-    // this.selectSheet = new Select(this.sheet, this.sheetModel);
+    this.selectSheet = new Select(this.sheet, this.sheetModel);
   }
   _makeColumnIndex() {
     const columnIndexList = this.sheetModel
