@@ -2,8 +2,8 @@ import { makeRowIndexHTML, makeShellHTML, td, tr } from './htmlTemplate.js';
 import SheetModel from './sheetModel';
 import Select from './feature/select';
 import { add, _ } from '../util/util.js';
-import CellEvent from './feature/cellEvent.js';
-import FunctionBar from './feature/functionBar.js';
+import KeyboardEvent from './feature/KeyboardEvent.js';
+import InputEvent from './feature/inputEvent.js';
 class SheetView {
   constructor(sheet) {
     this.sheet = sheet;
@@ -15,13 +15,14 @@ class SheetView {
   }
   init() {
     this.render();
-    this.cellEvent = new CellEvent({
+    this.keyboardEvent = new KeyboardEvent({
       sheet: this.sheet,
       model: this.sheetModel,
       cellNameBox: this.cellNameBox,
       functionInput: this.functionInput,
     });
-    this.functionBar = new FunctionBar({
+    this.inputEvent = new InputEvent({
+      sheet: this.sheet,
       model: this.sheetModel,
       cellNameBox: this.cellNameBox,
       functionInput: this.functionInput,

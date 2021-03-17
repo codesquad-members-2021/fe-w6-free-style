@@ -53,6 +53,16 @@ class SheetModel {
   clearSelectData() {
     this.selectData = [];
   }
+  getLastInput() {
+    if (!this.selectData.length) return null;
+    const { input: lastInput } = this.selectData[this.selectData.length - 1];
+    return lastInput;
+  }
+  getLastCell() {
+    if (!this.selectData.length) return null;
+    const { cell: lastCell } = this.selectData[this.selectData.length - 1];
+    return lastCell;
+  }
 }
 
 export default SheetModel;

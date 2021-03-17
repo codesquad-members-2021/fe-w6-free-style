@@ -8,7 +8,7 @@ const KEYCODE = {
   DOWN: 40,
   DELETD: 46,
 };
-class CellEvent {
+class KeyboardEvent {
   constructor({ sheet, model, cellNameBox, functionInput }) {
     this.sheet = sheet;
     this.sheetModel = model;
@@ -23,6 +23,7 @@ class CellEvent {
   }
   addEvent() {
     this.sheet.addEventListener('mousedown', this.handleMousedown.bind(this));
+    this.functionInput.addEventListener('keydown', this.handleKeydown.bind(this));
     this.sheet.addEventListener('keydown', this.handleKeydown.bind(this));
   }
   handleMousedown({ target }) {
@@ -40,7 +41,7 @@ class CellEvent {
     if (keyCode === KEYCODE.DELETD) this._handleDelete();
   }
   _handleMoveCell(column, row) {
-    const selectCell = this._getLastCell();
+    const selectCell = this.sheetModel.getLastCell();
     const inputValue = this._getInputValue(selectCell);
     const { column: focusColumn, row: rowColumn } = this._getLocation(selectCell);
     this.sheetModel.setData({ column: focusColumn, row: rowColumn, value: inputValue });
@@ -50,9 +51,10 @@ class CellEvent {
   }
   _handleDelete() {
     this._clearInput();
+    this._setFunctionInput();
   }
   _focusCell(target) {
-    if (this._getLastCell()) this._removeFocused();
+    if (this.sheetModel.getLastCell()) this._removeFocused();
     this._setFocused(target);
     this._addFocused();
     this._setCellNameBox();
@@ -90,7 +92,7 @@ class CellEvent {
     }
   }
   _setNewFocusedCell(moveColumn, moveRow) {
-    const selectCell = this._getLastCell();
+    const selectCell = this.sheetModel.getLastCell();
     const { column: focusColumn, row: focusRow } = this._getLocation(selectCell);
     const moveIdx = { column: focusColumn * 1 + moveColumn, row: focusRow * 1 + moveRow };
     if (
@@ -114,23 +116,23 @@ class CellEvent {
     return node.parentElement.tagName === 'TD';
   }
   _focusInput() {
-    const input = this._getLastInput();
+    const input = this.sheetModel.getLastInput();
     input.focus();
   }
   _focusOutInput() {
-    const input = this._getLastInput();
+    const input = this.sheetModel.getLastInput();
     input.blur();
   }
   _clearInput() {
-    const input = this._getLastInput();
+    const input = this.sheetModel.getLastInput();
     input.value = '';
   }
   _setInputValue(value) {
-    const input = this._getLastInput();
+    const input = this.sheetModel.getLastInput();
     input.value = value;
   }
   _getInputValue() {
-    const input = this._getLastInput();
+    const input = this.sheetModel.getLastInput();
     return input.value;
   }
   _getLocation(node) {
@@ -138,29 +140,17 @@ class CellEvent {
     return { column: attributes.x.value, row: attributes.y.value };
   }
   _setCellNameBox() {
-    const selectCell = this._getLastCell();
+    const selectCell = this.sheetModel.getLastCell();
     const { column, row } = this._getLocation(selectCell);
     const columnAsciiNum = 'A'.charCodeAt() + column * 1 - 1;
     const cellName = String.fromCharCode(columnAsciiNum) + row;
     this.cellNameBox.innerHTML = cellName;
   }
   _setFunctionInput() {
-    const seleceInput = this._getLastInput();
+    const seleceInput = this.sheetModel.getLastInput();
     const value = seleceInput.value;
     this.functionInput.value = value;
   }
-  _getLastInput() {
-    const selectData = this.sheetModel.getSelectData();
-    if (!selectData.length) return null;
-    const { input: lastInput } = selectData[selectData.length - 1];
-    return lastInput;
-  }
-  _getLastCell() {
-    const selectData = this.sheetModel.getSelectData();
-    if (!selectData.length) return null;
-    const { cell: lastCell } = selectData[selectData.length - 1];
-    return lastCell;
-  }
 }
 
-export default CellEvent;
+export default KeyboardEvent;
