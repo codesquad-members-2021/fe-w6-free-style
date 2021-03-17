@@ -72,11 +72,21 @@ apiRouter.post("/", function (req, res) {
   }
 });
 
-// apiRouter.get("/result", function (req, res, next) {
-//   const type = req.query.type;
-//   const scores = req.query.scores;
-//   console.log(type, scores);
-//   res.send({ type, scores });
-// });
+const createBase = require("../views/createBase.js");
+const createResult = require("../views/createResult.js");
+const style_href = require("../utils.js");
+const createGraph = require("../views/createGraph.js");
+const fs = require("fs");
+
+apiRouter.use(express.json());
+
+apiRouter.get("/result", function (req, res, next) {
+  const type = req.query.type;
+  const scores = req.query.scores;
+  const jsonData = JSON.parse(fs.readFileSync("./data/personalities.json"));
+  const result = createResult(jsonData[type]);
+  const graph = createGraph(scores);
+  res.send(createBase(style_href, result, graph));
+});
 
 module.exports = apiRouter;

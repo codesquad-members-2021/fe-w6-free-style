@@ -13,9 +13,7 @@ router.get("", function (req, res, next) {
   const scores = req.query.scores;
   const jsonData = JSON.parse(fs.readFileSync("./data/personalities.json"));
   const result = createResult(jsonData[type]);
-  console.log(scores);
   const graph = createGraph(scores);
-  // const graph = `<div class="graph">graph</div>`;
   res.send(createBase(style_href, result, graph));
 });
 
