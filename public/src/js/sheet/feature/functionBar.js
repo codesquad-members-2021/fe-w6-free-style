@@ -1,9 +1,10 @@
 import { _ } from '../../util/util';
 
 class FunctionBar {
-  constructor({ cellNameBox }) {
+  constructor({ cellNameBox, model }) {
     this.nameBox = cellNameBox;
-    this.functionInput = _.$('.function-box>input');
+    this.sheetModel = model;
+    this.functionInput = functionInput;
     this.init();
   }
   init() {
@@ -13,9 +14,6 @@ class FunctionBar {
     this.functionInput.addEventListener('input', this.handleInput.bind(this));
   }
   handleInput({ target }) {}
-  setNameBox(value) {
-    this.nameBox.innerHTML = value;
-  }
 }
 
 export default FunctionBar;

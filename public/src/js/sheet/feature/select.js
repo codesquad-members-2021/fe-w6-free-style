@@ -26,15 +26,12 @@ class Select {
   }
   handleMousedown({ target }) {
     if (this._isParentTd(target)) this._dragSelectMousedown(target);
-    // else this._dragDropMousedown(target);
   }
   handleMouseover({ target }) {
     if (this.isSelectMousedown && this._isParentTd(target)) this._dragSelectMouseover(target);
-    // if (this.isDropMousedown) this._dragDropMouseover(target);
   }
   handleMouseup({ target }) {
     if (this.isSelectMousedown) this._dragSelectMouseup(target);
-    // if (this.isDropMousedown) this._dragDropMouseup(target);
   }
   _dragSelectMousedown(target) {
     this._toggleSelectStatus();
@@ -59,24 +56,6 @@ class Select {
     this._setCheckIdx(); // check(start~end)인덱스 세팅
     this._setSelectData(); //check인덱스 바탕으로 selectData세팅
   }
-  _dragDropMousedown(target) {
-    this._toggleDropStatus();
-    this._setStartDropIdx(target);
-  }
-  _dragDropMouseover(target) {
-    //border
-  }
-  _dragDropMouseup(target) {
-    this._toggleDropStatus();
-    this._clearCheckCells();
-    this._setEndDropIdx(target);
-    const moveIndex = this._getMoveDropIdx();
-    this._setDropData(moveIndex);
-    this._selectCell(this.dropData);
-    this.beforeSelectData = this.selectData;
-    this._updateSelectData(moveIndex);
-  }
-
   _selectCell(selectData) {
     selectData.forEach((node) => {
       const { column, row } = node;

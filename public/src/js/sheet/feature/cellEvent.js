@@ -9,10 +9,11 @@ const KEYCODE = {
   DELETD: 46,
 };
 class CellEvent {
-  constructor({ sheet, model, cellNameBox }) {
+  constructor({ sheet, model, cellNameBox, functionInput }) {
     this.sheet = sheet;
     this.sheetModel = model;
     this.cellNameBox = cellNameBox;
+    this.functionInput = functionInput;
     this.focusedCell;
     this.focusedInput;
     this.init();
@@ -39,11 +40,13 @@ class CellEvent {
     if (keyCode === KEYCODE.DELETD) this._handleDelete();
   }
   _handleMoveCell(column, row) {
-    const inputValue = this._getInputValue(this.focusedCell);
-    const { column: focusColumn, row: rowColumn } = this._getLocation(this.focusedCell);
+    const selectCell = this._getLastCell();
+    const inputValue = this._getInputValue(selectCell);
+    const { column: focusColumn, row: rowColumn } = this._getLocation(selectCell);
     this.sheetModel.setData({ column: focusColumn, row: rowColumn, value: inputValue });
     this._moveFocusedCell(column, row);
     this._setCellNameBox();
+    this._setFunctionInput();
   }
   _handleDelete() {
     this._clearInput();
@@ -53,6 +56,7 @@ class CellEvent {
     this._setFocused(target);
     this._addFocused();
     this._setCellNameBox();
+    this._setFunctionInput();
   }
   _addFocused() {
     const selectData = this.sheetModel.getSelectData();
@@ -64,7 +68,6 @@ class CellEvent {
   }
   _removeFocused() {
     const selectData = this.sheetModel.getSelectData();
-    console.log(selectData);
     selectData.forEach(({ cell }) => {
       const { column, row } = this._getLocation(cell);
       const focusedCell = _.$td({ x: column, y: row }, this.sheet);
@@ -87,7 +90,7 @@ class CellEvent {
     }
   }
   _setNewFocusedCell(moveColumn, moveRow) {
-    const selectCell = this.sheetModel.getSelectData()[0];
+    const selectCell = this._getLastCell();
     const { column: focusColumn, row: focusRow } = this._getLocation(selectCell);
     const moveIdx = { column: focusColumn * 1 + moveColumn, row: focusRow * 1 + moveRow };
     if (
@@ -99,7 +102,6 @@ class CellEvent {
       return;
     const newFocusedCell = _.$td({ x: moveIdx.column, y: moveIdx.row }, this.sheet);
     this._setFocused(newFocusedCell);
-    1;
   }
   _moveFocusedCell({ moveColumn, moveRow, isTab = false }) {
     if (!isTab) this._focusOutInput();
@@ -136,12 +138,16 @@ class CellEvent {
     return { column: attributes.x.value, row: attributes.y.value };
   }
   _setCellNameBox() {
-    const selectData = this.sheetModel.getSelectData();
-    const { cell: lastSelectCell } = selectData[selectData.length - 1];
-    const { column, row } = this._getLocation(lastSelectCell);
+    const selectCell = this._getLastCell();
+    const { column, row } = this._getLocation(selectCell);
     const columnAsciiNum = 'A'.charCodeAt() + column * 1 - 1;
     const cellName = String.fromCharCode(columnAsciiNum) + row;
     this.cellNameBox.innerHTML = cellName;
+  }
+  _setFunctionInput() {
+    const seleceInput = this._getLastInput();
+    const value = seleceInput.value;
+    this.functionInput.value = value;
   }
   _getLastInput() {
     const selectData = this.sheetModel.getSelectData();

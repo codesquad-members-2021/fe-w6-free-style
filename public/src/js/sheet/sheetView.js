@@ -9,6 +9,7 @@ class SheetView {
     this.sheet = sheet;
     this.sheetModel = new SheetModel();
     this.cellNameBox = _.$('.namebox');
+    this.functionInput = _.$('.function-box>input');
     this.cellEvent;
     this.selectSheet;
   }
@@ -18,9 +19,12 @@ class SheetView {
       sheet: this.sheet,
       model: this.sheetModel,
       cellNameBox: this.cellNameBox,
+      functionInput: this.functionInput,
     });
     this.functionBar = new FunctionBar({
+      model: this.sheetModel,
       cellNameBox: this.cellNameBox,
+      functionInput: this.functionInput,
     });
     // this.selectSheet = new Select(this.sheet, this.sheetModel);
   }
