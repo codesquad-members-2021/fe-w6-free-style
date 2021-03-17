@@ -4,7 +4,7 @@ const app = express();
 
 const indexRouter = require('./routes/index');
 const imageRouter = require('./routes/image');
-const brandRouter = require('./routes/brandstory');
+const pageRouter = require('./routes/pages');
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -12,7 +12,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/image', imageRouter);
-app.use('/brandstory', brandRouter);
+app.use('/page', pageRouter);
 
 //에러핸들링
 app.use(function(req, res, next) {
