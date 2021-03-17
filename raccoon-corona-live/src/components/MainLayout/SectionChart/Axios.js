@@ -7,12 +7,11 @@ function Axios() {
     const config = {
       headers: { 'Access-Control-Allow-Origin': '*' },
     };
-    const response = await axios.get(
-      'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=%2FhhlLesgYTFlmemw61qq1MG2h987yaf2g8fl0JC2fcXPPUrrAH%2BgpzsyvjLfnuPUfaq5MLQhCmTqgOtWXNELuw%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200310&endCreateDt=20200315',
-      config
-    );
-    const text = response.text();
-    const data = new XMLParser().parserFromString(text);
+    const url =
+      'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=%2FhhlLesgYTFlmemw61qq1MG2h987yaf2g8fl0JC2fcXPPUrrAH%2BgpzsyvjLfnuPUfaq5MLQhCmTqgOtWXNELuw%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200310&endCreateDt=20200315';
+    const response = await axios.get(url, config);
+    console.log(response);
+    const data = new XMLParser().parserFromString(response);
     console.log(data);
     return data;
   };
