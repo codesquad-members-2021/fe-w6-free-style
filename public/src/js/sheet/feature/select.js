@@ -6,14 +6,6 @@ class Select {
     this.sheetModel = model;
     this.isSelectMousedown = false;
     this.isDropMousedown = false;
-    this.selectIdx = {};
-    this.dropIdx = {};
-    this.checkData = {};
-    this.beforeSelectData = [];
-    this.selectData = [];
-    this.dropData = [];
-    this.startDropIdx = {};
-    this.endDropIdx = {};
     // this.init();
   }
   init() {
@@ -56,6 +48,7 @@ class Select {
     this._setCheckIdx(); // check(start~end)인덱스 세팅
     this._setSelectData(); //check인덱스 바탕으로 selectData세팅
   }
+  //check
   _selectCell(selectData) {
     selectData.forEach((node) => {
       const { column, row } = node;
@@ -63,27 +56,33 @@ class Select {
       this._addSelected(selectCell);
     });
   }
+  //check
   _isParentTd(node) {
     return node.parentElement.tagName === 'TD';
   }
+  //check
   _addSelected(node) {
     node.classList.add('selected');
     node.firstElementChild.classList.add('selected');
   }
+  //check
   _removeSelected(node) {
     node.classList.remove('selected');
     node.firstElementChild.classList.remove('selected');
   }
+  //need
   _setStartIdx(target) {
     if (this._isParentTd(target)) target = target.parentElement;
     const { attributes } = target;
     this.selectIdx.start = { column: attributes.x.value, row: attributes.y.value };
   }
+  //need
   _setEndIdx(target) {
     if (this._isParentTd(target)) target = target.parentElement;
     const { attributes } = target;
     this.selectIdx.end = { column: attributes.x.value, row: attributes.y.value };
   }
+  //need
   _clearCheckCells() {
     const { start, end } = this.checkData;
     if (!start || !end) return;
@@ -99,10 +98,11 @@ class Select {
       this._removeSelected(checkCell);
     });
   }
+  //need
   _makeBlockCellIdx(start, end) {
     const blockCellIdxList = [];
-    const { column: startColumn, row: startRow } = start;
-    const { column: endColumn, row: endRow } = end;
+    const { column: startColumn, row: startRow } = start; //need
+    const { column: endColumn, row: endRow } = end; //need
     const [minColumn, maxColumn] = [
       Math.min(startColumn, endColumn),
       Math.max(startColumn, endColumn),
@@ -116,26 +116,12 @@ class Select {
     }
     return blockCellIdxList;
   }
-  _setCheckIdx() {
-    const { start, end } = this.selectIdx;
-    const [minColumn, maxColumn] = [
-      Math.min(start.column, end.column),
-      Math.max(start.column, end.column),
-    ];
-    const [minRow, maxRow] = [Math.min(start.row, end.row), Math.max(start.row, end.row)];
-    this.checkData.start = {
-      column: minColumn > 10 ? minColumn - 10 : 0,
-      row: minRow > 10 ? minRow - 10 : 0,
-    };
-    this.checkData.end = {
-      column: maxColumn + 10,
-      row: maxRow + 10,
-    };
-  }
+  //need
   _setSelectData() {
     const { start, end } = this.selectIdx;
     this.selectData = this._makeBlockCellIdx(start, end);
   }
+  //need
   _updateSelectData(moveIdx) {
     const { start, end } = this.selectIdx;
     const { moveColumn, moveRow } = moveIdx;
@@ -144,34 +130,15 @@ class Select {
     start.row += moveRow;
     end.row += moveRow;
   }
+  //need
   getSelectData() {
     return this.selectData;
   }
-  _setStartDropIdx(target) {
-    const { attributes } = target;
-    this.dropIdx.start = { column: attributes.x.value, row: attributes.y.value };
-  }
-  _setEndDropIdx(target) {
-    if (this._isParentTd(target)) target = target.parentElement;
-    const { attributes } = target;
-    this.dropIdx.end = { column: attributes.x.value, row: attributes.y.value };
-  }
-  _setDropData(moveIdx) {
-    const { column: moveColumn, row: moveRow } = moveIdx;
-    this.dropData = this.selectData.map((location) => {
-      const { column, row } = location;
-      return { column: column + moveColumn, row: row + moveRow };
-    });
-  }
-  _getMoveDropIdx() {
-    const { start, end } = this.dropIdx;
-    const moveColumn = end.column - start.column;
-    const moveRow = end.row - start.row + 1;
-    return { column: moveColumn, row: moveRow };
-  }
+  //check
   _toggleSelectStatus() {
     this.isSelectMousedown = !this.isSelectMousedown;
   }
+  //check
   _toggleDropStatus() {
     this.isDropMousedown = !this.isDropMousedown;
   }
