@@ -1,9 +1,10 @@
 import { _ } from '../../util/util';
 
 class SelectEvent {
-  constructor(sheet, model) {
+  constructor({ sheet, model, cellNameBox }) {
     this.sheet = sheet;
     this.sheetModel = model;
+    this.cellNameBox = cellNameBox;
     this.isSelectMousedown = false;
     this.isDropMousedown = false;
     this.init();

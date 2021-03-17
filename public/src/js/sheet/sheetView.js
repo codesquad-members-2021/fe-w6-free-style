@@ -1,8 +1,8 @@
 import { makeRowIndexHTML, makeShellHTML, td, tr } from './htmlTemplate.js';
 import SheetModel from './sheetModel';
-import SelectEvent from './feature/select';
+import SelectEvent from './feature/selectEvent.js';
 import { add, _ } from '../util/util.js';
-import KeyboardEvent from './feature/KeyboardEvent.js';
+import KeyboardEvent from './feature/keyboardEvent.js';
 import InputEvent from './feature/inputEvent.js';
 class SheetView {
   constructor(sheet) {
@@ -10,24 +10,22 @@ class SheetView {
     this.sheetModel = new SheetModel();
     this.cellNameBox = _.$('.namebox');
     this.functionInput = _.$('.function-box>input');
-    this.cellEvent;
-    this.selectSheet;
   }
   init() {
     this.render();
-    this.keyboardEvent = new KeyboardEvent({
+    const keyboardEvent = new KeyboardEvent({
       sheet: this.sheet,
       model: this.sheetModel,
       cellNameBox: this.cellNameBox,
       functionInput: this.functionInput,
     });
-    this.inputEvent = new InputEvent({
+    const inputEvent = new InputEvent({
       sheet: this.sheet,
       model: this.sheetModel,
       cellNameBox: this.cellNameBox,
       functionInput: this.functionInput,
     });
-    this.selectSheet = new SelectEvent({
+    const selectEvent = new SelectEvent({
       sheet: this.sheet,
       model: this.sheetModel,
       cellNameBox: this.cellNameBox,
