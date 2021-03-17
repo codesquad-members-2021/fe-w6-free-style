@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 import axios from 'axios';
 
 function Axios() {
-  const ApiDefault = {
-    url: 'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson',
+  const requestDefault = {
+    path: '/openapi/service/rest/Covid19/getCovid19InfStateJson',
     serviceKey: '%2FhhlLesgYTFlmemw61qq1MG2h987yaf2g8fl0JC2fcXPPUrrAH%2BgpzsyvjLfnuPUfaq5MLQhCmTqgOtWXNELuw%3D%3D',
   };
   const param = {
-    serviceKey: '%2FhhlLesgYTFlmemw61qq1MG2h987yaf2g8fl0JC2fcXPPUrrAH%2BgpzsyvjLfnuPUfaq5MLQhCmTqgOtWXNELuw%3D%3D',
     pageNo: 1,
     numOfRows: 10,
     startCreateDt: 20200310,
@@ -15,19 +14,15 @@ function Axios() {
   };
 
   const queryParam = new URLSearchParams(param);
-  console.log(queryParam.toString());
-  const test = `${ApiDefault.url}?${queryParam.toString()}`;
 
-  const request = `?serviceKey=${ApiDefault.serviceKey}&${queryParam.toString()}`;
-  // const request = `${test}`;
-  console.log(request);
-  console.log(test);
+  const request = `${requestDefault.path}?serviceKey=${requestDefault.serviceKey}&${queryParam.toString()}`;
+
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get(request);
-      console.log(response);
-
-      return response;
+      const res = await axios.get(request);
+      console.log(res.data.response.body.items.item);
+      const data = res.data.response.body.items.item;
+      return data;
     };
 
     fetchData();
