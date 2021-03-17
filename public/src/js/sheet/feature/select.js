@@ -18,7 +18,6 @@ class Select {
   }
   handleMousedown({ target }) {
     if (this._isIndexCell(target)) return;
-    this._focusCell(target);
     if (this._isParentTd(target)) this._dragSelectMousedown(target);
   }
   handleMouseover({ target }) {

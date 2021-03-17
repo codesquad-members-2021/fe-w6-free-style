@@ -62,15 +62,18 @@ class SheetModel {
     if (!this.selectData.length) return null;
     return this.selectData[this.selectData.length - 1];
   }
-  getLastInput() {
-    if (!this.selectData.length) return null;
-    const { input: lastInput } = this.selectData[this.selectData.length - 1];
-    return lastInput;
+  setFocusData(focusData) {
+    this.focusData = focusData;
   }
-  getLastCell() {
-    if (!this.selectData.length) return null;
-    const { cell: lastCell } = this.selectData[this.selectData.length - 1];
-    return lastCell;
+  getFocusInput() {
+    if (!this.focusData) return null;
+    const { input: focusInput } = this.focusData;
+    return focusInput;
+  }
+  getFocusCell() {
+    if (!this.focusData) return null;
+    const { cell: focusCell } = this.focusData;
+    return focusCell;
   }
 }
 

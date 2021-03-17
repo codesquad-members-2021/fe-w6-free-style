@@ -36,7 +36,7 @@ class KeyboardEvent {
     if (keyCode === KEYCODE.ENTER) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
   }
   handleFnKeydown({ keyCode }) {
-    if (!this.sheetModel.getLastInput()) return;
+    if (!this.sheetModel.getFocusInput()) return;
     this._commonKeyboardEvent(keyCode);
     if (keyCode === KEYCODE.ENTER) this._handleMoveCell({ moveColumn: 0, moveRow: 0 });
   }
@@ -48,7 +48,7 @@ class KeyboardEvent {
     if (keyCode === KEYCODE.DOWN) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
   }
   _handleMoveCell(column, row) {
-    const selectCell = this.sheetModel.getLastCell();
+    const selectCell = this.sheetModel.getFocusCell();
     const inputValue = this._getInputValue(selectCell);
     const { column: focusColumn, row: rowColumn } = this._getLocation(selectCell);
     this.sheetModel.setData({ column: focusColumn, row: rowColumn, value: inputValue });
@@ -61,41 +61,33 @@ class KeyboardEvent {
     this._setFunctionInput();
   }
   _focusCell(target) {
-    if (this.sheetModel.getLastCell()) this._removeFocused();
+    if (this.sheetModel.getFocusCell()) this._removeFocused();
     this._setFocused(target);
     this._addFocused();
     this._setCellNameBox();
     this._setFunctionInput();
   }
   _addFocused() {
-    const selectData = this.sheetModel.getSelectData();
-    selectData.forEach(({ cell }) => {
-      const { column, row } = this._getLocation(cell);
-      const focusedCell = _.$td({ x: column, y: row }, this.sheet);
-      focusedCell.classList.add('focused');
-    });
+    const focusCell = this.sheetModel.getFocusCell();
+    focusCell.classList.add('focused');
   }
   _removeFocused() {
-    const selectData = this.sheetModel.getSelectData();
-    selectData.forEach(({ cell }) => {
-      const { column, row } = this._getLocation(cell);
-      const focusedCell = _.$td({ x: column, y: row }, this.sheet);
-      focusedCell.classList.remove('focused');
-    });
+    const focusCell = this.sheetModel.getFocusCell();
+    focusCell.classList.remove('focused');
   }
   _setFocused(node) {
     if (this._isParentTd(node)) {
       const input = node;
       const cell = node.parentElement;
-      this.sheetModel.setSelectData([{ cell, input }]);
+      this.sheetModel.setFocusData({ cell, input });
     } else {
       const input = node.firstElementChild;
       const cell = node;
-      this.sheetModel.setSelectData([{ cell, input }]);
+      this.sheetModel.setFocusData({ cell, input });
     }
   }
   _setNewFocusedCell(moveColumn, moveRow) {
-    const selectCell = this.sheetModel.getLastCell();
+    const selectCell = this.sheetModel.getFocusCell();
     const { column: focusColumn, row: focusRow } = this._getLocation(selectCell);
     const moveIdx = { column: focusColumn * 1 + moveColumn, row: focusRow * 1 + moveRow };
     if (
@@ -119,23 +111,23 @@ class KeyboardEvent {
     return node.parentElement.tagName === 'TD';
   }
   _focusInput() {
-    const input = this.sheetModel.getLastInput();
+    const input = this.sheetModel.getFocusInput();
     input.focus();
   }
   _focusOutInput() {
-    const input = this.sheetModel.getLastInput();
+    const input = this.sheetModel.getFocusInput();
     input.blur();
   }
   _clearInput() {
-    const input = this.sheetModel.getLastInput();
+    const input = this.sheetModel.getFocusInput();
     input.value = '';
   }
   _setInputValue(value) {
-    const input = this.sheetModel.getLastInput();
+    const input = this.sheetModel.getFocusInput();
     input.value = value;
   }
   _getInputValue() {
-    const input = this.sheetModel.getLastInput();
+    const input = this.sheetModel.getFocusInput();
     return input.value;
   }
   _getLocation(node) {
@@ -143,16 +135,20 @@ class KeyboardEvent {
     return { column: attributes.x.value, row: attributes.y.value };
   }
   _setCellNameBox() {
-    const selectCell = this.sheetModel.getLastCell();
+    const selectCell = this.sheetModel.getFocusCell();
     const { column, row } = this._getLocation(selectCell);
     const columnAsciiNum = 'A'.charCodeAt() + column * 1 - 1;
     const cellName = String.fromCharCode(columnAsciiNum) + row;
     this.cellNameBox.innerHTML = cellName;
   }
   _setFunctionInput() {
-    const seleceInput = this.sheetModel.getLastInput();
+    const seleceInput = this.sheetModel.getFocusInput();
     const value = seleceInput.value;
     this.functionInput.value = value;
+  }
+  _isIndexCell(node) {
+    const nodeParent = node.parentElement;
+    return node.classList.contains('row-index') || nodeParent.classList.contains('column-index');
   }
 }
 
