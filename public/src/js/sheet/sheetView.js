@@ -1,6 +1,6 @@
 import { makeRowIndexHTML, makeShellHTML, td, tr } from './htmlTemplate.js';
 import SheetModel from './sheetModel';
-import Select from './feature/select';
+import SelectEvent from './feature/select';
 import { add, _ } from '../util/util.js';
 import KeyboardEvent from './feature/KeyboardEvent.js';
 import InputEvent from './feature/inputEvent.js';
@@ -27,7 +27,11 @@ class SheetView {
       cellNameBox: this.cellNameBox,
       functionInput: this.functionInput,
     });
-    this.selectSheet = new Select(this.sheet, this.sheetModel);
+    this.selectSheet = new SelectEvent({
+      sheet: this.sheet,
+      model: this.sheetModel,
+      cellNameBox: this.cellNameBox,
+    });
   }
   _makeColumnIndex() {
     const columnIndexList = this.sheetModel

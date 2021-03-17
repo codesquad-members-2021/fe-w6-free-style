@@ -1,6 +1,6 @@
 import { _ } from '../../util/util';
 
-class Select {
+class SelectEvent {
   constructor(sheet, model) {
     this.sheet = sheet;
     this.sheetModel = model;
@@ -18,7 +18,7 @@ class Select {
   }
   handleMousedown({ target }) {
     if (this._isIndexCell(target)) return;
-    if (this._isParentTd(target)) this._dragSelectMousedown(target);
+    this._dragSelectMousedown(target);
   }
   handleMouseover({ target }) {
     if (this.isSelectMousedown && this._isParentTd(target)) this._dragSelectMouseover(target);
@@ -41,7 +41,6 @@ class Select {
   }
   _dragSelectMouseup(target) {
     this._toggleSelectStatus();
-    // this._setSelectData();
   }
   _selectCell() {
     const selectData = this.sheetModel.getSelectData();
@@ -84,7 +83,6 @@ class Select {
   //select cell들 .selected 클래스 제거
   _clearSelectCell() {
     const selectData = this.sheetModel.getSelectData();
-    console.log(selectData);
     if (!selectData.length) return;
     selectData.forEach(({ cell, input }) => {
       this._removeSelected(cell);
@@ -123,11 +121,9 @@ class Select {
     const { attributes } = cell;
     return { column: attributes.x.value, row: attributes.y.value };
   }
-  //check
   _toggleSelectStatus() {
     this.isSelectMousedown = !this.isSelectMousedown;
   }
-  //check
   _toggleDropStatus() {
     this.isDropMousedown = !this.isDropMousedown;
   }
@@ -137,4 +133,4 @@ class Select {
   }
 }
 
-export default Select;
+export default SelectEvent;
