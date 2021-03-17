@@ -34,7 +34,10 @@
                         placeholder="Password (Confirm)"
                         autocomplete="off"
                     />
-                    <input type="submit" value="Confirm" />                                        
+                    <input type="submit" value="Confirm" /> 
+                    <% if (errorMessage) { %>
+                    <p class="auth--error"><%= errorMessage %></p>
+                    <% } %>                                       
                 </form>
 
                 <div class="auth__footer">

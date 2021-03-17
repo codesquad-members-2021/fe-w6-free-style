@@ -6,15 +6,14 @@
         <%- include('./partial/vendors.html') %>
     </head>
     <body class="auth">
-        <div class="auth__wrapper animation__fadeDown">
+        <div class="auth__wrapper">
             <div class="auth__content">
-                <div class="animation__fadeIn fadeIn--first">
+                <div>
                     <h2>MD Todo</h2>
                 </div>
 
                 <form class="auth__content__form" method="POST" action="/auth/login">
                     <input
-                        class="animation__fadeIn fadeIn--second"
                         type="text"                        
                         name="userid"
                         id="userid"                                                
@@ -22,7 +21,6 @@
                         autocomplete="off"
                     />
                     <input
-                        class="animation__fadeIn fadeIn--third"
                         type="password"
                         name="userpwd"
                         id="userpwd"                                                
@@ -31,11 +29,14 @@
                     />
                     <input
                         type="submit"
-                        class="animation__fadeIn fadeIn--fourth"
                         value="Login"
                     />
-                </form>
+                    <% if (errorMessage) { %>
+                    <p class="auth--error"><%= errorMessage %></p>
+                    <% } %>
 
+                </form>
+                
                 <div class="auth__footer">
                     <a href="/auth/register">Register</a>
                 </div>

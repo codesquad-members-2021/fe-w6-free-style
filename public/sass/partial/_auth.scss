@@ -35,6 +35,8 @@
 
 // 로그인(메인) / 회원가입 : content -> form
 .auth__content__form {
+    position: relative;
+
     input[type='button'],
     input[type='submit'],
     input[type='reset'] {
@@ -88,6 +90,16 @@
     
     input[type='text']:placeholder {
         color: #cccccc;
+    }
+
+    p.auth--error {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;        
+        color: $auth--errColor;
+        margin: 0;
+        margin-right: 14px;
+        font-size: 13px;
     }
 }
 
