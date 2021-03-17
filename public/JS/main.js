@@ -29,12 +29,8 @@ new Separator(separatorData);
 // .then((r)=>console.log(r));
 
 
-// const userID = "hide on bush";
-// const APIKey = "";
-//prettier-ignore
-// fetch(`https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${userID}?api_key=${APIKey}`, {
-// 	headers :{
-// 		'Access-Control-Allow-Origin' : '*'
-// 	}
-// })
-// 	.then((v)=>console.log(v))
+const userID = "hide on bush";
+const APIKey = "RGAPI-bdab7472-d5e8-44f0-8482-a1687725e500";
+// prettier-ignore
+fetch(`https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${userID}?api_key=${APIKey}`)
+	.then((v)=>console.log(v))
