@@ -36,6 +36,7 @@ class CellEvent {
     if (keyCode === KEYCODE.RIGHT) this._handleMoveCell({ moveColumn: 1, moveRow: 0 });
     if (keyCode === KEYCODE.UP) this._handleMoveCell({ moveColumn: 0, moveRow: -1 });
     if (keyCode === KEYCODE.DOWN) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
+    if (keyCode === KEYCODE.DELETD) this._handleDelete();
   }
   _handleMoveCell(column, row) {
     const inputValue = this._getInputValue(this.focusedCell);
@@ -43,6 +44,9 @@ class CellEvent {
     this.sheetModel.setData({ column: focusColumn, row: rowColumn, value: inputValue });
     this._moveFocusedCell(column, row);
     this._setCellNameBox();
+  }
+  _handleDelete() {
+    this._clearInput();
   }
   _focusCell(target) {
     if (this.focusedCell) this._removeFocused();
@@ -99,6 +103,9 @@ class CellEvent {
   }
   _focusOutInput() {
     this.focusedInput.blur();
+  }
+  _clearInput() {
+    this.focusedInput.value = '';
   }
   _setInputValue(value) {
     this.focusedInput.value = value;
