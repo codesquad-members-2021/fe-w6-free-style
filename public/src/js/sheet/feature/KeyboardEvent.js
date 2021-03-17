@@ -33,12 +33,14 @@ class KeyboardEvent {
   handleSheetKeydown({ keyCode }) {
     this._commonKeyboardEvent(keyCode);
     if (keyCode === KEYCODE.DELETD) this._handleDelete();
+    if (keyCode === KEYCODE.ENTER) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
   }
   handleFnKeydown({ keyCode }) {
+    if (!this.sheetModel.getLastInput()) return;
     this._commonKeyboardEvent(keyCode);
+    if (keyCode === KEYCODE.ENTER) this._handleMoveCell({ moveColumn: 0, moveRow: 0 });
   }
   _commonKeyboardEvent(keyCode) {
-    if (keyCode === KEYCODE.ENTER) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
     if (keyCode === KEYCODE.TAB) this._handleMoveCell({ moveColumn: 1, moveRow: 0, isTab: true });
     if (keyCode === KEYCODE.LEFT) this._handleMoveCell({ moveColumn: -1, moveRow: 0 });
     if (keyCode === KEYCODE.RIGHT) this._handleMoveCell({ moveColumn: 1, moveRow: 0 });
