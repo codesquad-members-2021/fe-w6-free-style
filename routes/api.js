@@ -62,7 +62,7 @@ apiRouter.post("/", function (req, res) {
       users = updateResult(users, userId, totalQuestionIndex, typeArr);
       users.get(userId).totalQuestionIndex++;
       const breakMessage = createBreakMessage(blockIds, selectedMsg, startUtterances, { users, userId });
-      ++users.get(userId).index;
+      // ++users.get(userId).index;
       res.status(200).json(breakMessage);
     } else {
       users.get(userId).index++;
