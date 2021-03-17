@@ -5,7 +5,7 @@
         <title><%= title %></title>
         <%- include('./partial/vendors.html') %>
     </head>
-    <body class="auth">
+    <body class="wrap h-100vh">
         <div class="auth__wrapper">
             <div class="auth__content">
                 <div>
@@ -34,7 +34,10 @@
                         placeholder="Password (Confirm)"
                         autocomplete="off"
                     />
-                    <input type="submit" value="Confirm" />                                        
+                    <input type="submit" value="Confirm" /> 
+                    <% if (errorMessage) { %>
+                    <p class="auth--error"><%= errorMessage %></p>
+                    <% } %>                                       
                 </form>
 
                 <div class="auth__footer">
