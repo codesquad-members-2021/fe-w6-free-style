@@ -53,7 +53,12 @@ router.post('/register', async (req, res) => {
             return res.redirect('register');
         }
 
-        await User.create({ userid, userpwd });
+        const createUser = await User.create({ userid, userpwd });
+        if (!createUser) {
+            req.flash('errorMessage', '계정 생성에 실패했습니다.');
+            return res.redirect('register');
+        }
+
         return res.redirect('/todo');
     } catch (error) {
         console.error(error);
