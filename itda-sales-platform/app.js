@@ -2,16 +2,17 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
+const indexRouter = require('./routes/index');
+const imageRouter = require('./routes/image');
+const brandRouter = require('./routes/brandstory');
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-const indexRouter = require('./routes/index');
-const imageRouter = require('./routes/image');
-
 app.use('/', indexRouter);
 app.use('/image', imageRouter);
+app.use('/brandstory', brandRouter);
 
 //에러핸들링
 app.use(function(req, res, next) {
@@ -27,3 +28,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
