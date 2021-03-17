@@ -8,4 +8,11 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    '/domestic-init.json',
+    createProxyMiddleware({
+      target: 'https://apiv2.corona-live.com',
+      changeOrigin: true,
+    })
+  );
 };
