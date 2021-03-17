@@ -1,6 +1,6 @@
 const express = require("express");
 const apiRouter = express.Router();
-const { updateResult, types, initScore, addScore, getSelectedMsg, registerNewUser, createResponseBody } = require("./functions/addScore.js");
+const { updateResult, types, addScore, getSelectedMsg, registerNewUser, createResponseBody } = require("./functions/addScore.js");
 const { questions, answers, breakMsg, blockIds } = require("./functions/qna.js");
 let users = new Map();
 
