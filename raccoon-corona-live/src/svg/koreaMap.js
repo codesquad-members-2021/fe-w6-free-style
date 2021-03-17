@@ -1,5 +1,5 @@
 import React from 'react';
-
+// eslint-disable-next-line
 export default () => (
   <svg version="1.1" x="0px" y="0px" viewBox="324.331 450.063 60 92" enableBackground="new 324.331 450.063 60 92">
     <g>
