@@ -28,9 +28,13 @@ new Separator(separatorData);
 // fetch("https://analytics.developer.riotgames.com/v1/event?pid=RGEA0002-32de3446-a2a6-4f9a-a387-f40138212b2b&did=c5c973bf-a4cb-4671-b03e-0bb93a0e0a62&sid=00c4312a-143a-467e-a422-a40a1f80de40&uts=1615858800462&lolpid=kr&dh=www.op.gg&dp=%2Fsummoner%2FuserName%3Dlosbulgogi&ul=ko-KR&utz=%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%20%ED%91%9C%EC%A4%80%EC%8B%9C")
 // .then((r)=>console.log(r));
 
-const userID = "hide on bush";
-const APIKey = "RGAPI-bdab7472-d5e8-44f0-8482-a1687725e500";
+
+// const userID = "hide on bush";
+// const APIKey = "";
 //prettier-ignore
-fetch(`https://cors-anywhere.herokuapp.com/https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${userID}?api_key=${APIKey}`)
-	.then((v)=>v.json())
-	.then((v)=>console.log(v))
+// fetch(`https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/${userID}?api_key=${APIKey}`, {
+// 	headers :{
+// 		'Access-Control-Allow-Origin' : '*'
+// 	}
+// })
+// 	.then((v)=>console.log(v))
