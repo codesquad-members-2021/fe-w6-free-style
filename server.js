@@ -15,13 +15,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/',indexRouter);
 
-let count=1;
+let arr = [];
 io.on('connection', function(socket){ 
 	let user = null;
-	socket.on('User name', function(name) {
+	socket.on('User name', async function(name) {
 		user = name;
+		arr.push(name);
+		console.log(arr);
   		io.to(socket.id).emit('create name', name);
-		io.emit('connect message', user, socket.id);
+		  
+		await io.emit('connect message', user, socket.id, arr);
 	})
 
 	

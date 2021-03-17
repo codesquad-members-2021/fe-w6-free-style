@@ -1,3 +1,8 @@
+center {
+	display: flex;
+	justify-content: center;
+}
+
 #background {
 	width: 50%;
 	height: 90%;
@@ -12,8 +17,34 @@
 	height:100%;
 }
 
+.list_title {
+	display:flex;
+	justify-content:center;
+	width: 300px;
+	height:55px;
+	margin-top: 40px;
+	align-items:center;
+	border-radius: .25rem .25rem 0 0;
+	font-weight: bold;
+	font-size: 150%;
+	background: #494949;
+	color: white;
+	border-bottom: 1px solid black;
+}
+
+.user_name_box {
+	display: flex;
+}
+
+.user_name {
+	width:50%;
+	background: #494949;
+	color: white;
+	padding: 5px 0;
+}
+
 .textarea_box {
-	height: 1000px;
+	height: 600px;
 }
 
 .chatLog {
@@ -71,7 +102,7 @@
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	height: 45px;
+	height: 65px;
 	background-color: #494949;
 	color: white;
 	border-radius: .25rem .25rem 0 0;
