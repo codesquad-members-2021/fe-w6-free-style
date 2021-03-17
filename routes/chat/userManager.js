@@ -1,5 +1,5 @@
 const { breakMsg } = require("./blocks.js");
-const { TYPE } = require("./util.js");
+const { questionNumbers } = require("./util.js");
 
 const types = [
   { left: "E", right: "I" },
@@ -18,17 +18,17 @@ const initScore = {
   totalQuestionIndex: 0,
 };
 
-const addScore = (map, key, questionNumber, type) => {
+const addScore = (map, key, number, type) => {
   const currVal = map.get(key);
-  ++currVal[`${questionNumber}`][type];
+  ++currVal[questionNumbers[number]][type];
   map.set(key, currVal);
   return map;
 };
 
-const getSelectedMsg = (map, key, questionNumber, types) => {
+const getSelectedMsg = (map, key, number, types) => {
   const currVal = map.get(key);
   let result = null;
-  if (currVal[`${questionNumber}`][types[0]] > currVal[`${questionNumber}`][types[1]]) {
+  if (currVal[questionNumbers[number]][types[0]] > currVal[questionNumbers[number]][types[1]]) {
     result = breakMsg[types[0]];
   } else {
     result = breakMsg[types[1]];
@@ -36,9 +36,9 @@ const getSelectedMsg = (map, key, questionNumber, types) => {
   return result;
 };
 
-const updateResult = (map, key, questionNumber, types) => {
+const updateResult = (map, key, number, types) => {
   const currVal = map.get(key);
-  if (currVal[`${questionNumber}`][types[0]] > currVal[`${questionNumber}`][types[1]]) {
+  if (currVal[questionNumbers[number]][types[0]] > currVal[questionNumbers[number]][types[1]]) {
     currVal.result.push(types[0]);
   } else {
     currVal.result.push(types[1]);
