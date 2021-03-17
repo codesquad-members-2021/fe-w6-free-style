@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 function PersonTypeList(props) {
   console.log(props.type);
@@ -11,9 +12,16 @@ function PersonTypeList(props) {
     </div>
   );
 }
+async function fetchData() {
+  const request = `/domestic-init.json`;
+  const response = await axios.get(request);
+  const data = response.data.stats;
+  console.log(data);
+  return data;
+}
 
 function PersonTypeBox({ type }) {
-  console.log(type);
+  const data = fetchData();
   return (
     <div className="Person__Type__Box flex-column flex center">
       <PersonType type={type} />

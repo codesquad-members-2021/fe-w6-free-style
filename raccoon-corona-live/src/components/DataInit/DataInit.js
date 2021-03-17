@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react';
 import axios from 'axios';
+import React, { useEffect } from 'react';
 
 function DataInit() {
-  useEffect(() => {
-    const request = `/domestic-init.json`;
-    const fetchData = async () => {
-      const response = await axios.get(request);
-      console.table(response.data.stats);
-      return response;
-    };
-    fetchData();
-  });
+  const request = `/domestic-init.json`;
+  const fetchData = async () => {
+    const response = await axios.get(request);
+    const data = response.data.stats;
+    console.log(data);
+    return data;
+  };
 
-  return <div></div>;
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  return <div data={useEffect}></div>;
 }
 
 export default DataInit;
