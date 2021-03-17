@@ -11,7 +11,6 @@ function Axios() {
     };
     const getDate = newDate.getDate();
     const createdDate = `${getYear}${getMonth()}${getDate}`;
-    console.log(createdDate);
     return createdDate;
   }
 
