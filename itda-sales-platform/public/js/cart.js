@@ -8,5 +8,8 @@ _.addEvent(toggleCartBtn, 'click', () => _.addClass(cartOverlay, "show"));
 _.addEvent(closeCartBtn, 'click', () => _.removeClass(cartOverlay, "show"));
 
 const openCart = () => _.addClass(cartOverlay, 'show');
-
-// export { openCart };
+const addToCart = (id) => {
+    console.log(id);
+    openCart();
+}
+export { openCart, addToCart };

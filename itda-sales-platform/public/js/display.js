@@ -1,3 +1,5 @@
+import { addToCart, openCart } from './cart.js';
+import { _ } from './utill.js';
 
 const makeProductTemplate = (id, name, image, price) => {
     return `<article class="product">
@@ -24,6 +26,14 @@ const display = (products, element) => {
         const { id, name, image, price } = product;
         return makeProductTemplate(id, name, image, price);
     }).join('');
+    addCartEvent(element);
+}
+
+const addCartEvent = (element) => {
+    _.addEvent(element, 'click', (e) => {
+        const parent = e.target.parentElement;
+        if (parent.classList.contains('product-cart-btn')) addToCart(parent.dataset.id);
+    });
 }
 
 export default display;
