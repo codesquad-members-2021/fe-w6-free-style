@@ -5,6 +5,8 @@ class SelectEvent {
     this.sheet = sheet;
     this.sheetModel = model;
     this.cellNameBox = cellNameBox;
+    this.firstSelect;
+    this.lastSelect;
     this.isSelectMousedown = false;
     this.isDropMousedown = false;
     this.init();
@@ -31,12 +33,13 @@ class SelectEvent {
     this._toggleSelectStatus();
     this._clearSelectCell();
     this._setFirstSelectData(target);
+    this._setLastSelectData(target);
     this._setSelectData();
     this._selectCell();
   }
   _dragSelectMouseover(target) {
     this._clearSelectCell();
-    this._addSelectData(target);
+    this._setLastSelectData(target);
     this._setSelectData();
     this._selectCell();
   }
@@ -50,37 +53,6 @@ class SelectEvent {
       this._addSelected(input);
     });
   }
-  _isParentTd(node) {
-    return node.parentElement.tagName === 'TD';
-  }
-  _addSelected(node) {
-    node.classList.add('selected');
-  }
-  _removeSelected(node) {
-    node.classList.remove('selected');
-  }
-  _setFirstSelectData(node) {
-    if (this._isParentTd(node)) {
-      const input = node;
-      const cell = node.parentElement;
-      this.sheetModel.setSelectData([{ cell, input }]);
-    } else {
-      const input = node.firstElementChild;
-      const cell = node;
-      this.sheetModel.setSelectData([{ cell, input }]);
-    }
-  }
-  _addSelectData(node) {
-    if (this._isParentTd(node)) {
-      const input = node;
-      const cell = node.parentElement;
-      this.sheetModel.addSelectData({ cell, input });
-    } else {
-      const input = node.firstElementChild;
-      const cell = node;
-      this.sheetModel.addSelectData({ cell, input });
-    }
-  }
   //select cell들 .selected 클래스 제거
   _clearSelectCell() {
     const selectData = this.sheetModel.getSelectData();
@@ -90,11 +62,35 @@ class SelectEvent {
       this._removeSelected(input);
     });
   }
+
+  _setFirstSelectData(node) {
+    if (this._isParentTd(node)) {
+      const input = node;
+      const cell = node.parentElement;
+      this.firstSelect = { cell, input };
+    } else {
+      const input = node.firstElementChild;
+      const cell = node;
+      this.firstSelect = { cell, input };
+    }
+  }
+  _setLastSelectData(node) {
+    if (this._isParentTd(node)) {
+      const input = node;
+      const cell = node.parentElement;
+      this.lastSelect = { cell, input };
+    } else {
+      const input = node.firstElementChild;
+      const cell = node;
+      this.lastSelect = { cell, input };
+    }
+  }
+
   //블락 잡힌 범위 cell,input 구해주는 메소드
-  _getSelectBlockCells({ cell: firstCell }, { cell: lastCell }) {
+  _getSelectBlockCells() {
     const selectBlockCellList = [];
-    const { column: firstColumn, row: firstRow } = this._getLocation(firstCell);
-    const { column: lastColumn, row: lastRow } = this._getLocation(lastCell);
+    const { column: firstColumn, row: firstRow } = this._getLocation(this.firstSelect.cell);
+    const { column: lastColumn, row: lastRow } = this._getLocation(this.lastSelect.cell);
 
     const [minColumn, maxColumn] = [
       Math.min(firstColumn, lastColumn),
@@ -113,14 +109,21 @@ class SelectEvent {
   }
   //select-block된 cell,input데이터 모델에 setting
   _setSelectData() {
-    const firstData = this.sheetModel.getFirstData();
-    const lastData = this.sheetModel.getLastData();
-    const selectBlockCellList = this._getSelectBlockCells(firstData, lastData);
+    const selectBlockCellList = this._getSelectBlockCells();
     this.sheetModel.setSelectData(selectBlockCellList);
   }
   _getLocation(cell) {
     const { attributes } = cell;
     return { column: attributes.x.value, row: attributes.y.value };
+  }
+  _isParentTd(node) {
+    return node.parentElement.tagName === 'TD';
+  }
+  _addSelected(node) {
+    node.classList.add('selected');
+  }
+  _removeSelected(node) {
+    node.classList.remove('selected');
   }
   _toggleSelectStatus() {
     this.isSelectMousedown = !this.isSelectMousedown;
