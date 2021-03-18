@@ -5,7 +5,7 @@ import ref from './ref.js'
 const setting = {
     URL: 'http://localhost:3000',
     loadingNum: 5,
-    lastItemIndex: 10
+    lastItemIndex: 5
 }
 
 const carousel = new Carousel(ref);
