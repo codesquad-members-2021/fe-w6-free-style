@@ -1,5 +1,7 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const path = require('path');
+const session = require('express-session');
 const dotenv = require('dotenv');
 const ejs = require('ejs');
 
@@ -23,7 +25,19 @@ app.set('port', process.env.SERVER_PORT || 4000);
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser(process.env.SECRET_KEY));
+app.use(
+    session({
+        secret: process.env.SECRET_KEY,
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            httpOnly: true,
+            secure: false,
+        },
+    }),
+);
 
 app.use('/vendors', vendorsRouter);
 app.use('/', indexRouter); 

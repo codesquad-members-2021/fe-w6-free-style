@@ -6,9 +6,9 @@
         <%- include('./partial/vendors.html') %>
     </head>
     <body class="wrap h-100vh">
-        <div class="auth__wrapper" id="auth-login">
+        <div class="auth__wrapper animation__fadeDown" id="auth-login">
             <div class="auth__content">
-                <div>
+                <div class="animation__fadeIn fadeIn--first">
                     <h2>MD Todo</h2>
                 </div>
 
@@ -18,6 +18,7 @@
                     action="/auth/login"
                 >
                     <input
+                        class="animation__fadeIn fadeIn--second"
                         type="text"
                         name="userid"
                         id="userid"
@@ -26,6 +27,7 @@
                         required
                     />
                     <input
+                        class="animation__fadeIn fadeIn--third"
                         type="password"
                         name="userpwd"
                         id="userpwd"
@@ -33,7 +35,7 @@
                         autocomplete="off"
                         required
                     />
-                    <input type="submit" value="Login" />
+                    <input type="submit" value="Login" class="animation__fadeIn fadeIn--fourth" />
                     <p class="auth--error display--none"></p>
                 </form>
 

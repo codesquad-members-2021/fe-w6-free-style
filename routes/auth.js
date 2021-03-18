@@ -1,13 +1,16 @@
-// 현재 비번 암호화 안되어있음. 할게 너무 많아서 일단 미룸..
+// 현재 비번 암호화 안되어있음. 할게 너무 많아서 일단 미룸.. (bcrypt)
+// Passport 시도했다가 확실한 이해불가. 나중에 다시하기
 
 const express = require('express');
-
 const router = express.Router();
 const { User } = require('../models');
 
 // Login
 // auth: [GET, /auth/login ]
 router.get('/login', (req, res) => {
+    if (req.session.user)
+        return res.redirect('/todo');
+
     res.render('login', { title: 'MD Todo list' });
 });
 
@@ -15,14 +18,19 @@ router.get('/login', (req, res) => {
 router.post('/login', async (req, res) => {
     const { userid, userpwd } = req.body;
 
-    try {
-        const checkUser = await User.findOne({ where: { userid, userpwd } });
-        if (!checkUser)
-            return res.redirect('login');        
+    if (!req.session.user) {
+        try {
+            const checkUser = await User.findOne({ where: { userid, userpwd } });
+            if (!checkUser)
+                return res.redirect('login');
 
+            req.session.user = { id: checkUser.id, userid: checkUser.userid };
+            return res.redirect('/todo');
+        } catch (error) {
+            console.error(error);
+        }
+    } else {
         return res.redirect('/todo');
-    } catch (error) {        
-        console.error(error);
     }
 });
 
@@ -45,10 +53,25 @@ router.post('/userCheck', async (req, res) => {
 });
 
 // ----------------------------------------------------------
+// Logout
+// auth: [GET, /auth/logout ]
+router.get('/logout', (req, res) => {
+    if (req.session.user) {
+        req.session.destroy((err) =>
+            err ? console.error(err) : res.redirect('login'),
+        );
+    } else {
+        res.redirect('login');
+    }
+})
+
+// ----------------------------------------------------------
 
 // Register
 // auth: [GET, /auth/register ]
 router.get('/register', (req, res) => {
+    if (req.session.user)
+        return res.redirect('/todo');
     res.render('register', {  title: 'MD Todo list' });
 });
 
@@ -56,19 +79,24 @@ router.get('/register', (req, res) => {
 router.post('/register', async (req, res) => {
     const { userid, userpwd } = req.body;
 
-    try {
-        const exUser = await User.findOne({ where: { userid } });        
-        if (exUser)
-            return res.redirect('register');        
-
-        const createUser = await User.create({ userid, userpwd });
-        if (!createUser) 
-            return res.redirect('register');
-
+    if (!req.session.user) {
+        try {
+            const exUser = await User.findOne({ where: { userid } });
+            if (exUser)
+                return res.redirect('register');
+    
+            const createUser = await User.create({ userid, userpwd });
+            if (!createUser)
+                return res.redirect('register');
+            
+            req.session.user = { id: createUser.id, userid: createUser.userid };
+            return res.redirect('/todo');
+        } catch (error) {
+            console.error(error);
+        }
+    } else {
         return res.redirect('/todo');
-    } catch (error) {
-        console.error(error);
-    }
+    } 
 });
 
 // auth: [POST, /auth/isDuplicateID ], 아이디 중복확인
