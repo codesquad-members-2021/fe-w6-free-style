@@ -1,10 +1,11 @@
-import Carousel from './carousel';
-import MoreData from './moreData';
-import ref from './ref'
+import Carousel from './carousel.js';
+import MoreData from './moreData.js';
+import ref from './ref.js'
 
 const setting = {
-    URL: '',
-    loadingNum: 5
+    URL: 'http://localhost:3000',
+    loadingNum: 5,
+    lastItemIndex: 10
 }
 
 const carousel = new Carousel(ref);
