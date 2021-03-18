@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import _ from '../../const';
 
 function PersonTypeList() {
-  const allPersonArray = _.allPerson.type;
-  const [number, setNumber] = useState(0);
-  const [change, setChange] = useState(0);
+  const typeArray = _.allPerson.type;
+  const [data, setData] = useState({
+    type: 0,
+    number: 0,
+    change: 0,
+  });
 
   async function fetchData() {
     const request = `/domestic-init.json`;
@@ -14,18 +17,32 @@ function PersonTypeList() {
     return data;
   }
   async function getData() {
-    const data = await fetchData();
+    const response = await fetchData();
+
+    setData({
+      type: typeArray[0],
+      number: response.cases[0],
+      change: response.cases[1],
+    });
+    console.table(response);
+
     console.table(data);
-    setNumber(data.cases[0]);
-    setChange(data.cases[1]);
   }
 
-  getData();
+  useEffect(() => {
+    getData();
+  }, []);
 
+  console.log(data);
   return (
     <div className="Person__Type__List flex-row center">
-      {allPersonArray.map((box, idx) => (
-        <PersonTypeBox type={box} key={idx} number={number} change={change} />
+      {typeArray.map((box, idx) => (
+        <PersonTypeBox //
+          type={box}
+          number={data.number}
+          change={data.change}
+          key={idx}
+        />
       ))}
     </div>
   );
@@ -34,23 +51,11 @@ function PersonTypeList() {
 function PersonTypeBox({ type, number, change }) {
   return (
     <div className="Person__Type__Box flex-column flex center">
-      <PersonType type={type} />
-      <PersonNumber number={number} />
-      <PersonChange change={change} />
+      <div className="Person__Type flex-row flex">{type}</div>
+      <div className="Person__Number flex-row flex">{number}</div>
+      <div className="Person__Change flex-row flex">{change}</div>
     </div>
   );
-}
-
-function PersonType({ type }) {
-  return <div className="Person__Type flex-row flex">{type}</div>;
-}
-
-function PersonNumber({ number }) {
-  return <div className="Person__Number flex-row flex">{number}</div>;
-}
-
-function PersonChange({ change }) {
-  return <div className="Person__Change flex-row flex">{change}</div>;
 }
 
 export default PersonTypeList;
