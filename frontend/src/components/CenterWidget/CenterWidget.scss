@@ -1,0 +1,46 @@
+.center-widget-section {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items:center;
+}
+
+.center-widget {
+  display: flex;
+}
+
+.welcome {
+  color: white;
+  text-shadow: 0 1px 5px rgb(0 0 0 / 20%);
+  text-align: center;
+
+  .time {
+    font-size: 8rem;
+    font-weight: bold;
+  }
+
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    
+  }
+  .subtitle {
+    font-size: 1.5rem;
+  }
+
+  .username {
+    width:100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px white;
+    color:white;
+    margin-top: 10px;
+    text-shadow: 0 1px 5px rgb(0 0 0 / 10%);
+  }
+
+  p + p {
+    margin-top: 15px;
+  }
+  
+}
