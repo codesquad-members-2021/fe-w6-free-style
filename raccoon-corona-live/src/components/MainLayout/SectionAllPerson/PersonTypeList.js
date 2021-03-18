@@ -1,9 +1,10 @@
 import React from 'react';
-import axios from 'axios';
+import useAsync from '../../DataInit/useAsync';
 
 function PersonTypeList(props) {
   console.log(props.type);
-
+  const refetch = useAsync();
+  console.log(refetch);
   return (
     <div className="Person__Type__List flex-row center">
       {props.type.map((box, idx) => (
@@ -12,16 +13,8 @@ function PersonTypeList(props) {
     </div>
   );
 }
-async function fetchData() {
-  const request = `/domestic-init.json`;
-  const response = await axios.get(request);
-  const data = response.data.stats;
-  console.log(data);
-  return data;
-}
 
 function PersonTypeBox({ type }) {
-  const data = fetchData();
   return (
     <div className="Person__Type__Box flex-column flex center">
       <PersonType type={type} />

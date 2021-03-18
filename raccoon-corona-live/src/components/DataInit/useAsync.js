@@ -1,7 +1,7 @@
+import { useEffect } from 'react';
 import axios from 'axios';
-import React, { useEffect } from 'react';
 
-function DataInit() {
+function useAsync(deps = []) {
   const request = `/domestic-init.json`;
   const fetchData = async () => {
     const response = await axios.get(request);
@@ -12,9 +12,10 @@ function DataInit() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+    // eslint-disable-next-line
+  }, deps);
 
-  return <div data={useEffect}></div>;
+  return fetchData;
 }
 
-export default DataInit;
+export default useAsync;
