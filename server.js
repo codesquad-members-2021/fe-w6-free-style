@@ -1,6 +1,6 @@
 const express = require('express');
-const app = express();
-const http = require('http').Server(app); 
+const server = express();
+const http = require('http').Server(server); 
 const io = require('socket.io')(http);    
 const path = require('path');
 const indexRouter = require('./routes/index');
@@ -8,29 +8,31 @@ const ejs = require('ejs');
 
 const port = 8080;
 
-app.set('views engine','ejs');
-app.engine('html', ejs.renderFile);
+server.set('views engine','ejs');
+server.engine('html', ejs.renderFile);
 
-app.use(express.static(path.join(__dirname, 'public')));
+server.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/',indexRouter);
+server.use('/',indexRouter);
 
 let arr = [];
-io.on('connection', function(socket){ 
+
+io.on('connection', async function(socket){ 
 	let user = null;
-	socket.on('User name', async function(name) {
+	await socket.on('User name', function(name) {
 		user = name;
-		arr.push(name);
-		console.log(arr);
-  		io.to(socket.id).emit('create name', name);
-		  
-		await io.emit('connect message', user, socket.id, arr);
+		arr.push(name); // reload 고쳐야함. 아직 작동안함.
+  		io.to(socket.id).emit('create name', name);  
+		io.emit('connect message', name, socket.id);
+		io.emit('real time user', name, arr, socket.id);
+	});
+
+	socket.on('real_time_list', function(user_list){
+		arr = arr.filter((v,i) => v === user_list[i]);
 	})
 
-	
-	
 	socket.on('disconnect', function(){ 
-	  	io.emit('disconnect message', user);
+	  	io.emit('disconnect message', user, socket.id);
 	});
 
 	socket.on('send message', function(name, text, socketId) {

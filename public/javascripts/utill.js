@@ -16,11 +16,14 @@ const _ = {
     message : _.$("#message"),
     chatLog : _.$(".chatLog"),
     right_speech_bubble : _.$(".right_speech_bubble"),
-    user_name : _.$all(".user_name")
+    user_name : _.$all(".user_name"),
+    user_name_list : _.$(".user_name_list")
 }
 
 const CLASS_LIST = {
     float_right : "float_right"
 }
 
-export { _, DOM, CLASS_LIST };
+const delay = (data, ms) => new Promise((resolve) => setTimeout(()=> resolve(data), ms));
+
+export { _, DOM, CLASS_LIST, delay };
