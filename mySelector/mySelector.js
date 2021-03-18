@@ -1,13 +1,20 @@
-const query = (selector,root=document) => {
-    if(!root.childNodes) return;
-    if(root.className === selector) return root;
+class MySelector {
+    constructor() {
 
-    let answer;
-    root.childNodes.forEach((node) => {
-        if(query(selector,node)) answer = query(selector,node);
-    })
+    }
 
-    return answer;    
+    query(selector,root=document) {
+        if(!root.childNodes) return;
+        if(root.className === selector) return root;
+    
+        let answer;
+        root.childNodes.forEach((node) => {
+            if(this.query(selector,node)) answer = this.query(selector,node);
+        })
+    
+        return answer;    
+    }
 }
 
-query("one");
+
+export {MySelector};
