@@ -15,13 +15,13 @@ const personBox = [
     name: '완치자',
     number: 0,
     change: 0,
-    color: 'red',
+    color: 'rgb(23, 138, 23)',
   },
   {
     name: '검사자',
     number: 0,
     change: 0,
-    color: 'red',
+    color: 'rgb(86, 115, 235)',
   },
 ];
 

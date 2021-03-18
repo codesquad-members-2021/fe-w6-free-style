@@ -4,7 +4,7 @@ import personBox from '../../const';
 
 function PersonTypeList() {
   const [data, setData] = useState(personBox);
-  console.log(data);
+
   async function fetchData() {
     const request = `/domestic-init.json`;
     const response = await axios.get(request);
@@ -40,13 +40,11 @@ function PersonTypeList() {
         color: 'rgb(86, 115, 235)',
       },
     ]);
-    console.table(response);
-    console.table(data);
   }
 
   useEffect(() => {
     getData();
-  }, []);
+  });
 
   return (
     <div className="Person__Type__List flex-row center">
