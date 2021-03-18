@@ -1,10 +1,10 @@
-{
-    "rec43w3ipXvP28vog": {
+[
+    {
+        "id":"rec43w3ipXvP28vog",
         "fields":{
             "company":"ikea",
             "colors":["#f15025","#222"],
-            "featured":true,
-            "price":999,
+            "featured":true,"price":999,
             "name":"high-back bench",
             "image":[
                 {
@@ -34,7 +34,8 @@
             ]
         }
     },
-    "rec4f2RIftFCb7aHh": {
+    {
+        "id":"rec4f2RIftFCb7aHh",
         "fields":{
             "company":"marcos",
             "colors":["#f15025","#222"],
@@ -68,7 +69,8 @@
             ]
         }
     },
-    "rec8kkCmSiMkbkiko": {
+    {
+        "id":"rec8kkCmSiMkbkiko",
         "fields":{
             "company":"caressa",
             "colors":["#222","#0000ff","#f15025"],
@@ -102,7 +104,8 @@
             ]
         }
     },
-    "recBohCqQsot4Q4II": {
+    {
+        "id":"recBohCqQsot4Q4II",
         "fields":{
             "company":"caressa",
             "colors":["#ff0000","#0000ff"],
@@ -136,7 +139,8 @@
             ]
         }
     },
-    "recDG1JRZnbpRHpoy": {
+    {
+        "id":"recDG1JRZnbpRHpoy",
         "fields":{
             "company":"caressa",
             "colors":["#ff0000","#f15025"],
@@ -170,7 +174,8 @@
             ]
         }
     },
-    "recNWGyP7kjFhSqw3": {
+    {
+        "id":"recNWGyP7kjFhSqw3",
         "fields":{
             "company":"liddy",
             "colors":["#0000ff"],
@@ -204,7 +209,8 @@
             ]
         }
     },
-    "recZEougL5bbY4AEx": {
+    {
+        "id":"recZEougL5bbY4AEx",
         "fields":{
             "company":"marcos",
             "colors":["#00ff00","#f15025","#ff0000"],
@@ -238,7 +244,8 @@
             ]
         }
     },
-    "recjMK1jgTb2ld7sv": {
+    {
+        "id":"recjMK1jgTb2ld7sv",
         "fields":{
             "company":"liddy",
             "colors":["#f15025"],
@@ -270,7 +277,8 @@
             ]
         }
     },
-    "recmg2a1ctaEJNZhu": {
+    {
+        "id":"recmg2a1ctaEJNZhu",
         "fields":{
             "company":"marcos",
             "colors":["#00ff00","#0000ff"],
@@ -305,7 +313,8 @@
             ]
         }
     },
-    "recvKMNR3YFw0bEt3": {
+    {
+        "id":"recvKMNR3YFw0bEt3",
         "fields":{
             "company":"liddy",
             "colors":["#ff0000","#00ff00"],
@@ -340,7 +349,8 @@
             ]
         }
     },
-    "recxaXFy5IW539sgM": {
+    {
+        "id":"recxaXFy5IW539sgM",
         "fields":{
             "company":"ikea",
             "colors":["#00ff00","#ff0000"],
@@ -374,7 +384,8 @@
             ]
         }
     },
-    "recyqtRglGNGtO4Q5": {
+    {
+        "id":"recyqtRglGNGtO4Q5",
         "fields":{
             "company":"liddy",
             "colors":["#222"],
@@ -408,4 +419,4 @@
             ]
         }
     }
-}
+]
