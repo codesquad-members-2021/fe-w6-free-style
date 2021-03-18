@@ -31,21 +31,18 @@ class KeyboardEvent {
     this._focusCell(target);
   }
   handleSheetKeydown({ keyCode }) {
-    this._commonKeyboardEvent(keyCode);
+    this._clearSelectCell();
     if (keyCode === KEYCODE.DELETD) this._handleDelete();
     if (keyCode === KEYCODE.ENTER) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
-  }
-  handleFnKeydown({ keyCode }) {
-    if (!this.sheetModel.getFocusInput()) return;
-    this._commonKeyboardEvent(keyCode);
-    if (keyCode === KEYCODE.ENTER) this._handleMoveCell({ moveColumn: 0, moveRow: 0 });
-  }
-  _commonKeyboardEvent(keyCode) {
     if (keyCode === KEYCODE.TAB) this._handleMoveCell({ moveColumn: 1, moveRow: 0, isTab: true });
     if (keyCode === KEYCODE.LEFT) this._handleMoveCell({ moveColumn: -1, moveRow: 0 });
     if (keyCode === KEYCODE.RIGHT) this._handleMoveCell({ moveColumn: 1, moveRow: 0 });
     if (keyCode === KEYCODE.UP) this._handleMoveCell({ moveColumn: 0, moveRow: -1 });
     if (keyCode === KEYCODE.DOWN) this._handleMoveCell({ moveColumn: 0, moveRow: 1 });
+  }
+  handleFnKeydown({ keyCode }) {
+    if (!this.sheetModel.getFocusInput()) return;
+    if (keyCode === KEYCODE.ENTER) this._handleMoveCell({ moveColumn: 0, moveRow: 0 });
   }
   _handleMoveCell(column, row) {
     const selectCell = this.sheetModel.getFocusCell();
@@ -149,6 +146,17 @@ class KeyboardEvent {
   _isIndexCell(node) {
     const nodeParent = node.parentElement;
     return node.classList.contains('row-index') || nodeParent.classList.contains('column-index');
+  }
+  _clearSelectCell() {
+    const selectData = this.sheetModel.getSelectData();
+    selectData.forEach(({ cell, input }) => {
+      this._removeSelected(cell);
+      this._removeSelected(input);
+    });
+    this.sheetModel.setSelectData([]);
+  }
+  _removeSelected(node) {
+    node.classList.remove('selected');
   }
 }
 
