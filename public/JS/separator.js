@@ -41,7 +41,7 @@ export class Separator {
 		const promiseArr = [...this.data.slideItems].map((v, i) =>new Promise(async (res, rej) => {
 				v.innerHTML = `<div>${this.data.userList[randomIndex[i]].value}</div>`;
 				let userInfo = await this.getUserInfo(this.data.userList[randomIndex[i]].value);
-				v.innerHTML += `<div><img src="./images/tier/${userInfo.tier}.png" alt="tier-icon"> - ${userInfo.rank} - ${userInfo.leaguePoints}</div>`;
+				v.innerHTML += `<div><img src="./images/${userInfo.tier}.png" alt="tier-icon"> - ${userInfo.rank} - ${userInfo.leaguePoints}</div>`;
 				res();
 			})
 		);
