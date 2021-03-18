@@ -31,7 +31,13 @@
 	}
 	align-items: center;
 }
-
+.roulette__folder{
+	position: relative;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	top:10px;
+	left:151px;
+}
 .roulette {
 	position: relative;
 	width: 19rem;
@@ -68,7 +74,7 @@
 }
 .result {
 	position: absolute;
-	width: 800px;
+	width: 700px;
 	height: 565px;
 	left: 340px;
 	top: 16px;
@@ -95,7 +101,7 @@
 	}
 	&__team-red {
 		top: 20px;
-		left: 580px;
+		left: 480px;
 		li {
 			border: 1px solid red;
 			.slide-item {

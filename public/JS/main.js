@@ -25,3 +25,8 @@ const separatorData = {
 
 new Separator(separatorData);
 
+const foldButton = _.$('.roulette__folder')
+const roulette = _.$('.roulette')
+_.on(foldButton, 'click', ()=>{
+	_.ct(roulette,'unseen')
+})

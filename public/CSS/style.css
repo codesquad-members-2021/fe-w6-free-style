@@ -49,6 +49,14 @@
   width: 19rem;
 }
 
+.roulette__folder {
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  top: 10px;
+  left: 151px;
+}
+
 .roulette {
   position: relative;
   width: 19rem;
@@ -98,7 +106,7 @@
 
 .result {
   position: absolute;
-  width: 800px;
+  width: 700px;
   height: 565px;
   left: 340px;
   top: 16px;
@@ -140,7 +148,7 @@
 
 .result__team-red {
   top: 20px;
-  left: 580px;
+  left: 480px;
 }
 
 .result__team-red li {
