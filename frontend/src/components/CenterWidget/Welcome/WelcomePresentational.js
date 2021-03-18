@@ -8,7 +8,7 @@ class WelcomePresentational {
   render($target, handleOnChangeUser) {
     const $WelcomeLayer = /* html */`
       <div class="welcome">
-        <p class="title"> 어서오세요 ! </p>
+        <p class="title"> 어서오세요 ! 낯선 사람 </p>
         <p class="subtitle"> 당신을 어떻게 부를까요? </p>
         <input class="username" name="username" type="text" />
       </div>
