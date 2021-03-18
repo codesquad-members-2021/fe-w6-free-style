@@ -52,7 +52,6 @@ export default class Component {
     const prevProps = this.selfProps;
     this.selectPropsToUse();
     const nextProps = this.selfProps;
-    console.log(prevProps, nextProps);
     return JSON.stringify(prevProps) !== JSON.stringify(nextProps);
   }
 
