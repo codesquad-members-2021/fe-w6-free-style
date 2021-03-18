@@ -1,4 +1,4 @@
-export default ref = {
+const ref = {
     bannerRef: {
         prevBtn: document.querySelector('.btn_prev'),
         nextBtn: document.querySelector('.btn_next'),
@@ -10,6 +10,7 @@ export default ref = {
     },
     moreData: {
         moreBtn: document.querySelector('.showMore'),
-        listWrap: document.querySelector('.banner__list')
+        bannerWrap: document.querySelector('.content__banner')
     }
 }
+export default ref;
