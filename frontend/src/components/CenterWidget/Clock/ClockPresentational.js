@@ -13,7 +13,6 @@ class ClockPresentational {
       <p class="time"> ${time} </p>
     `;
     
-    console.log($ClockLayer, $target)
     _$($target).querySelector(".welcome").insertAdjacentHTML("afterbegin", $ClockLayer);
   }
 }

@@ -6,7 +6,7 @@ import "./CenterWidget.scss";
 
 class CenterWidgetComposition {
   constructor({ $target }) {
-    this.isFirstCome = true;
+    this.$target = $target;
     this.state = {
       user: null
     };
@@ -14,25 +14,21 @@ class CenterWidgetComposition {
     this.$centerWidgetLayer = document.createElement("div");
     this.$centerWidgetLayer.className = "center-widget";
     
-    this.render($target);
+    this.render();
   }
 
-  checkUser() {
-    // 향후 쿠키 확인하는 형태로 변경 예정
-    return true;
-  }
-
-  render($target) {
-    $target.innerHTML = "";
+  render() {
+    // this.$target.innerHTML = "";
+    this.$centerWidgetLayer.innerHTML = "";
     
-    $target.append(this.$centerWidgetLayer);
-
-    if (this.checkUser()) {
-      this.welcome = new WelcomePresentational({ 
-        $target: this.$centerWidgetLayer,
-        handleOnChangeUser: this.handleOnChangeUser.bind(this),
-      });
-    }
+    this.$target.append(this.$centerWidgetLayer);
+    
+    this.welcome = new WelcomePresentational({ 
+      $target: this.$centerWidgetLayer,
+      handleOnChangeUser: this.handleOnChangeUser.bind(this),
+      handleOnSubmitUser: this.handleOnSubmitUser.bind(this),
+      username: Cookie.get("pm_username")
+    }); 
     
     this.$clock = new ClockPresentational({
       $target: this.$centerWidgetLayer
@@ -40,17 +36,19 @@ class CenterWidgetComposition {
     
   }
 
+  handleOnSubmitUser() { 
+    console.log(this.state.user);
+    if (!this.state.user){
+      return;
+    }
+    
+    Cookie.set("pm_username", this.state.user);
+    this.render();
+  }
+
   handleOnChangeUser(user) {
-    console.log(user);
-    
-    // const userData = `pm_username=${user}`;
-    // Cookie.set(userData);
-    
     const state = { user: user };
     this.setState(state);
-
-    console.log(this.state);
-    // 이후 리렌더;
   }
 
   setState(state) {
