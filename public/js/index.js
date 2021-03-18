@@ -4,8 +4,14 @@ import TodoWriteView from './todo/TodoWriteView.js';
 
 const REFERENCE = {
     todoPost: {
-        postingWrapper: _.$('#todo-posting'),
-        postlistWrapper: _.$('#todo-postlist'),
+        posting: {
+            wrapper: _.$('#todo-posting'),
+            subjectInput: 'input#todoSubject',
+            goWriteBtn: 'button#goWrite'
+        },
+        postlist: {
+            wrapper:  _.$('#todo-postlist'),
+        },
     },
     todoWrite: {
         editorWrapper: _.$('#toast-editor'),
@@ -25,5 +31,6 @@ switch (location.pathname) {
     case '/todo/write':
         new TodoWriteView(REFERENCE.todoWrite).init();
         break;
-    default:    break;
-};
+    default:
+        break;
+}

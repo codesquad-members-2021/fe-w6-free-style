@@ -9,7 +9,9 @@ router.get('/', (req, res) => {
 
 // todo: [GET, /todo/write ] 
 router.get('/write', (req, res) => {
-    res.render('todoWrite', { title: 'MD Todo list' });
+    const { subject } = req.query;
+    res.render('todoWrite', { title: 'MD Todo list', subject: subject || '' });
 });
+    
 
 module.exports = router;
