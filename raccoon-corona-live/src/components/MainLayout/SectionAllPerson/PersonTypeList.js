@@ -1,15 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import _ from '../../const';
+import personBox from '../../const';
 
 function PersonTypeList() {
-  const typeArray = _.allPerson.type;
-  const [data, setData] = useState({
-    type: 0,
-    number: 0,
-    change: 0,
-  });
-
+  const [data, setData] = useState(personBox);
+  console.log(data);
   async function fetchData() {
     const request = `/domestic-init.json`;
     const response = await axios.get(request);
@@ -19,13 +14,33 @@ function PersonTypeList() {
   async function getData() {
     const response = await fetchData();
 
-    setData({
-      type: typeArray[0],
-      number: response.cases[0],
-      change: response.cases[1],
-    });
+    setData([
+      {
+        name: '확진자',
+        number: response.cases[0],
+        change: response.cases[1],
+        color: 'rgb(235, 83, 116)',
+      },
+      {
+        name: '사망자',
+        number: response.deaths[0],
+        change: response.deaths[1],
+        color: 'rgb(136, 136, 136)',
+      },
+      {
+        name: '완치자',
+        number: response.recovered[0],
+        change: response.recovered[1],
+        color: 'rgb(23, 138, 23)',
+      },
+      {
+        name: '검사자',
+        number: response.tests[0],
+        change: response.tests[1],
+        color: 'rgb(86, 115, 235)',
+      },
+    ]);
     console.table(response);
-
     console.table(data);
   }
 
@@ -33,14 +48,14 @@ function PersonTypeList() {
     getData();
   }, []);
 
-  console.log(data);
   return (
     <div className="Person__Type__List flex-row center">
-      {typeArray.map((box, idx) => (
+      {data.map((box, idx) => (
         <PersonTypeBox //
-          type={box}
-          number={data.number}
-          change={data.change}
+          type={box.name}
+          number={box.number}
+          change={box.change}
+          color={box.color}
           key={idx}
         />
       ))}
@@ -48,12 +63,19 @@ function PersonTypeList() {
   );
 }
 
-function PersonTypeBox({ type, number, change }) {
+function PersonTypeBox({ type, number, change, color }) {
+  const style = {
+    color: color,
+  };
   return (
     <div className="Person__Type__Box flex-column flex center">
       <div className="Person__Type flex-row flex">{type}</div>
-      <div className="Person__Number flex-row flex">{number}</div>
-      <div className="Person__Change flex-row flex">{change}</div>
+      <div className="Person__Number flex-row flex" style={style}>
+        {number}
+      </div>
+      <div className="Person__Change flex-row flex" style={style}>
+        {change}
+      </div>
     </div>
   );
 }
