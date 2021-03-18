@@ -1,4 +1,5 @@
 import WelcomePresentational from "./Welcome/WelcomePresentational.js";
+import ClockPresentational from "./Clock/ClockPresentational.js";
 import Cookie from "../../util/Cookie.js";
 
 import "./CenterWidget.scss";
@@ -24,27 +25,36 @@ class CenterWidgetComposition {
   render($target) {
     $target.innerHTML = "";
     
+    $target.append(this.$centerWidgetLayer);
+
     if (this.checkUser()) {
       this.welcome = new WelcomePresentational({ 
         $target: this.$centerWidgetLayer,
-        handleOnSubmitUser: this.handleOnSubmitUser,
+        handleOnChangeUser: this.handleOnChangeUser.bind(this),
       });
     }
-    $target.append(this.$centerWidgetLayer);
+    
+    this.$clock = new ClockPresentational({
+      $target: this.$centerWidgetLayer
+    });
+    
   }
 
-  handleOnSubmitUser(user) {
-    const userData = `pm_username=${user}`;
-    Cookie.set(userData);
+  handleOnChangeUser(user) {
+    console.log(user);
     
-    const state = {user: user};
-    this.setState(state)
-    this.user = user
+    // const userData = `pm_username=${user}`;
+    // Cookie.set(userData);
+    
+    const state = { user: user };
+    this.setState(state);
+
+    console.log(this.state);
     // 이후 리렌더;
   }
 
   setState(state) {
-    const key = state.keys()[0];
+    const key = Object.keys(state)[0];
     this.state[key] = state[key];
   }
   
