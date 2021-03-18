@@ -1,4 +1,5 @@
 import { _ } from '../../util/util';
+import { parseCellName } from '../util/parser';
 const KEYCODE = {
   TAB: 9,
   ENTER: 13,
@@ -135,8 +136,7 @@ class KeyboardEvent {
   _setCellNameBox() {
     const selectCell = this.sheetModel.getFocusCell();
     const { column, row } = this._getLocation(selectCell);
-    const columnAsciiNum = 'A'.charCodeAt() + column * 1 - 1;
-    const cellName = String.fromCharCode(columnAsciiNum) + row;
+    const cellName = parseCellName(column, row);
     this.cellNameBox.innerHTML = cellName;
   }
   _setFunctionInput() {

@@ -1,4 +1,5 @@
 import { _ } from '../../util/util';
+import { parseCellName } from '../util/parser';
 
 const BORDER_STYLE = {
   SOLID: 'solid',
@@ -59,7 +60,8 @@ class SelectEvent {
   }
   _dragSelectMouseup() {
     this._toggleSelectStatus();
-    this._setBorder('solid');
+    this._setBorder(BORDER_STYLE.SOLID);
+    this._setCellNameBox();
   }
   _dragDropMousedown(target) {
     this._toggleDropStatus();
@@ -81,6 +83,7 @@ class SelectEvent {
     this._clearBorder(BORDER_STYLE.DOT);
     this._setValueSelectData(this.originSelectValue); //기존 valuedata를 적용하기(copy)
     this._selectCell();
+    this._setCellNameBox();
   }
   _selectCell() {
     const selectData = this.sheetModel.getSelectData();
@@ -245,6 +248,16 @@ class SelectEvent {
       const cell = node;
       return { cell, input };
     }
+  }
+  _setCellNameBox() {
+    const { column: firstColumn, row: firstRow } = this._getLocation(this.firstSelect.cell);
+    const { column: lastColumn, row: lastRow } = this._getLocation(this.lastSelect.cell);
+    const firstCellName = parseCellName(firstColumn, firstRow);
+    const lastCellName = parseCellName(lastColumn, lastRow);
+    console.log(firstCellName);
+    console.log(lastCellName);
+    if (firstCellName === lastCellName) this.cellNameBox.innerHTML = firstCellName;
+    else this.cellNameBox.innerHTML = `${firstCellName}:${lastCellName}`;
   }
 }
 
