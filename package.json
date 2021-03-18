@@ -1,0 +1,26 @@
+{
+  "name": "fe-w6-free-style",
+  "version": "1.0.0",
+  "description": "mini blog",
+  "main": "main.js",
+  "scripts": {
+    "start": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eve712/fe-w6-free-style.git"
+  },
+  "author": "eve",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eve712/fe-w6-free-style/issues"
+  },
+  "homepage": "https://github.com/eve712/fe-w6-free-style#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
