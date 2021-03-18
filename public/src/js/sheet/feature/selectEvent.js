@@ -23,7 +23,7 @@ class SelectEvent {
   }
   handleMousedown({ target }) {
     if (this._isIndexCell(target)) return;
-    if (!this._isParentTd(target)) {
+    if (!this._isParentTd(target) && this._isSelectedCell(target)) {
       this._dragDropMousedown(target);
     } else {
       this._dragSelectMousedown(target);
@@ -193,6 +193,15 @@ class SelectEvent {
   _isIndexCell(node) {
     const nodeParent = node.parentElement;
     return node.classList.contains('row-index') || nodeParent.classList.contains('column-index');
+  }
+  _isSelectedCell(node) {
+    const selectData = this.sheetModel.getSelectData();
+    const { column: nodeColumn, row: nodeRow } = this._getLocation(node);
+    for (const { cell: selectCell } of selectData) {
+      const { column: selectColumn, row: selectRow } = this._getLocation(selectCell);
+      if (nodeColumn === selectColumn && nodeRow === selectRow) return true;
+    }
+    return false;
   }
   _getNodeData(node) {
     if (this._isParentTd(node)) {

@@ -14,17 +14,15 @@ td {
   line-height: 22px;
   input {
     border: none;
-    width: 95px;
-    height: 20px;
+    width: 90px;
+    height: 18px;
     padding: 3px;
     margin: 0px;
     cursor: default;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 }
-// td:not(.column-index):focus-within,
-// td:not(.row-index):focus-within {
-//   border: 2px solid blue;
-// }
 td:not(.column-index):hover,
 td:not(.row-index):hover {
   cursor: grab;

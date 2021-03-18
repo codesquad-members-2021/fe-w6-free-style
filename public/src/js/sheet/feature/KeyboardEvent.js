@@ -23,6 +23,7 @@ class KeyboardEvent {
   }
   addEvent() {
     this.sheet.addEventListener('mousedown', this.handleMousedown.bind(this));
+    this.sheet.addEventListener('mouseup', this.handleMousedown.bind(this));
     this.functionInput.addEventListener('keydown', this.handleFnKeydown.bind(this));
     this.sheet.addEventListener('keydown', this.handleSheetKeydown.bind(this));
   }
