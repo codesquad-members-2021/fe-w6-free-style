@@ -15,7 +15,7 @@ router.get("", function (req, res, next) {
   const jsonData = JSON.parse(fs.readFileSync("./data/personalities.json"));
   const result = createResult(jsonData[type]);
   const graph = createGraph(scores);
-  res.send(createBase(style_hrefs, srcs, result, graph));
+  res.send(createBase(type, style_hrefs, srcs, result, graph));
 });
 
 module.exports = router;

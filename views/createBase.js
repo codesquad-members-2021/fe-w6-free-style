@@ -12,7 +12,7 @@ const createSrcs = (srcs) => {
   }, ``);
 };
 
-const createBase = (style_hrefs, srcs, result, graph) => {
+const createBase = (type, style_hrefs, srcs, result, graph) => {
   return /*html*/ `<!DOCTYPE html>
     <html lang="en">
       <head>
@@ -21,7 +21,7 @@ const createBase = (style_hrefs, srcs, result, graph) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         ${createStyleHref(style_hrefs)}
         ${createSrcs(srcs)}
-        <title>Chatbot</title>
+        <title>당신은 바로바로 ${type}!</title>
       </head> 
       <body>
         <section class="content">
