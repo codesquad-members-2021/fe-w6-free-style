@@ -391,7 +391,7 @@ a {
 
 .list__box {
   width: 1274px;
-  height: 318px;
+  /* height: 318px; */
   margin: 0 auto;
   overflow: hidden;
   border: 1px solid #e4e4e4;
