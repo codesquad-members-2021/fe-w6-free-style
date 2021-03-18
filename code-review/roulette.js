@@ -11,12 +11,13 @@ export class Roulette {
 
 	init() {
 		this.drawWheel();
+		this.drawItem();//초기 가이드라인을 위한 렌더링
 		this.addEvent();
 	}
 
 	drawWheel() {
 		const color = ["lightcoral", "powderblue", "khaki", "palegreen", "peachpuff", "plum"];
-		let lastLocation = -2 * Math.PI * 1/4; // 초기값을 화살표와
+		let lastLocation = -2 * Math.PI * 1/4; // 초기값을 화살표와 맞춰줌
 		for (let i = 1; i <= this.sumPizza; i++) {
 			this.ctx.beginPath();
 			this.ctx.lineTo(this.data.xLocation, this.data.yLocation);
@@ -32,9 +33,9 @@ export class Roulette {
 
 	drawItem() {
 		const items = [..._.$a("input", this.data.rouletteItem)].map((e) => e.value);
-		const modifier = Math.PI / this.sumPizza -2 * Math.PI * 1/4;
-		const maxWidth = 80 + 60 / this.sumPizza;
-		this.ctx.font = "20px gothic"
+		const modifier = Math.PI / this.sumPizza -2 * Math.PI * 1/4; // 초기값을 화살표와 맞춰준 후 피자의 중앙에 맞춰줌
+		const maxWidth = 90 + 60 / this.sumPizza;
+		this.ctx.font = "bold 16px gothic"
 		this.ctx.textAlign = "center";
 		this.ctx.textBaseline = "middle";
 		this.ctx.fillStyle = "black";
