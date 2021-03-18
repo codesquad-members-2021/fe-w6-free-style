@@ -24,7 +24,8 @@ export default class MoreData {
             .then(res => res.json())
             .then(this.makeTemplate.bind(this))
             .then(this.render.bind(this))
-            .then(() => this.currItemIndex += this.loadingNum)
+            .then(() => this.currItemIndex++)
+            .then(this.updateBtnText.bind(this))
     }
     makeTemplate(item) {
         this.temp += `<li class="banner__item list__item"><a href="#">
@@ -46,5 +47,12 @@ export default class MoreData {
         el.classList.add('list__box') 
         el.classList.add('banner__list') 
         return el;
+    }
+    updateBtnText() {
+        if(this.count !== this.loadingNum) return;
+        const curr = /\d+/.exec(this.moreBtn.innerText)[0]
+        const next = parseInt(curr) + 1
+        const text = this.moreBtn.innerText.replace(curr, next)
+        this.moreBtn.innerText = text;
     }
 }
