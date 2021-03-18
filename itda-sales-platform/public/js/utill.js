@@ -10,5 +10,6 @@ const _ = {
     removeTransform: (node, attributeName) => node.removeAttribute(attributeName),
     addEvent: (node, event, callback) => node.addEventListener(event, callback)
 }
+const allProductsURL = 'http://localhost:3000/data'
 
-export default _;
+export { _ , allProductsURL };
