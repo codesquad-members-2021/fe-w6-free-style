@@ -1,6 +1,6 @@
 class MySelector {
     constructor() {
-
+        this.stack = [];
     }
 
     query(selector,root=document) {
@@ -13,6 +13,19 @@ class MySelector {
         })
     
         return answer;    
+    }
+
+    queryAll(selector, root=document) {
+        if(!root.childNodes) return;
+        if(root.className === selector) {
+            this.stack.push(root);
+        }
+
+        root.childNodes.forEach((node) => {
+            this.queryAll(selector,node);
+        })
+
+        return this.stack;
     }
 }
 
