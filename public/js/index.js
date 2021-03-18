@@ -5,16 +5,16 @@ import TodoWriteView from './todo/TodoWriteView.js';
 const REFERENCE = {
     todoPost: {
         postingWrapper: _.$('#todo-posting'),
-        postlistWrapper: _.$('#todo-postList'),
+        postlistWrapper: _.$('#todo-postlist'),
     },
     todoWrite: {
-        editorWrapper: _.$('#toast-editor'), 
+        editorWrapper: _.$('#toast-editor'),
         editorOptions: {
             height: '600px',
             initialEditType: 'markdown',
             previewStyle: 'vertical',
         },
-        editorBtnsWrapper: _.$('#todo-editorBtns')
+        editorBtnsWrapper: _.$('#todo-editorBtns'),
     },
 };
 
@@ -23,7 +23,7 @@ switch (location.pathname) {
         new TodoPostView(REFERENCE.todoPost).init();
         break;
     case '/todo/write':
-        new TodoWriteView(REFERENCE.todoWrite).init();        
+        new TodoWriteView(REFERENCE.todoWrite).init();
         break;
     default:    break;
 };

@@ -7,8 +7,7 @@ class TodoPostView {
     }
 
     init = () => {
-        const {postingWrapper, postlistWrapper} = this.todoPostReference;
-        console.log(postingWrapper, postlistWrapper)
+        const {postingWrapper, postlistWrapper} = this.todoPostReference;         
     }
 };
 
