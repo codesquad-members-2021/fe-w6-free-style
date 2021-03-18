@@ -1,13 +1,12 @@
 const express = require('express');
 const server = express();
-const reload = require('express-reload');
 const http = require('http').Server(server); 
 const io = require('socket.io')(http);    
 const path = require('path');
 const indexRouter = require('./routes/index');
 const ejs = require('ejs');
 
-const port = 3000;
+const port = 8080;
 
 server.set('views engine','ejs');
 server.engine('html', ejs.renderFile);
@@ -22,12 +21,15 @@ io.on('connection', async function(socket){
 	let user = null;
 	await socket.on('User name', function(name) {
 		user = name;
-		name === null ? reload() : arr.push(name); // reload 고쳐야함. 아직 작동안함.
-		console.log(arr);
+		arr.push(name); // reload 고쳐야함. 아직 작동안함.
   		io.to(socket.id).emit('create name', name);  
 		io.emit('connect message', name, socket.id);
 		io.emit('real time user', name, arr, socket.id);
 	});
+
+	socket.on('real_time_list', function(user_list){
+		arr = arr.filter((v,i) => v === user_list[i]);
+	})
 
 	socket.on('disconnect', function(){ 
 	  	io.emit('disconnect message', user, socket.id);

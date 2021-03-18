@@ -2,6 +2,7 @@ import { _, DOM, CLASS_LIST } from "./utill.js"
 const socket = io();
 const { name, message, chatLog, user_name } = DOM;
 const { float_right } = CLASS_LIST;
+let user_count = [];
 
 
 DOM.chat.addEventListener('submit', function(e) { 
@@ -34,12 +35,15 @@ socket.on('connect message', function(name, socketId) {
 
 // 접속 현황판
 socket.on('real time user', function(name ,name_list, socketId) {
+    // name_list = name_list.map(v => )
     if(socket.id !== socketId) {
+        user_count = name_list;
         const user = _.$create('div');
         user.id = `user_${socketId}`
         _.addHTML(user, `<div id="${socketId}" class="user_name">${name}</div>`);
         _.nodeCount(user_name[0]) < 10 ? _.append(user_name[0],user) : _.addHTML(user_name[1], user);
     } else {
+        // user_count = name_list;
         name_list.forEach(v => {
             const user = _.$create('div');
             _.addHTML(user, `<div class="user_name">${v}</div>`);
@@ -59,10 +63,14 @@ socket.on('disconnect message', function(name, socketId) {
     _.append(chatLog, disconnect_speech_bubble);
 
     // 나갈 시 접속현황판에서 삭제
-    if(socket.id !== socketId){
+    if(socket.id !== socketId) {
         const node = _.$("#"+socketId);
-        console.log(node.parentNode)
         _.$("#"+"user_"+socketId).removeChild(node);
+        
+        // 나간사람 이름 빼는 부분
+        user_count = user_count.filter(v => v !== name).map(v => v);
+        // 이곳을 통해 최신 현재 접속자 리스트를 array로 서버로 보내 서버의 배열을 갱신한다.
+        socket.emit("real_time_list", user_count);
     } 
 })
 
