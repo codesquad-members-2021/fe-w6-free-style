@@ -4,28 +4,29 @@
         "fields":{
             "company":"ikea",
             "colors":["#f15025","#222"],
-            "featured":true,"price":999,
-            "name":"high-back bench",
+            "featured":true,
+            "price": "20,000",
+            "name":"유기농 제주 감귤 2kg",
             "image":[
                 {
                     "id":"attcvDDMikF6G2iNi",
-                    "url":"https://dl.airtable.com/.attachments/14ac9e946e1a02eb9ce7d632c83f742f/4fd98e64/product-1.jpeg",
+                    "url":"https://mblogthumb-phinf.pstatic.net/MjAxODExMDJfMjU1/MDAxNTQxMTY5NjAzNDQ0.1k1j_mz4PSg-5q06zfYNI_HnVyRppzd9C7PGRMeDJEQg.p0_DTLq-FbUbJKqzSdR3MtuzfehFQ_gAlXPubW6s74wg.JPEG.farmerjeju/image_1247341261541168425415.jpg?type=w800",
                     "filename":"product-1.jpeg",
                     "size":62864,
                     "type":"image/jpeg",
                     "thumbnails":{
                         "small":{
-                            "url":"https://dl.airtable.com/.attachmentThumbnails/c6c5c0d7a0b2abe7494acbcf112df4f1/14292088",
+                            "url":"https://mblogthumb-phinf.pstatic.net/MjAxODExMDJfMjU1/MDAxNTQxMTY5NjAzNDQ0.1k1j_mz4PSg-5q06zfYNI_HnVyRppzd9C7PGRMeDJEQg.p0_DTLq-FbUbJKqzSdR3MtuzfehFQ_gAlXPubW6s74wg.JPEG.farmerjeju/image_1247341261541168425415.jpg?type=w800",
                             "width":56,
                             "height":36
                         },
                         "large":{
-                            "url":"https://dl.airtable.com/.attachmentThumbnails/d86e13eec1b200e2b21282b99a9382be/6d92321b",
+                            "url":"https://mblogthumb-phinf.pstatic.net/MjAxODExMDJfMjU1/MDAxNTQxMTY5NjAzNDQ0.1k1j_mz4PSg-5q06zfYNI_HnVyRppzd9C7PGRMeDJEQg.p0_DTLq-FbUbJKqzSdR3MtuzfehFQ_gAlXPubW6s74wg.JPEG.farmerjeju/image_1247341261541168425415.jpg?type=w800",
                             "width":801,
                             "height":512
                         },
                         "full":{
-                            "url":"https://dl.airtable.com/.attachmentThumbnails/1135c89c18e3edcdc125a8f94e462d6a/c8e40bb6",
+                            "url":"https://mblogthumb-phinf.pstatic.net/MjAxODExMDJfMjU1/MDAxNTQxMTY5NjAzNDQ0.1k1j_mz4PSg-5q06zfYNI_HnVyRppzd9C7PGRMeDJEQg.p0_DTLq-FbUbJKqzSdR3MtuzfehFQ_gAlXPubW6s74wg.JPEG.farmerjeju/image_1247341261541168425415.jpg?type=w800",
                             "width":3000,
                             "height":3000
                         }
@@ -283,28 +284,28 @@
             "company":"marcos",
             "colors":["#00ff00","#0000ff"],
             "featured":true,
-            "price":3995,
-            "name":"utopia sofa",
+            "price":"3,000",
+            "name":"우리콩 100% 메주 1개당",
             "image":[
                 {
                     "id":"attqutUt355traBeS",
-                    "url":"https://dl.airtable.com/.attachments/6ac7f7b55d505057317534722e5a9f03/9183491e/product-3.jpg",
+                    "url":"http://www.k-today.com/news/photo/201901/3862_5102_1729.jpg",
                     "filename":"product-3.jpg",
                     "size":196312,
                     "type":"image/jpeg",
                     "thumbnails":{
                         "small":{
-                            "url":"https://dl.airtable.com/.attachmentThumbnails/265f1ffc8dc0a2e807a36c1182f652d0/c40102f0",
+                            "url":"http://www.k-today.com/news/photo/201901/3862_5102_1729.jpg",
                             "width":54,
                             "height":36
                         },
                         "large":{
-                            "url":"https://dl.airtable.com/.attachmentThumbnails/ee08b908ae61c8241f56130eedefac0a/22e0d8df",
+                            "url":"http://www.k-today.com/news/photo/201901/3862_5102_1729.jpg",
                             "width":775,
                             "height":512
                         },
                         "full":{
-                            "url":"https://dl.airtable.com/.attachmentThumbnails/4e0590e23f0b58b4c42456f921ad7361/9e2b8527",
+                            "url":"http://www.k-today.com/news/photo/201901/3862_5102_1729.jpg",
                             "width":3000,
                             "height":3000
                         }
@@ -319,28 +320,28 @@
             "company":"liddy",
             "colors":["#ff0000","#00ff00"],
             "featured":true,
-            "price":2998,
-            "name":"entertainment center",
+            "price":"5,000",
+            "name":"햇살담은 태양초 고추 1kg",
             "image":[
                 {
                     "id":"atttOzyYI8P1XfJu8",
-                    "url":"https://dl.airtable.com/.attachments/da5e17fd71f50578d525dd5f596e407e/d5e88ac8/product-2.jpg",
+                    "url":"http://www.traveli.co.kr/repository/show/contents/S20141024131720m0.jpg",
                     "filename":"product-2.jpg",
                     "size":195175,
                     "type":"image/jpeg",
                     "thumbnails":{
                         "small":{
-                            "url":"https://dl.airtable.com/.attachmentThumbnails/df32d98d412d0bdc2b3be9d66992e873/0d4edc49",
+                            "url":"http://www.traveli.co.kr/repository/show/contents/S20141024131720m0.jpg",
                             "width":50,
                             "height":36
                         },
                         "large":{
-                            "url":"https://dl.airtable.com/.attachmentThumbnails/37c101731d977a9ff9c98530185b77e0/078958cd",
+                            "url":"http://www.traveli.co.kr/repository/show/contents/S20141024131720m0.jpg",
                             "width":709,
                             "height":512
                         },
                         "full":{
-                            "url":"https://dl.airtable.com/.attachmentThumbnails/b360f712aca802235009988053b2c916/78daf7ad",
+                            "url":"http://www.traveli.co.kr/repository/show/contents/S20141024131720m0.jpg",
                             "width":3000,
                             "height":3000
                         }
