@@ -30,11 +30,8 @@ class SelectEvent {
   }
   handleMousedown({ target }) {
     if (this._isIndexCell(target)) return;
-    if (!this._isParentTd(target) && this._isSelectedCell(target)) {
-      this._dragDropMousedown(target);
-    } else {
-      this._dragSelectMousedown(target);
-    }
+    if (!this._isParentTd(target)) this._dragDropMousedown(target);
+    else this._dragSelectMousedown(target);
   }
   handleMouseover({ target }) {
     if (!this._isParentTd(target)) return;
@@ -88,8 +85,8 @@ class SelectEvent {
   _selectCell() {
     const selectData = this.sheetModel.getSelectData();
     selectData.forEach(({ cell, input }) => {
-      this._addSelected(cell);
-      this._addSelected(input);
+      this._addStyle(cell, 'selected');
+      this._addStyle(input, 'selected');
     });
   }
   //select cell들 .selected 클래스 제거
@@ -97,14 +94,14 @@ class SelectEvent {
     const selectData = this.sheetModel.getSelectData();
     if (!selectData.length) return;
     selectData.forEach(({ cell, input }) => {
-      this._removeSelected(cell);
-      this._removeSelected(input);
+      this._removeStyle(cell, 'selected');
+      this._removeStyle(input, 'selected');
     });
   }
   _clearOriginSelectCell() {
     this.originSelectData.forEach(({ cell, input }) => {
-      this._removeSelected(cell);
-      this._removeSelected(input);
+      this._removeStyle(cell, 'selected');
+      this._removeStyle(input, 'selected');
       this._removeBorder(cell, BORDER_STYLE.SOLID);
     });
   }
@@ -123,15 +120,7 @@ class SelectEvent {
   //블락 잡힌 범위 cell,input 구해주는 메소드
   _getBlockCells() {
     const selectBlockCellList = [];
-    const { column: firstColumn, row: firstRow } = this._getLocation(this.firstSelect.cell);
-    const { column: lastColumn, row: lastRow } = this._getLocation(this.lastSelect.cell);
-
-    const [minColumn, maxColumn] = [
-      Math.min(firstColumn, lastColumn),
-      Math.max(firstColumn, lastColumn),
-    ];
-    const [minRow, maxRow] = [Math.min(firstRow, lastRow), Math.max(firstRow, lastRow)];
-
+    const { top: minRow, bottom: maxRow, left: minColumn, right: maxColumn } = this._getSideIndex();
     for (let column = minColumn; column <= maxColumn; column++) {
       for (let row = minRow; row <= maxRow; row++) {
         const selectCell = _.$td({ x: column, y: row }, this.sheet);
@@ -188,12 +177,6 @@ class SelectEvent {
     const selectBlockCellList = this._getBlockCells();
     this.sheetModel.setSelectData(selectBlockCellList);
   }
-
-  _getValueFromData(data) {
-    const valueData = [];
-    data.forEach(({ input }) => valueData.push(input.value));
-    return valueData;
-  }
   _setValueSelectData(valueData) {
     const selectData = this.sheetModel.getSelectData();
     valueData.forEach((data, idx) => {
@@ -230,12 +213,6 @@ class SelectEvent {
     if (!node.parentElement) return;
     return node.parentElement.tagName === 'TD';
   }
-  _addSelected(node) {
-    node.classList.add('selected');
-  }
-  _removeSelected(node) {
-    node.classList.remove('selected');
-  }
   _removeBorder(node, style) {
     const solidBorderList = ['top-solid', 'bottom-solid', 'right-solid', 'left-solid'];
     const dotBorderList = ['top-dot', 'bottom-dot', 'right-dot', 'left-dot'];
@@ -257,15 +234,6 @@ class SelectEvent {
   _isIndexCell(node) {
     const nodeParent = node.parentElement;
     return node.classList.contains('row-index') || nodeParent.classList.contains('column-index');
-  }
-  _isSelectedCell(node) {
-    const selectData = this.sheetModel.getSelectData();
-    const { column: nodeColumn, row: nodeRow } = this._getLocation(node);
-    for (const { cell: selectCell } of selectData) {
-      const { column: selectColumn, row: selectRow } = this._getLocation(selectCell);
-      if (nodeColumn === selectColumn && nodeRow === selectRow) return true;
-    }
-    return false;
   }
   _getNodeData(node) {
     if (this._isParentTd(node)) {

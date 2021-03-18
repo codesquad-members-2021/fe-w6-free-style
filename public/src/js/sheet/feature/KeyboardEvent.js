@@ -153,11 +153,16 @@ class KeyboardEvent {
     selectData.forEach(({ cell, input }) => {
       this._removeSelected(cell);
       this._removeSelected(input);
+      this._removeBorder(cell);
     });
-    this.sheetModel.setSelectData([]);
+    this.sheetModel.clearSelectData();
   }
   _removeSelected(node) {
     node.classList.remove('selected');
+  }
+  _removeBorder(node) {
+    const solidBorderList = ['top-solid', 'bottom-solid', 'right-solid', 'left-solid'];
+    node.classList.remove(...solidBorderList);
   }
 }
 
