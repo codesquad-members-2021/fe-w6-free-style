@@ -7,6 +7,8 @@ class SelectEvent {
     this.cellNameBox = cellNameBox;
     this.firstSelect;
     this.lastSelect;
+    this.firstTarget; //drop 첫번째 기준
+    this.lastTarget; //drop 마지막 기준
     this.isSelectMousedown = false;
     this.isDropMousedown = false;
     this.init();
@@ -21,7 +23,11 @@ class SelectEvent {
   }
   handleMousedown({ target }) {
     if (this._isIndexCell(target)) return;
-    this._dragSelectMousedown(target);
+    if (!this._isParentTd(target)) {
+      //드래그
+    } else {
+      this._dragSelectMousedown(target);
+    }
   }
   handleMouseover({ target }) {
     if (this.isSelectMousedown && this._isParentTd(target)) this._dragSelectMouseover(target);
@@ -46,6 +52,17 @@ class SelectEvent {
   _dragSelectMouseup(target) {
     this._toggleSelectStatus();
   }
+  _dragDropMousedown(target) {
+    this._toggleDropStatus();
+    this._setFirstTargetData(target);
+  }
+  _dragDropMouseover(target) {
+    this._setLastTargetData(target);
+  }
+  _dragDropMouseup(target) {
+    this._toggleDropStatus();
+    this._clearSelectCell();
+  }
   _selectCell() {
     const selectData = this.sheetModel.getSelectData();
     selectData.forEach(({ cell, input }) => {
@@ -61,29 +78,6 @@ class SelectEvent {
       this._removeSelected(cell);
       this._removeSelected(input);
     });
-  }
-
-  _setFirstSelectData(node) {
-    if (this._isParentTd(node)) {
-      const input = node;
-      const cell = node.parentElement;
-      this.firstSelect = { cell, input };
-    } else {
-      const input = node.firstElementChild;
-      const cell = node;
-      this.firstSelect = { cell, input };
-    }
-  }
-  _setLastSelectData(node) {
-    if (this._isParentTd(node)) {
-      const input = node;
-      const cell = node.parentElement;
-      this.lastSelect = { cell, input };
-    } else {
-      const input = node.firstElementChild;
-      const cell = node;
-      this.lastSelect = { cell, input };
-    }
   }
 
   //블락 잡힌 범위 cell,input 구해주는 메소드
@@ -112,6 +106,19 @@ class SelectEvent {
     const selectBlockCellList = this._getSelectBlockCells();
     this.sheetModel.setSelectData(selectBlockCellList);
   }
+
+  _setFirstSelectData(node) {
+    this.firstSelect = this._getNodeData(node);
+  }
+  _setLastSelectData(node) {
+    this.lastSelect = this._getNodeData(node);
+  }
+  _setFirstTargetData(node) {
+    this.firstTarget = this._getNodeData(node);
+  }
+  _setLastTargetData(node) {
+    this.lastTarget = this._getNodeData(node);
+  }
   _getLocation(cell) {
     const { attributes } = cell;
     return { column: attributes.x.value, row: attributes.y.value };
@@ -134,6 +141,17 @@ class SelectEvent {
   _isIndexCell(node) {
     const nodeParent = node.parentElement;
     return node.classList.contains('row-index') || nodeParent.classList.contains('column-index');
+  }
+  _getNodeData(node) {
+    if (this._isParentTd(node)) {
+      const input = node;
+      const cell = node.parentElement;
+      return { cell, input };
+    } else {
+      const input = node.firstElementChild;
+      const cell = node;
+      return { cell, input };
+    }
   }
 }
 
