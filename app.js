@@ -11,9 +11,9 @@ app.locals.banner = require('./data/planningEvent.json');
 app.locals.contents = require('./data/homeContents.json');
 
 const indexRouter = require('./routes/index.js')
-const itemsRouter = require('./routes/list-item.js')
-app.get('/', indexRouter)
-app.get('/list-item', itemsRouter)
+const itemsRouter = require('./routes/item-list.js')
+app.use('/', indexRouter)
+app.use('/item-list', itemsRouter)
 
 app.listen(app.get('port'), () => {
     console.log(app.get('port'), '번 포트에서 대기 중')
