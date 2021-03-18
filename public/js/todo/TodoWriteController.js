@@ -1,7 +1,7 @@
 import _ from '../util.js';
 import TodoWriteEditor from './TodoWriteEditor.js';
 
-class TodoWriteView {
+class TodoWriteController {
     constructor(todoWriteReference) {
         this.todoWriteReference = todoWriteReference;
         this.editor = null;
@@ -19,11 +19,11 @@ class TodoWriteView {
 
     setEditorBtnsClickEvent = (editorBtnsWrapper) => {
         _.addEvent(editorBtnsWrapper, 'click', (e) =>
-            this.editorBtnsClickHandler(e),
+            this.editorBtnsClickEventHandler(e),
         );
     };
 
-    editorBtnsClickHandler = (e) => {
+    editorBtnsClickEventHandler = (e) => {
         const { target } = e;
         if (target.tagName !== 'BUTTON') return;
 
@@ -43,4 +43,4 @@ class TodoWriteView {
     };
 }
 
-export default TodoWriteView;
+export default TodoWriteController;

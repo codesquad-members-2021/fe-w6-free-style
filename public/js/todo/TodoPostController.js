@@ -1,7 +1,7 @@
 import _ from '../util.js';
 import TodoPostList from './TodoPostList.js';
 
-class TodoPostView {
+class TodoPostController {
     constructor(todoPostReference) {
         const {
             posting: { wrapper, subjectInput, goWriteBtn },
@@ -18,23 +18,18 @@ class TodoPostView {
     }
 
     init = () => {
-        this.setPostingEvent(this.postingReference);
-    };
-
-    setPostingEvent = (postingReference) => {
-        const { subjectInput, goWriteBtn } = postingReference;
-
+        const { subjectInput, goWriteBtn } = this.postingReference;
         this.setPostingBtnClickEvent(subjectInput, goWriteBtn);
     };
 
     // [Posting] Add 버튼 클릭 이벤트
     setPostingBtnClickEvent = (subjectInput, goWriteBtn) => {
         _.addEvent(goWriteBtn, 'click', () =>
-            this.postingBtnClickHandler(subjectInput),
+            this.postingBtnClickEventHandler(subjectInput),
         );
     };
 
-    postingBtnClickHandler = (subjectInput) => {
+    postingBtnClickEventHandler = (subjectInput) => {
         // form의 POST 요청으로 할까했지만 굳이..
         const movePath = '/todo/write';
         location.href = subjectInput.value
@@ -43,4 +38,4 @@ class TodoPostView {
     };
 }
 
-export default TodoPostView;
+export default TodoPostController;
