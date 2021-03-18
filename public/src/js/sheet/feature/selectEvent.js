@@ -1,10 +1,17 @@
 import { _ } from '../../util/util';
 
+const BORDER_STYLE = {
+  SOLID: 'solid',
+  DOT: 'dot',
+};
+
 class SelectEvent {
   constructor({ sheet, model, cellNameBox }) {
     this.sheet = sheet;
     this.sheetModel = model;
     this.cellNameBox = cellNameBox;
+    this.originSelectData;
+    this.originSelectValue;
     this.firstSelect;
     this.lastSelect;
     this.firstTarget; //drop 첫번째 기준
@@ -41,6 +48,7 @@ class SelectEvent {
   _dragSelectMousedown(target) {
     this._toggleSelectStatus();
     this._clearSelectCell();
+    this._clearBorder(BORDER_STYLE.SOLID);
     this._setFirstSelectData(target);
     this._setLastSelectData(target);
     this._setSelectData(this.firstSelect, this.lastSelect);
@@ -52,19 +60,30 @@ class SelectEvent {
     this._setSelectData(this.firstSelect, this.lastSelect);
     this._selectCell();
   }
-  _dragSelectMouseup(target) {
+  _dragSelectMouseup() {
     this._toggleSelectStatus();
+    this._setBorder('solid');
   }
   _dragDropMousedown(target) {
     this._toggleDropStatus();
     this._setFirstTargetData(target);
+    this._setOriginSelectData();
   }
   _dragDropMouseover(target) {
+    this._clearBorder(BORDER_STYLE.DOT);
     this._setLastTargetData(target);
+    this._setMovedFirstLastSelect();
+    this._setSelectData();
+    this._setBorder(BORDER_STYLE.DOT);
+    this._setFirstTargetData(target);
   }
   _dragDropMouseup(target) {
     this._toggleDropStatus();
-    this._copyData();
+    this._clearOriginSelectCell();
+    this._clearOriginSelectValue();
+    this._clearBorder(BORDER_STYLE.DOT);
+    this._setValueSelectData(this.originSelectValue); //기존 valuedata를 적용하기(copy)
+    this._selectCell();
   }
   _selectCell() {
     const selectData = this.sheetModel.getSelectData();
@@ -82,11 +101,23 @@ class SelectEvent {
       this._removeSelected(input);
     });
   }
-  _clearSelectValue() {
+  _clearOriginSelectCell() {
+    this.originSelectData.forEach(({ cell, input }) => {
+      this._removeSelected(cell);
+      this._removeSelected(input);
+      this._removeBorder(cell, BORDER_STYLE.SOLID);
+    });
+  }
+  _clearOriginSelectValue() {
+    this.originSelectData.forEach(({ input }) => {
+      input.value = '';
+    });
+  }
+  _clearBorder(style) {
     const selectData = this.sheetModel.getSelectData();
     if (!selectData.length) return;
-    selectData.forEach(({ input }) => {
-      input.value = '';
+    selectData.forEach(({ cell }) => {
+      this._removeBorder(cell, style);
     });
   }
   //블락 잡힌 범위 cell,input 구해주는 메소드
@@ -110,23 +141,13 @@ class SelectEvent {
     }
     return selectBlockCellList;
   }
-  _copyData() {
-    const selectData = this.sheetModel.getSelectData();
-    const originSelectValue = this._getValueFromData(selectData);
-    this._clearSelectCell();
-    this._clearSelectValue();
-    this._setMovedSelect();
-    this._setSelectData();
-    this._setValueToMovedSelect(originSelectValue);
-    this._selectCell();
-  }
   _getMoveIndex() {
     const { column: firstColumn, row: firstRow } = this._getLocation(this.firstTarget.cell);
     const { column: lastColumn, row: lastRow } = this._getLocation(this.lastTarget.cell);
     const moveIndex = { column: lastColumn - firstColumn, row: lastRow - firstRow };
     return moveIndex;
   }
-  _setMovedSelect() {
+  _setMovedFirstLastSelect() {
     const { column: moveColumn, row: moveRow } = this._getMoveIndex();
     const { column: firstColumn, row: firstRow } = this._getLocation(this.firstSelect.cell);
     const { column: lastColumn, row: lastRow } = this._getLocation(this.lastSelect.cell);
@@ -138,11 +159,31 @@ class SelectEvent {
       { x: lastColumn * 1 + moveColumn, y: lastRow * 1 + moveRow },
       this.sheet
     );
-
     this.firstSelect = this._getNodeData(newFirstCell);
     this.lastSelect = this._getNodeData(newLastCell);
   }
-  //select-block된 cell,input데이터 모델에 setting
+  _setBorder(style) {
+    const selectData = this.sheetModel.getSelectData();
+    const sideIndex = this._getSideIndex();
+    selectData.forEach(({ cell }) => {
+      const { column, row } = this._getLocation(cell);
+      if (column * 1 === sideIndex.left) this._addStyle(cell, `left-${style}`);
+      if (column * 1 === sideIndex.right) this._addStyle(cell, `right-${style}`);
+      if (row * 1 === sideIndex.top) this._addStyle(cell, `top-${style}`);
+      if (row * 1 === sideIndex.bottom) this._addStyle(cell, `bottom-${style}`);
+    });
+  }
+  _getSideIndex() {
+    const { column: firstColumn, row: firstRow } = this._getLocation(this.firstSelect.cell);
+    const { column: lastColumn, row: lastRow } = this._getLocation(this.lastSelect.cell);
+    const minRow = Math.min(firstRow, lastRow); //border-top
+    const maxRow = Math.max(firstRow, lastRow); //border-bottom
+    const minColumn = Math.min(firstColumn, lastColumn); //border-left
+    const maxColumn = Math.max(firstColumn, lastColumn); //border-right
+    const sideIndex = { top: minRow, bottom: maxRow, left: minColumn, right: maxColumn };
+    return sideIndex;
+  }
+  // select-block된 cell,input데이터 모델에 setting
   _setSelectData() {
     const selectBlockCellList = this._getBlockCells();
     this.sheetModel.setSelectData(selectBlockCellList);
@@ -153,11 +194,21 @@ class SelectEvent {
     data.forEach(({ input }) => valueData.push(input.value));
     return valueData;
   }
-  _setValueToMovedSelect(valueData) {
+  _setValueSelectData(valueData) {
     const selectData = this.sheetModel.getSelectData();
     valueData.forEach((data, idx) => {
       selectData[idx].input.value = data;
     });
+  }
+  _setOriginSelectData() {
+    this.originSelectData = this.sheetModel.getSelectData();
+    this.originSelectValue = this.originSelectData
+      .map((data) => data.input)
+      .map((input) => input.value)
+      .reduce((acc, value) => {
+        acc.push(value);
+        return acc;
+      }, []);
   }
   _setFirstSelectData(node) {
     this.firstSelect = this._getNodeData(node);
@@ -176,6 +227,7 @@ class SelectEvent {
     return { column: attributes.x.value, row: attributes.y.value };
   }
   _isParentTd(node) {
+    if (!node.parentElement) return;
     return node.parentElement.tagName === 'TD';
   }
   _addSelected(node) {
@@ -183,6 +235,18 @@ class SelectEvent {
   }
   _removeSelected(node) {
     node.classList.remove('selected');
+  }
+  _removeBorder(node, style) {
+    const solidBorderList = ['top-solid', 'bottom-solid', 'right-solid', 'left-solid'];
+    const dotBorderList = ['top-dot', 'bottom-dot', 'right-dot', 'left-dot'];
+    if (style === BORDER_STYLE.SOLID) node.classList.remove(...solidBorderList);
+    if (style === BORDER_STYLE.DOT) node.classList.remove(...dotBorderList);
+  }
+  _addStyle(node, style) {
+    node.classList.add(style);
+  }
+  _removeStyle(node, style) {
+    node.classList.remove(style);
   }
   _toggleSelectStatus() {
     this.isSelectMousedown = !this.isSelectMousedown;

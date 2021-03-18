@@ -46,3 +46,28 @@ td:first-child {
 .selected {
   background-color: rgb(199, 199, 255);
 }
+
+.top-solid {
+  border-top: 2px solid blue;
+}
+.right-solid {
+  border-right: 2px solid blue;
+}
+.left-solid {
+  border-left: 2px solid blue;
+}
+.bottom-solid {
+  border-bottom: 2px solid blue;
+}
+.top-dot {
+  border-top: 2px dotted blue;
+}
+.right-dot {
+  border-right: 2px dotted blue;
+}
+.left-dot {
+  border-left: 2px dotted blue;
+}
+.bottom-dot {
+  border-bottom: 2px dotted blue;
+}
