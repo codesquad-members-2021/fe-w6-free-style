@@ -1,4 +1,4 @@
-import _ from './utill.js';
+import { _ } from './utill.js';
 
 const cartOverlay = _.$('.cart-overlay');
 const closeCartBtn = _.$('.cart-close');

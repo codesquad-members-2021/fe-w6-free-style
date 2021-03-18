@@ -245,7 +245,8 @@ Navbar
   }
   .nav-logo {
     position: absolute;
-    top: 50%;
+    top: 30%;
+    width: 4rem;
     left: 65%;
     transform: translate(-50%, -50%);
   }
