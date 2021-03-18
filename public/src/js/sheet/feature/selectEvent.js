@@ -24,29 +24,32 @@ class SelectEvent {
   handleMousedown({ target }) {
     if (this._isIndexCell(target)) return;
     if (!this._isParentTd(target)) {
-      //드래그
+      this._dragDropMousedown(target);
     } else {
       this._dragSelectMousedown(target);
     }
   }
   handleMouseover({ target }) {
-    if (this.isSelectMousedown && this._isParentTd(target)) this._dragSelectMouseover(target);
+    if (!this._isParentTd(target)) return;
+    if (this.isSelectMousedown) this._dragSelectMouseover(target);
+    if (this.isDropMousedown) this._dragDropMouseover(target);
   }
   handleMouseup({ target }) {
     if (this.isSelectMousedown) this._dragSelectMouseup(target);
+    if (this.isDropMousedown) this._dragDropMouseup(target);
   }
   _dragSelectMousedown(target) {
     this._toggleSelectStatus();
     this._clearSelectCell();
     this._setFirstSelectData(target);
     this._setLastSelectData(target);
-    this._setSelectData();
+    this._setSelectData(this.firstSelect, this.lastSelect);
     this._selectCell();
   }
   _dragSelectMouseover(target) {
     this._clearSelectCell();
     this._setLastSelectData(target);
-    this._setSelectData();
+    this._setSelectData(this.firstSelect, this.lastSelect);
     this._selectCell();
   }
   _dragSelectMouseup(target) {
@@ -61,7 +64,7 @@ class SelectEvent {
   }
   _dragDropMouseup(target) {
     this._toggleDropStatus();
-    this._clearSelectCell();
+    this._copyData();
   }
   _selectCell() {
     const selectData = this.sheetModel.getSelectData();
@@ -79,9 +82,15 @@ class SelectEvent {
       this._removeSelected(input);
     });
   }
-
+  _clearSelectValue() {
+    const selectData = this.sheetModel.getSelectData();
+    if (!selectData.length) return;
+    selectData.forEach(({ input }) => {
+      input.value = '';
+    });
+  }
   //블락 잡힌 범위 cell,input 구해주는 메소드
-  _getSelectBlockCells() {
+  _getBlockCells() {
     const selectBlockCellList = [];
     const { column: firstColumn, row: firstRow } = this._getLocation(this.firstSelect.cell);
     const { column: lastColumn, row: lastRow } = this._getLocation(this.lastSelect.cell);
@@ -101,12 +110,55 @@ class SelectEvent {
     }
     return selectBlockCellList;
   }
+  _copyData() {
+    const selectData = this.sheetModel.getSelectData();
+    const originSelectValue = this._getValueFromData(selectData);
+    this._clearSelectCell();
+    this._clearSelectValue();
+    this._setMovedSelect();
+    this._setSelectData();
+    this._setValueToMovedSelect(originSelectValue);
+    this._selectCell();
+  }
+  _getMoveIndex() {
+    const { column: firstColumn, row: firstRow } = this._getLocation(this.firstTarget.cell);
+    const { column: lastColumn, row: lastRow } = this._getLocation(this.lastTarget.cell);
+    const moveIndex = { column: lastColumn - firstColumn, row: lastRow - firstRow };
+    return moveIndex;
+  }
+  _setMovedSelect() {
+    const { column: moveColumn, row: moveRow } = this._getMoveIndex();
+    const { column: firstColumn, row: firstRow } = this._getLocation(this.firstSelect.cell);
+    const { column: lastColumn, row: lastRow } = this._getLocation(this.lastSelect.cell);
+    const newFirstCell = _.$td(
+      { x: firstColumn * 1 + moveColumn, y: firstRow * 1 + moveRow },
+      this.sheet
+    );
+    const newLastCell = _.$td(
+      { x: lastColumn * 1 + moveColumn, y: lastRow * 1 + moveRow },
+      this.sheet
+    );
+
+    this.firstSelect = this._getNodeData(newFirstCell);
+    this.lastSelect = this._getNodeData(newLastCell);
+  }
   //select-block된 cell,input데이터 모델에 setting
   _setSelectData() {
-    const selectBlockCellList = this._getSelectBlockCells();
+    const selectBlockCellList = this._getBlockCells();
     this.sheetModel.setSelectData(selectBlockCellList);
   }
 
+  _getValueFromData(data) {
+    const valueData = [];
+    data.forEach(({ input }) => valueData.push(input.value));
+    return valueData;
+  }
+  _setValueToMovedSelect(valueData) {
+    const selectData = this.sheetModel.getSelectData();
+    valueData.forEach((data, idx) => {
+      selectData[idx].input.value = data;
+    });
+  }
   _setFirstSelectData(node) {
     this.firstSelect = this._getNodeData(node);
   }
