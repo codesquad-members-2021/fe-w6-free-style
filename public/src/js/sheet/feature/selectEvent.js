@@ -31,7 +31,7 @@ class SelectEvent {
   }
   handleMousedown({ target }) {
     if (this._isIndexCell(target)) return;
-    if (!this._isParentTd(target)) this._dragDropMousedown(target);
+    if (!this._isParentTd(target) && this._isSelect()) this._dragDropMousedown(target);
     else this._dragSelectMousedown(target);
   }
   handleMouseover({ target }) {
@@ -76,7 +76,7 @@ class SelectEvent {
     this._setBorder(BORDER_STYLE.DOT);
     this._setFirstTargetData(target);
   }
-  _dragDropMouseup(target) {
+  _dragDropMouseup() {
     this._toggleDropStatus();
     this._clearOriginSelectCell();
     this._clearOriginSelectValue();
@@ -98,20 +98,16 @@ class SelectEvent {
   _clearOriginSelectCell() {
     this.originSelectData.forEach(({ cell, input }) => {
       this._removeStyle('selected', cell, input);
-      this._removeBorder(cell, BORDER_STYLE.SOLID);
+      this._removeBorder(BORDER_STYLE.SOLID, cell);
     });
   }
   _clearOriginSelectValue() {
-    this.originSelectData.forEach(({ input }) => {
-      input.value = '';
-    });
+    this.originSelectData.forEach(({ input }) => (input.value = ''));
   }
   _clearBorder(style) {
     const selectData = this.sheetModel.getSelectData();
     if (!selectData.length) return;
-    selectData.forEach(({ cell }) => {
-      this._removeBorder(cell, style);
-    });
+    selectData.forEach(({ cell }) => this._removeBorder(style, cell));
   }
   //블락 잡힌 범위 cell,input 구해주는 메소드
   _getBlockCells() {
@@ -175,9 +171,7 @@ class SelectEvent {
   }
   _setValueSelectData(valueData) {
     const selectData = this.sheetModel.getSelectData();
-    valueData.forEach((data, idx) => {
-      selectData[idx].input.value = data;
-    });
+    valueData.forEach((data, idx) => (selectData[idx].input.value = data));
   }
   _setOriginSelectData() {
     this.originSelectData = this.sheetModel.getSelectData();
@@ -209,11 +203,16 @@ class SelectEvent {
     if (!node.parentElement) return;
     return node.parentElement.tagName === 'TD';
   }
-  _removeBorder(node, style) {
+  _isSelect() {
+    return this.firstSelect && this.lastSelect;
+  }
+  _removeBorder(style, ...nodes) {
     const solidBorderList = ['top-solid', 'bottom-solid', 'right-solid', 'left-solid'];
     const dotBorderList = ['top-dot', 'bottom-dot', 'right-dot', 'left-dot'];
-    if (style === BORDER_STYLE.SOLID) node.classList.remove(...solidBorderList);
-    if (style === BORDER_STYLE.DOT) node.classList.remove(...dotBorderList);
+    if (style === BORDER_STYLE.SOLID)
+      nodes.forEach((node) => node.classList.remove(...solidBorderList));
+    if (style === BORDER_STYLE.DOT)
+      nodes.forEach((node) => node.classList.remove(...dotBorderList));
   }
   _addStyle(style, ...nodes) {
     nodes.forEach((node) => node.classList.add(style));
@@ -243,7 +242,7 @@ class SelectEvent {
     }
   }
   _setCellNameBox() {
-    if (!this.firstColumn || !this.lastColumn) return;
+    if (!this._isSelect()) return;
     const { column: firstColumn, row: firstRow } = this._getLocation(this.firstSelect.cell);
     const { column: lastColumn, row: lastRow } = this._getLocation(this.lastSelect.cell);
     const firstCellName = parseCellName(firstColumn, firstRow);
