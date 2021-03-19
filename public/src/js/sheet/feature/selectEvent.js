@@ -176,8 +176,7 @@ class SelectEvent {
   _setOriginSelectData() {
     this.originSelectData = this.sheetModel.getSelectData();
     this.originSelectValue = this.originSelectData
-      .map((data) => data.input)
-      .map((input) => input.value)
+      .map((data) => data.input.value)
       .reduce((acc, value) => {
         acc.push(value);
         return acc;
