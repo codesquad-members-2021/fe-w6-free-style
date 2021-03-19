@@ -2,7 +2,7 @@
 	display: none;
 }
 button{
-	background-color: rgba($color: black, $alpha: 0.1);
+	background-color: rgba($color: black, $alpha: 0.07);
 	border-radius: 5px;
 	border: 1px solid black;
 }
@@ -86,9 +86,11 @@ input{
 	position: absolute;
 	width: 700px;
 	height: 565px;
+	margin-right: 1rem;
 	left: 340px;
 	top: 16px;
 	border: 1px solid black;
+	// background-image: url("../images/result_backgorund.png");
 	ul {
 		position: absolute;
 		height: 525px;
