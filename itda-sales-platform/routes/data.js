@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const jsonData = require('../response.json');
+const allProductData = require('../response/allProducts.json');
 
 router.get("/", (req, res) => {
-    res.send(jsonData);
+    res.send(allProductData);
     // const productID = req.query.id;
     // sendReqProductData(res, productID);
 });

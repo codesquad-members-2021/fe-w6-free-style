@@ -1,4 +1,4 @@
-import { addToCart, openCart } from './cart.js';
+import { addToCart, openCart } from './pages/cart.js';
 import { _ } from './utill.js';
 
 const makeProductTemplate = (id, name, image, price) => {

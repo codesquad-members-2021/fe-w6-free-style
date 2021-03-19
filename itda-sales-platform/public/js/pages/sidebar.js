@@ -1,4 +1,5 @@
-import { _ } from './utill.js';
+//------------------------✻✻✻ 사이드바 페이지 ✻✻✻--------------------------
+import { _ } from '../utill.js';
 
 const toggleNav = _.$('.toggle-nav');
 const sidebarOverlay = _.$('.sidebar-overlay');
