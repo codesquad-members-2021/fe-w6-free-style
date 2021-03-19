@@ -6,17 +6,15 @@ export class Separator {
 	}
 
 	init() {
-		this.addEvent();
-	}
-
-	addEvent() {
 		_.on(this.data.startButton, "click", this.start.bind(this));
 	}
 
 	async start() {
+		this.data.startButton.disabled = "true";
 		this.resetSlide();
 		await this.separateUser();
-		this.slide();
+		await this.slide();
+		this.data.startButton.disabled = "";
 	}
 
 	resetSlide() {
@@ -33,15 +31,14 @@ export class Separator {
 	getRandomIndex(length) {
 		const index = new Set();
 		while (index.size < length) index.add(Math.floor(Math.random() * length));
-		const indexArr = [...index];
-		return indexArr;
+		return [...index];
 	}
 	//prettier-ignore
 	renderUser(randomIndex) {
 		const promiseArr = [...this.data.slideItems].map((v, i) =>new Promise(async (res, rej) => {
 				v.innerHTML = `<div>${this.data.userList[randomIndex[i]].value}</div>`;
 				let userInfo = await this.getUserInfo(this.data.userList[randomIndex[i]].value);
-				v.innerHTML += `<div><img src="./images/tier/${userInfo.tier}.png" alt="tier-icon"> - ${userInfo.rank} - ${userInfo.leaguePoints}</div>`;
+				v.innerHTML += `<div><img src="./images/${userInfo.tier}.png" alt="tier-icon"> - ${userInfo.rank} - ${userInfo.leaguePoints}</div>`;
 				res();
 			})
 		);
@@ -62,10 +59,13 @@ export class Separator {
 			.then((response) => (response ? response : defaultInfo));
 	}
 
-	async slide() {
-		for (let i = 0; i < 5; i++) {
-			await _.delay(() => _.ca(this.data.slideItems[i], "slide-right"), 300);
-			await _.delay(() => _.ca(this.data.slideItems[i + 5], "slide-left"), 300);
-		}
+	slide() {
+		return new Promise(async (res, rej) => {
+			for (let i = 0; i < 5; i++) {
+				await _.delay(() => _.ca(this.data.slideItems[i], "slide-right"), 300);
+				await _.delay(() => _.ca(this.data.slideItems[i + 5], "slide-left"), 300);
+			}
+			res();
+		});
 	}
 }

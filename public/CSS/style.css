@@ -1,5 +1,16 @@
 .unseen {
-  visibility: hidden;
+  display: none;
+}
+
+button {
+  background-color: rgba(0, 0, 0, 0.07);
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+input {
+  border-radius: 3px;
+  border: 1px solid black;
 }
 
 .user {
@@ -49,6 +60,14 @@
   width: 19rem;
 }
 
+.roulette__folder {
+  position: relative;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  top: 10px;
+  left: 151px;
+}
+
 .roulette {
   position: relative;
   width: 19rem;
@@ -91,6 +110,9 @@
   z-index: 4;
   padding: 0.5rem;
   width: 18rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;
@@ -98,8 +120,9 @@
 
 .result {
   position: absolute;
-  width: 800px;
+  width: 700px;
   height: 565px;
+  margin-right: 1rem;
   left: 340px;
   top: 16px;
   border: 1px solid black;
@@ -140,7 +163,7 @@
 
 .result__team-red {
   top: 20px;
-  left: 580px;
+  left: 480px;
 }
 
 .result__team-red li {
