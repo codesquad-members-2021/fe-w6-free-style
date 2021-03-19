@@ -31,7 +31,7 @@ io.on('connection', async function(socket){
 		arr = arr.filter((v,i) => v === user_list[i]);
 	})
 
-	socket.on('disconnect', function(){ 
+	socket.on('disconnect', function(){
 	  	io.emit('disconnect message', user, socket.id);
 	});
 
