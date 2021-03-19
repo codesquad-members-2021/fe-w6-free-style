@@ -25,10 +25,15 @@ const separatorData = {
 
 new Separator(separatorData);
 
-const foldButton = _.$('.roulette__folder')
-const roulette = _.$('.roulette')
-_.on(foldButton, 'click', ()=>{
-	_.ct(roulette,'unseen')
-})
+// 토글 버튼 이벤트
+_.on(_.$(".roulette__folder"), "click", () => _.ct(_.$(".roulette"), "unseen"));
 
-console.log(document.body)
+// console.log(document.body.childNodes);
+// console.log(document.body);
+
+// const $ = () => {
+	//className 속성과 classList 속성
+	//대충 .childNodes로 계속 재귀 검색
+	//없으면 쌩 return
+	//쌩 return 후
+// };
