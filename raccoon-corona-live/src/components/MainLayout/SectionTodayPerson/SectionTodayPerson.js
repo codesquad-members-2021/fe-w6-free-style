@@ -1,12 +1,16 @@
 import React from 'react';
-import SectionTodayBox from './SectionTodayBox';
+import SectionTodayBottom from './SectionTodayBottom';
+import SectionTodayUpper from './SectionTodayUpper';
 
 function SectionTodayPerson() {
-    return ( 
+  return (
     <div className="Section__Today">
-        <SectionTodayBox />
+      <div className="Section__Today__Box">
+        <SectionTodayUpper />
+        <SectionTodayBottom />
+      </div>
     </div>
-    )
+  );
 }
 
 export default SectionTodayPerson;

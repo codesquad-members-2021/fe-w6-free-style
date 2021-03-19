@@ -1,9 +1,9 @@
 import React from 'react';
 
-function TodayRightItemText(props) {
+function TodayRightItemText({ text }) {
   return (
     <div className="Today__Right__Item__Text flex-row">
-      <div>{props.text} </div>
+      <div>{text} </div>
     </div>
   );
 }
