@@ -1,4 +1,5 @@
 import _ from '../util.js';
+import TodoPostList from "./TodoPostList.js";
 
 class TodoPostController {
     constructor(todoPostReference) {
@@ -6,6 +7,7 @@ class TodoPostController {
             postingWrapper,
             postingItems: { subject, addBtn },
             postlistWrapper,
+            postlistItems,
         } = todoPostReference;
 
         this.postingWrapper = _.$(postingWrapper);
@@ -13,12 +15,17 @@ class TodoPostController {
             subject: _.$(subject, this.postingWrapper),
             addBtn: _.$(addBtn, this.postingWrapper)
         };
-        this.postlistWrapper = _.$(postlistWrapper);        
+
+        // TodoPostList에서 쓰임
+        this.postlistWrapper = _.$(postlistWrapper);
+        this.postlistItems = postlistItems;
+        // -----        
     }
 
     init = () => {
         const { subject, addBtn } = this.postingItems;
-        this.setPostingAddBtnClickEvent(subject, addBtn);
+        this.setPostingAddBtnClickEvent(subject, addBtn);  
+        this.setTodoPostList(this.postlistWrapper, this.postlistItems);
     };
 
     // [Posting] Add 버튼 클릭 이벤트
@@ -35,6 +42,13 @@ class TodoPostController {
             ? `${movePath}?subject=${subject.value}`
             : movePath;
     };
+
+    // [Postlist] TodoPostList (+TodoPostListItem) 세팅 
+    setTodoPostList = (postlistWrapper, postlistItems) => {        
+        new TodoPostList(postlistWrapper, postlistItems).init();
+    }; 
+        
+
 }
 
 export default TodoPostController;

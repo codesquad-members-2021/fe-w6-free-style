@@ -24,7 +24,15 @@ const REFERENCE = {
             subject: 'input#subject',
             addBtn: 'button#add',
         },
-        postlistWrapper: '#todo-postlist',
+        postlistWrapper: '#todo-postlist #accordion',
+        postlistItems: {
+            // setViewer~ (TodoPostList에서 Item  Html만들때 사용 (id 설정))
+            setViewerWrapIdName: 'viewer',
+            setViewerIdName: 'toast-viewer',
+            viewerOptions: {
+                height: 'auto',                
+            }
+        }
     },
     // path: /todo/write
     todoWrite: {

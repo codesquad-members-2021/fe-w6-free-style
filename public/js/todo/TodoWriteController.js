@@ -1,5 +1,5 @@
 import _ from '../util.js';
-import TodoWriteEditor from './TodoWriteEditor.js';
+import TodoEditor from './toast/TodoEditor.js';
 
 class TodoWriteController {
     constructor(todoWriteReference) {        
@@ -29,7 +29,7 @@ class TodoWriteController {
 
     // Toast Editor 설정
     setEditor = (editorWrapper, editorOptions) =>
-        (this.editor = new TodoWriteEditor(editorWrapper, editorOptions));
+        (this.editor = new TodoEditor(editorWrapper, editorOptions));
 
     // 글 서버로 전송
     setWriteFormSubmitEvent = (formWrapper, content) => {

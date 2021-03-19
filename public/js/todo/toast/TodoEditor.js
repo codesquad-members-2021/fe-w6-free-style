@@ -1,7 +1,6 @@
-import _ from "../util.js";
 import Editor from '@toast-ui/editor';
 
-class TodoWriteEditor {
+class TodoEditor {
     constructor(editorWrapper, editorOptions) {
         this.editorWrapper = editorWrapper;
 
@@ -17,4 +16,4 @@ class TodoWriteEditor {
     getHtml = () => this.editor.getHtml();
 };
 
-export default TodoWriteEditor;
+export default TodoEditor;
