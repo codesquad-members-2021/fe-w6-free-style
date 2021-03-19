@@ -1,9 +1,7 @@
 import React from 'react';
 import TabMenuList from './TabMenuList';
-import Globe from '../../../svg/Globe';
-import KoreaMap from '../../../svg/koreaMap';
-import Vaccine from '../../../svg/Vaccine';
-import Flag from '../../../svg/Flag';
+
+import { Vaccine, KoreaMap, Globe, Flag } from '../../../svg/svgIndex';
 
 function TitleTab() {
   const tabMenu = [

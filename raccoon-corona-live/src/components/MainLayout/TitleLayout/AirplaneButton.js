@@ -1,5 +1,5 @@
 import React from 'react';
-import Airplane from '../../../svg/Airplane';
+import { Airplane } from '../../../svg/svgIndex';
 
 function AirplaneButton() {
   return (
