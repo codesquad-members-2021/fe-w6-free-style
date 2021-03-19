@@ -1,4 +1,4 @@
-import { _ } from './utill.js';
+import { _ } from './util.js';
 
 let store = _.getStorageItem('store');
 

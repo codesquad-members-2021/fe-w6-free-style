@@ -1,5 +1,5 @@
 import { addToCart, openCart } from './pages/cart.js';
-import { _ } from './utill.js';
+import { _ } from './util.js';
 
 const makeProductTemplate = (id, name, image, price) => {
     return `<article class="product">

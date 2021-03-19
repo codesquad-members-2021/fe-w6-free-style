@@ -4,7 +4,7 @@ import './sidebar.js';
 import './cart.js';
 import fetchProducts from '../fetchProducts.js';
 import { setupStore, store } from '../store.js';
-import { _ } from '../utill.js';
+import { _ } from '../util.js';
 import display from '../display.js';
 
 const init = async () => {

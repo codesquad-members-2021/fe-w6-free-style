@@ -1,5 +1,5 @@
 //------------------------✻✻✻ 장바구니 페이지 ✻✻✻--------------------------
-import { _ } from '../utill.js';
+import { _ } from '../util.js';
 
 const cartOverlay = _.$('.cart-overlay');
 const closeCartBtn = _.$('.cart-close');
