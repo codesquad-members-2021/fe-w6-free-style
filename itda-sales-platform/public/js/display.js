@@ -1,3 +1,4 @@
+//------------------------✻✻✻ 개별 상품 templating ✻✻✻--------------------------
 import { addToCart, openCart } from './pages/cart.js';
 import { _ } from './util.js';
 

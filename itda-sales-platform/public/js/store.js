@@ -1,7 +1,7 @@
+//------------------------✻✻✻ 물품 데이터 조회 및 저장 ✻✻✻--------------------------
 import { _ } from './util.js';
 
 let store = _.getStorageItem('store');
-
 const setupStore = (products) => {
     store = products.map((product) => {
         //destructuring으로 필요한 것들만 가져오기

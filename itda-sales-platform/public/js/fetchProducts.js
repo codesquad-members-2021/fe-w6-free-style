@@ -1,3 +1,4 @@
+//------------------------✻✻✻ json 데이터 요청 ✻✻✻--------------------------
 import { allProductsURL } from "./util.js";
 
 const fetchProducts = async () => {
