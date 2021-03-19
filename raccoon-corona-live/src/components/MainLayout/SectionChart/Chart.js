@@ -19,7 +19,7 @@ function Chart() {
 
   const options = {
     chart: {
-      width: 450,
+      width: 490,
       height: 400,
       title: 'Corona Live',
       format: '1,000',
@@ -33,6 +33,42 @@ function Chart() {
     series: {
       showLabel: true,
     },
+    theme: {
+      chart: {
+        fontFamily: 'Noto Sans KR',
+        backgroundColor: 'rgb(25, 31, 44)',
+      },
+      title: {
+        fontFamily: 'Noto Sans KR',
+        fontSize: 12,
+        fontWeight: 100,
+        color: '#fff',
+      },
+      xAxis: {
+        title: {
+          fontFamily: 'Noto Sans KR',
+          color: '#fff',
+        },
+        label: {
+          fontFamily: 'Noto Sans KR',
+          color: '#fff',
+        },
+        width: 2,
+        color: '#fff',
+      },
+      yAxis: {
+        title: {
+          fontFamily: 'Noto Sans KR',
+          color: '#fff',
+        },
+        label: {
+          fontFamily: 'Noto Sans KR',
+          color: '#fff',
+        },
+        width: 2,
+        color: '#fff',
+      },
+    },
   };
 
   const [updateData, setUpdateData] = useState(data);
@@ -41,7 +77,6 @@ function Chart() {
     const request = `/domestic-init.json`;
     const response = await axios.get(request);
     const data = response.data.timeseries;
-    console.log(data.today);
 
     const timeArr = (key) => Object.keys(key);
     const countArr = (value) => Object.values(value);
