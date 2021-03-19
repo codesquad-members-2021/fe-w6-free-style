@@ -31,16 +31,20 @@ function SectionTodayUpper() {
     const response = await fetchData();
 
     setStats1({
+      ...stats1,
       text: ['어제', '1주전'],
       number: [response.yesterday, response.weekAgo],
     });
     setStats2({
+      ...stats2,
       text: ['2주전', '1달전'],
       number: [response.twoWeeksAgo, response.monthAgo],
     });
+    console.log(stats1, stats2);
   }
 
   useEffect(() => {
+    console.log('getData');
     getData();
   }, []);
 
