@@ -1,5 +1,5 @@
 .unseen {
-  visibility: hidden;
+  display: none;
 }
 
 .user {
