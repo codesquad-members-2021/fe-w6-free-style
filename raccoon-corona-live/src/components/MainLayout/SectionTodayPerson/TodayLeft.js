@@ -8,17 +8,12 @@ function TodayLeft() {
     const request = `/domestic-init.json`;
     const response = await axios.get(request);
     const data = response.data.statsLive;
-    return data;
-  }
-
-  async function getData() {
-    const response = await fetchData();
-    setToday(response.today);
+    setToday(data.today);
   }
 
   useEffect(() => {
-    getData();
-  });
+    fetchData();
+  }, []);
 
   return (
     <div className="Today__Left section__spacebetween flex-column">

@@ -1,9 +1,9 @@
 import React from 'react';
 
-function TabMenuList(props) {
+function TabMenuList({ menu }) {
   return (
     <div className="Tab__Menu--Box Tab__Flex flex flex-row">
-      {props.menu.map((item, idx) => (
+      {menu.map((item, idx) => (
         <TabMenu menu={item.menu} svg={item.svg} key={idx} />
       ))}
     </div>
