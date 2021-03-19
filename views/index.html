@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/style/style.css" />
+    <script
+      defer
+      src="https://kit.fontawesome.com/195eeb158a.js"
+      crossorigin="anonymous"
+    ></script>
+    <script type="module" src="/js/main.js" defer></script>
+    <title>study planner</title>
+  </head>
+  <body>
+    <main class="planner container is-max-widescreen">
+      <div class="container-wrap columns is-multiline">
+        <section class="main-wrap">
+          <aside class="menu column is-one-quarter">
+            <p class="menu-label">General</p>
+            <ul class="menu-list">
+              <li>
+                <a>
+                  <span>Home</span>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <span>Dashboard</span>
+                </a>
+              </li>
+              <li><a>Memo</a></li>
+            </ul>
+            <p class="menu-label">Administration</p>
+            <ul class="menu-list">
+              <li><a>Settings</a></li>
+            </ul>
+          </aside>
+          <section class="main-view column">
+            <div class="view-btn-container">
+              <div class="main-view-btn"></div>
+            </div>
+            <div class="view-contents">
+              <div class="content-timer">
+                <div class="timer">
+                  <div class="timer-tabs tabs">
+                    <ul>
+                      <li><a>오늘 공부 시간</a></li>
+                      <li><a>총 공부 시간</a></li>
+                    </ul>
+                    <span class="timer-today">00:00</span>
+                  </div>
+                  <div class="timer-show">
+                    <div class="timer-current">
+                      <span class="hour">00</span>
+                      <span>:</span>
+                      <span class="minute">00</span>
+                      <span>:</span>
+                      <span class="second">00</span>
+                    </div>
+                    <div class="timer-btns">
+                      <button class="timer-btn btn-start">Start</button>
+                      <button class="timer-btn btn-finish" disabled>
+                        Finish
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="content-weather">
+                <div class="weather">
+                  <div class="weather-text weather-items">
+                    <h3>광교 1동</h3>
+                  </div>
+                  <div class="weather-img weather-items"></div>
+                </div>
+              </div>
+            </div>
+            <div class="view-todo">
+              <ul class="todo-lists"></ul>
+              <div class="todo__input">
+                <input
+                  type="text"
+                  name="todo-input"
+                  class="input-memo input is-rounded"
+                />
+              </div>
+            </div>
+          </section>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

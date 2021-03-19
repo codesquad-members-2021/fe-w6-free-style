@@ -1,0 +1,261 @@
+@import './reset.css';
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css";
+
+html {
+    background: whitesmoke;
+}
+
+.planner {
+    margin-top: 2.5rem;
+    height: 30rem;
+    border: 1px solid grey;
+    border-radius: 1rem;
+}
+
+.container-wrap {
+    height: 100%;
+}
+
+.main-wrap {
+    margin: 1rem;
+    display: flex;
+    width: 100%;
+    
+}
+
+.menu {
+    padding: 2rem;
+    width: 20%;
+    position: relative;
+    animation: fade-in 0.3s;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+}
+
+.main-view {
+    padding-top: 2rem;
+    width: 100%;
+    position: relative;
+}
+
+.view-btn-container {
+    left: -1rem;
+    height: 100%;
+    width: 0.4rem;
+    position: absolute;
+}
+
+.main-view-btn {
+    top: 50%;
+    left: 0;
+    height: 5rem;
+    width: 0.4rem;
+    position: absolute;
+    border-radius: 20%;
+    background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+}
+
+.view-contents {
+    display: flex;
+}
+
+.content-timer {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+}
+
+.timer {
+    display: flex;
+    text-align: center;
+}
+
+.timer-tabs {
+    display: flex;
+    flex-direction: column;
+    height: 5rem;
+}
+
+.timer-tabs ul {
+    border: 0;
+}
+
+.timer-show {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.timer-current {
+}
+
+.timer-current span {
+    font-size: 2rem;
+}
+
+.timer-btns {
+    padding: 0.5rem;
+}
+
+.timer-btn {
+    margin: 0 0.2rem;;
+    background: transparent;
+    outline: 0;
+    border: 0.1rem solid grey;
+    cursor: pointer;
+    box-shadow: 1px 3px 0 0 grey;
+    transition: transform 0.1s ease-in;
+}
+
+.timer-btn:hover{
+    transform: scale(1.1);
+}
+
+.timer-btn:active {
+    transform: translateY(3px);
+    box-shadow: none;
+}
+
+.content-weather {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.weather-items {
+    padding: 0 2rem;
+}
+
+.view-todo {
+    padding: 2rem;
+    height: 20rem;
+    position: relative;
+}
+
+.todo-lists {
+    padding-left: 0.5rem;
+    height: 80%;
+    overflow-y: auto;
+}
+
+.todo-lists::-webkit-scrollbar {
+    width: 0.5rem;
+  }
+
+.todo-lists::-webkit-scrollbar-thumb {
+    background-color: #2f3542;
+    border-radius: 1rem;
+}
+
+.todo-lists::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 1rem;
+}
+
+.todo-list {
+    padding: 0.25rem 0;
+    font-size: 1.3rem;
+    position: relative;
+}
+
+.todo__input {
+    height: 3.5rem;
+    width: 90%;
+    bottom: 0.5rem;
+    position: absolute;
+}
+
+.input-memo {
+    height: 3.5rem;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+.task {
+    padding-left: 0.5rem;
+}
+
+.list-trash {
+    padding-right: 1.5rem;
+    position: absolute;
+    right: 0;
+}
+
+.check-circle {
+    z-index: 1;
+}
+
+.check-circle-o {
+    user-select: none;
+    pointer-events: none;
+    position: relative;
+}
+
+.fa-check {
+    padding: 0.5rem;
+    position: absolute;
+    font-size: 1.6rem;
+    left: -7px;
+    top: -4px;
+}
+
+.check-hidden {
+    opacity: 0;
+}
+
+.list-done {
+    opacity: 0.6;
+}
+
+.task-done {
+    text-decoration: line-through;
+}
+
+.fa-trash-o {
+    cursor: pointer;
+}
+
+.weather-sky {
+    width: 3.5rem;
+    height: 3.5rem;
+}
+
+.weather-text {
+    text-align: center;
+}
+
+
+
+/* 
+Category Section
+*/
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+
+
+@media screen and (min-width: 769px){
+    .column.is-one-quarter, .column.is-one-quarter-tablet {
+        width:20%;
+    }   
+}
