@@ -8,11 +8,12 @@ import display from '../display.js';
 import { _ } from '../util.js';
 
 //filter import
-import { setUpSearch } from '../filter.js';
+import { setUpSearch, setUpSellers } from '../filter.js';
 
 const loading = _.$('.page-loading');
 display(store, _.$('.products-container'));
 setUpSearch(store);
+setUpSellers(store);
 loading.style.display = 'none';
 
 

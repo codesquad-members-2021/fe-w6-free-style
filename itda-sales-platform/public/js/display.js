@@ -17,7 +17,7 @@ const makeProductTemplate = (id, name, image, price) => {
         </div>
         <footer>
             <p class="product-name">${name}</p>
-            <h4 class="product-price">$${price}원</h4>
+            <h4 class="product-price">${price}원</h4>
         </footer>
     </article>`;
 }

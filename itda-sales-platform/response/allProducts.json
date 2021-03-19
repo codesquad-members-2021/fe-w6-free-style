@@ -220,21 +220,20 @@
             "image":[
                 {
                     "id":"attiwrd7gSI1oGxRK",
-                    "url":"https://lh3.googleusercontent.com/proxy/2jBZ7ib3E7Lp3VxJYum-uUfM_HegvuNU7hmMWW-HCcJ08smdR0RI6wG_hyrlNfcJIXgyqu5ZCn_Ej8Pk20ipPUnoYK4ZSy4vFXLzOm6ZTX30ldCM",
-                    "filename":"product-6.jpg",
+                    "url":"https://cdn.mkhealth.co.kr/news/photo/202006/img_MKH200630002_0.jpg",
                     "size":178908,
                     "type":"image/jpeg",
                     "thumbnails":
-                    {"small":{"url":"https://lh3.googleusercontent.com/proxy/2jBZ7ib3E7Lp3VxJYum-uUfM_HegvuNU7hmMWW-HCcJ08smdR0RI6wG_hyrlNfcJIXgyqu5ZCn_Ej8Pk20ipPUnoYK4ZSy4vFXLzOm6ZTX30ldCM",
+                    {"small":{"url":"https://cdn.mkhealth.co.kr/news/photo/202006/img_MKH200630002_0.jpg",
                         "width":64,
                         "height":36
                         },"large":{
-                            "url":"https://lh3.googleusercontent.com/proxy/2jBZ7ib3E7Lp3VxJYum-uUfM_HegvuNU7hmMWW-HCcJ08smdR0RI6wG_hyrlNfcJIXgyqu5ZCn_Ej8Pk20ipPUnoYK4ZSy4vFXLzOm6ZTX30ldCM",
+                            "url":"https://cdn.mkhealth.co.kr/news/photo/202006/img_MKH200630002_0.jpg",
                             "width":910,
                             "height":512
                         },
                         "full":{
-                            "url":"https://lh3.googleusercontent.com/proxy/2jBZ7ib3E7Lp3VxJYum-uUfM_HegvuNU7hmMWW-HCcJ08smdR0RI6wG_hyrlNfcJIXgyqu5ZCn_Ej8Pk20ipPUnoYK4ZSy4vFXLzOm6ZTX30ldCM",
+                            "url":"https://cdn.mkhealth.co.kr/news/photo/202006/img_MKH200630002_0.jpg",
                             "width":3000,
                             "height":3000
                         }
@@ -282,31 +281,31 @@
     {
         "id":"recvKMNR3YFw0bEt3",
         "fields":{
-            "company":"liddy",
+            "company":"나는 오뚝이 아빠입니다",
             "colors":["#ff0000","#00ff00"],
             "featured":true,
-            "price":"5,000",
-            "name":"햇살담은 태양초 고추 1kg",
+            "price":"30,000",
+            "name":"햇살담은 복숭아 15개",
             "image":[
                 {
                     "id":"atttOzyYI8P1XfJu8",
-                    "url":"http://www.traveli.co.kr/repository/show/contents/S20141024131720m0.jpg",
+                    "url":"https://lh3.googleusercontent.com/proxy/aqJX_hcqClh1rbKUAvn7AgJeyjALOkM45WKDMojaKoPpD_rMK6wuOnJYsMv79np9NfZ7stBq2FAowTyGW3jeTO0pUbNo6pHE5QNHb6Bd1L0hpAID_g7FA4S7VSae4m4T7NHddoxntpOIvLk",
                     "filename":"product-2.jpg",
                     "size":195175,
                     "type":"image/jpeg",
                     "thumbnails":{
                         "small":{
-                            "url":"http://www.traveli.co.kr/repository/show/contents/S20141024131720m0.jpg",
+                            "url":"https://lh3.googleusercontent.com/proxy/aqJX_hcqClh1rbKUAvn7AgJeyjALOkM45WKDMojaKoPpD_rMK6wuOnJYsMv79np9NfZ7stBq2FAowTyGW3jeTO0pUbNo6pHE5QNHb6Bd1L0hpAID_g7FA4S7VSae4m4T7NHddoxntpOIvLk",
                             "width":50,
                             "height":36
                         },
                         "large":{
-                            "url":"http://www.traveli.co.kr/repository/show/contents/S20141024131720m0.jpg",
+                            "url":"https://lh3.googleusercontent.com/proxy/aqJX_hcqClh1rbKUAvn7AgJeyjALOkM45WKDMojaKoPpD_rMK6wuOnJYsMv79np9NfZ7stBq2FAowTyGW3jeTO0pUbNo6pHE5QNHb6Bd1L0hpAID_g7FA4S7VSae4m4T7NHddoxntpOIvLk",
                             "width":709,
                             "height":512
                         },
                         "full":{
-                            "url":"http://www.traveli.co.kr/repository/show/contents/S20141024131720m0.jpg",
+                            "url":"https://lh3.googleusercontent.com/proxy/aqJX_hcqClh1rbKUAvn7AgJeyjALOkM45WKDMojaKoPpD_rMK6wuOnJYsMv79np9NfZ7stBq2FAowTyGW3jeTO0pUbNo6pHE5QNHb6Bd1L0hpAID_g7FA4S7VSae4m4T7NHddoxntpOIvLk",
                             "width":3000,
                             "height":3000
                         }
