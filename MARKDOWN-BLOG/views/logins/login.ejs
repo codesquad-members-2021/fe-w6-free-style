@@ -11,8 +11,8 @@
     <container class = "login-page">
         <a href="/" class = "home-btn">Glog</a>
         <container class = "login-container">
-            <form action="/login/fail" method="GET" class ="login-form" >
-                <input type="text">
+            <form action="/auth/login_process" method="POST" class ="login-form" >
+                <input type="password" name="pwd" placeholder="password">
                 <input type="submit" value="Login">
             </form>
         </container>

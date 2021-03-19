@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Article = require('./models/article');
 const articleRouter = require('./routes/articles');
-const loginRouter = require('./routes/logins.js');
+const authRouter = require('./routes/auth.js');
 const methodOverride = require('method-override');
 const app = express();
 
@@ -29,7 +29,7 @@ app.get('/', async (req, res) => {
 
 
 
-app.use('/login', loginRouter);
+app.use('/auth', authRouter);
 app.use('/articles', articleRouter);
 
 app.listen(3000)
