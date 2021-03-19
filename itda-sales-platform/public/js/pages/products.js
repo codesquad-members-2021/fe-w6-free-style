@@ -8,12 +8,15 @@ import display from '../display.js';
 import { _ } from '../util.js';
 
 //filter import
-import { setUpSearch, setUpSellers } from '../filter.js';
+import { setUpSearch, setUpSellers, setUpPrice } from '../filter.js';
 
-const loading = _.$('.page-loading');
-display(store, _.$('.products-container'));
-setUpSearch(store);
-setUpSellers(store);
-loading.style.display = 'none';
+const initProductsPage = () => {
+    const loading = _.$('.page-loading');
+    display(store, _.$('.products-container'));
+    loading.style.display = 'none';
+    setUpSearch(store);
+    setUpSellers(store);
+    setUpPrice(store);
+}
 
-
+initProductsPage();
