@@ -5,16 +5,22 @@ const { float_right } = CLASS_LIST;
 let user_count = [];
 
 
-DOM.chat.addEventListener('submit', function(e) { 
-    socket.emit('send message', name.value, message.value, socket.id);
-    message.value = '';
-    e.preventDefault();
+DOM.chat.addEventListener('submit', function(e) {
+    if(name.value !== '' && name.value !== null && message.value !== '') {
+        socket.emit('send message', name.value, message.value, socket.id);
+        message.value = '';
+        e.preventDefault();
+    }
 });
 
 // User name 설정하기
 window.addEventListener('DOMContentLoaded', () => {
     let user = prompt("사용하실 이름을 입력하세요.");
-    socket.emit('User name', user);
+    if(user !== null) {
+        socket.emit('User name', user);
+    } else if(user === '') {
+        user = prompt("사용하실 이름을 입력하세요.");
+    }
 });
 
 // name 채팅창에 적어주기
@@ -31,6 +37,7 @@ socket.on('connect message', function(name, socketId) {
     socket.id !== socketId ? _.addHTML(text, `${name}님이 접속하였습니다.`) : _.addHTML(text, `${name}님은 채팅방에 접속하셨습니다.`);
     _.append(connect_speech_bubble, text);
     _.append(chatLog, connect_speech_bubble);
+    chatLog.scrollTop = chatLog.scrollHeight;
 });
 
 // 접속 현황판
@@ -41,13 +48,19 @@ socket.on('real time user', function(name ,name_list, socketId) {
         const user = _.$create('div');
         user.id = `user_${socketId}`
         _.addHTML(user, `<div id="${socketId}" class="user_name">${name}</div>`);
-        _.nodeCount(user_name[0]) < 10 ? _.append(user_name[0],user) : _.addHTML(user_name[1], user);
+        _.nodeCount(user_name[0]) < 10 ? _.append(user_name[0],user) : _.append(user_name[1], user);
     } else {
-        // user_count = name_list;
+        while(user_name[0].hasChildNodes()) {
+            user_name[0].removeChild(user_name[0].firstChild);
+        }
+        while(user_name[1].hasChildNodes()) {
+            user_name[1].removeChild(user_name[1].firstChild);
+        }
+        user_count = name_list;
         name_list.forEach(v => {
             const user = _.$create('div');
             _.addHTML(user, `<div class="user_name">${v}</div>`);
-            _.nodeCount(user_name[0]) < 10 ? _.append(user_name[0],user) : _.addHTML(user_name[1], user);
+            _.nodeCount(user_name[0]) < 10 ? _.append(user_name[0],user) : _.append(user_name[1], user);
         })
     }
 })
@@ -64,17 +77,28 @@ socket.on('disconnect message', function(name, socketId) {
 
     // 나갈 시 접속현황판에서 삭제
     if(socket.id !== socketId) {
-        const node = _.$("#"+socketId);
-        _.$("#"+"user_"+socketId).removeChild(node);
+        while(user_name[0].hasChildNodes()) {
+            user_name[0].removeChild(user_name[0].firstChild);
+        }
+        while(user_name[1].hasChildNodes()) {
+            user_name[1].removeChild(user_name[1].firstChild);
+        }
         
         // 나간사람 이름 빼는 부분
         user_count = user_count.filter(v => v !== name).map(v => v);
         // 이곳을 통해 최신 현재 접속자 리스트를 array로 서버로 보내 서버의 배열을 갱신한다.
         socket.emit("real_time_list", user_count);
+
+        user_count.forEach(v => {
+            const user = _.$create('div');
+            _.addHTML(user, `<div class="user_name">${v}</div>`);
+            _.nodeCount(user_name[0]) < 10 ? _.append(user_name[0],user) : _.append(user_name[1], user);
+        }) 
     } 
+    chatLog.scrollTop = chatLog.scrollHeight;
 })
 
-socket.on('receive message', function(msg, socketId) { 
+socket.on('receive message', function(msg, socketId) {
     const speech_bubble = _.$create('div');
     _.addClass(speech_bubble, 'speech_bubble');
     const text = _.$create('div');
