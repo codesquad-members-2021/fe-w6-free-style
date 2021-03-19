@@ -1,4 +1,5 @@
-import { allProductsURL } from "./utill.js";
+//------------------------✻✻✻ json 데이터 요청 ✻✻✻--------------------------
+import { allProductsURL } from "./util.js";
 
 const fetchProducts = async () => {
     const response = await fetch(allProductsURL)

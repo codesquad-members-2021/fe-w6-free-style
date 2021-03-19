@@ -1,20 +1,156 @@
 <!--모든 제품 소개페이지-->
+<!--제품 소개-->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>판매중인 제품 | 잇다</title>
     <!-- font-awesome -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-    />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"/>
     <!-- styles css -->
     <link rel="stylesheet" href="/css/style.css"/>
   </head>
+
   <body>
-    <h2>판매 제품 목록</h2>
+    <nav class="navbar page">
+      <div class="nav-center">
+        <div>
+          <button class="toggle-nav">
+            <!--줄어든 페이지에서만 보이는 메뉴아이콘-->
+            <i class="fas fa-bars"></i>
+          </button>
+          <ul class="nav-links">
+            <li>
+              <a href="/page?page=index" class="nav-link">
+                홈
+              </a>
+            </li>
+            <li>
+              <a href="/page?page=products" class="nav-link">
+                제품 소개
+              </a>
+            </li>
+            <li>
+              <a href="/page?page=brandstory" class="nav-link">
+                브랜드 이야기
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!--로고-->
+        <img src="/img/logo-black.svg" class="nav-logo" alt="logo">
+        <!--카트 아이콘-->
+        <div class="toggle-container">
+          <button class="toggle-cart">
+            <i class="fas fa-shopping-cart"></i>
+          </button>
+          <span class="cart-item-count">1</span> <!--장바구니에 담긴 제품갯수-->
+        </div>
+      </div>
+    </nav>
+    <!--hero: 큰 이미지 위에 텍스트를 올리는 것-->
+    <section class="page-hero">
+      <div class="section-center">
+        <h3 class="page-hero-title">/ 제품 소개</h3>
+      </div>
+    </section>
+    <!--사이드바-->
+    <div class="sidebar-overlay">
+      <aside class="sidebar">
+        <button class="sidebar-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <ul class="sidebar-links">
+          <li>
+            <a href="/page?page=index" class="sidebar-link">
+              <i class="fas fa-home fa-fw"></i>
+              홈
+            </a>
+          </li>
+          <li>
+            <a href="/page?page=products" class="sidebar-link">
+              <i class="fas fa-couch fa-fw"></i>
+              제품 소개
+            </a>
+          </li>
+          <li>
+            <a href="/page?page=brandstory" class="sidebar-link">
+              <i class="fas fa-book fa-fw"></i>
+              브랜드 이야기
+            </a>
+          </li>
+        </ul>
+      </aside>
+    </div>
+    <!--카트-->
+    <div class="cart-overlay">
+      <aside class="cart">
+        <button class="cart-close">
+          <i class="fas fa-times"></i>
+        </button>
+        <header>
+          <h3 class="text-slanted">장바구니</h3>
+        </header>
+        <div class="cart-items">
+          <!--개별 아이템-->
+          <article class="cart-item" data-id="">
+            <img src="/img/bg3.jpg" class="cart-item-img" alt="name">
+            <!--아이템정보-->
+            <div>
+              <h4 class="cart-item-name">유기농 제주 감귤</h4>
+              <p class="cart-item-price">$20,000원</p>
+              <button class="cart-item-remove-btn">삭제</button>
+            </div>
+            <!--수량조절-->
+            <div>
+              <button class="cart-item-increase-btn">
+                <i class="fas fa-chevron-up"></i>
+              </button>
+              <p class="cart-item-amount">1</p>
+              <button class="cart-item-decrease-btn">
+                <i class="fas fa-chevron-down"></i>
+              </button>
+            </div>
+          </article>
+          <!--마지막 개별 아이템-->
+        </div>
+        <footer>
+          <h3 class="cart-total text-slanted">$100,000 원</h3>
+          <button class="cart-checkout btn">구매하기</button>
+        </footer>
+      </aside>
+    </div>
+    <!--제품목록-->
+    <section class="products">
+      <!--필터-->
+      <div class="filters">
+        <div class="filters-container">
+          <!--검색-->
+          <form class="input-form">
+            <input type="text" class="search-input" placeholder="검색하기 🔍" style="ime-mode:auto">
+          </form>
+          <!--카테고리-->
+          <h4>Seller</h4>
+          <article class="companies">
+            <button class="company-btn">모두 보기</button>
+            <button class="company-btn">효린이네</button>
+          </article>
+          <!--금액-->
+          <h4>금액</h4>
+          <form action="" class="price-form">
+            <input type="range" class="price-filter" min="0" value="50" max="100">
+          </form>
+          <p class="price-value"></p>
+        </div>
+      </div>
+      <!--제품-->
+      <div class="products-container"></div>
+    </section>
+    <!--로딩 페이지-->
+    <div class="page-loading">
+      <h2>로딩중...</h2>
+    </div>
+    <script type="module" src="/js/pages/products.js"></script>
   </body>
 </html>

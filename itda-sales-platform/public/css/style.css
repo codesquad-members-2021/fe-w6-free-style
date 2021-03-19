@@ -285,7 +285,7 @@ Navbar
   color: var(--clr-grey-1);
 }
 /*
-=============== 
+===============
 Hero
 ===============
 */
@@ -293,7 +293,7 @@ Hero
   min-height: 100vh;
   margin-top: -6rem;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url(/img/bg2.jpg) center/cover;
+    url(/img/bg3.jpg) center/cover;
   display: grid;
   place-items: center;
   color: var(--clr-white);
@@ -303,11 +303,11 @@ Hero
   max-width: var(--max-width);
 }
 .hero h1 {
-  font-weight: 700;
+  font-weight: 500;
 }
 .hero h3 {
   text-transform: none;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 .hero-btn {
   color: var(--clr-white);
@@ -328,7 +328,7 @@ Hero
 
 @media screen and (min-width: 800px) {
   .hero h3 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin: 1rem 0;
   }
 }
@@ -339,7 +339,7 @@ Hero
     letter-spacing: 5px;
   }
   .hero h3 {
-    font-size: 2.75rem;
+    font-size: 2.2rem;
     margin: 1.5rem 0;
   }
 }

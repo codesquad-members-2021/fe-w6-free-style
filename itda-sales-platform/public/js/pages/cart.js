@@ -1,4 +1,5 @@
-import { _ } from './utill.js';
+//------------------------✻✻✻ 장바구니 페이지 ✻✻✻--------------------------
+import { _ } from '../util.js';
 
 const cartOverlay = _.$('.cart-overlay');
 const closeCartBtn = _.$('.cart-close');
@@ -8,5 +9,6 @@ _.addEvent(toggleCartBtn, 'click', () => _.addClass(cartOverlay, "show"));
 _.addEvent(closeCartBtn, 'click', () => _.removeClass(cartOverlay, "show"));
 
 const openCart = () => _.addClass(cartOverlay, 'show');
+const addToCart = (id) => openCart();
 
-// export { openCart };
+export { openCart, addToCart };
