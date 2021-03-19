@@ -11,24 +11,7 @@
             <%- include('./partial/todo/todoNav.html') %>
 
             <!-- 2. editor -->
-            <div class="container bg-light rounded-sm p-3 my-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Subject</span>
-                    </div>
-                    <input type="text" value="<%= subject %>" class="form-control" />
-                </div>
-
-                <div class="card p-1 my-2 container" id="toast-editor"></div>
-                <div class="d-flex justify-content-end" id="todo-editorBtns">
-                    <button type="button" class="btn btn-primary mr-1" id="todo-writeConfirm">
-                        Confirm
-                    </button>
-                    <button type="button" class="btn btn-secondary" id="todo-writeCancel">
-                        Cancel
-                    </button>
-                </div>
-            </div>
+            <%- include('./partial/todo/todoEditor.html') %>
 
             <!-- 3. Footer -->
             <%- include('./partial/todo/todoFooter.html') %>

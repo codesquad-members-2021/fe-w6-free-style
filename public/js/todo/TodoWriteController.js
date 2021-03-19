@@ -2,44 +2,55 @@ import _ from '../util.js';
 import TodoWriteEditor from './TodoWriteEditor.js';
 
 class TodoWriteController {
-    constructor(todoWriteReference) {
-        this.todoWriteReference = todoWriteReference;
-        this.editor = null;
-    }
-
-    init = () => {
-        const { editorWrapper, editorOptions, editorBtnsWrapper } = this.todoWriteReference;
-
-        this.setEditor(editorWrapper, editorOptions);
-        this.setEditorBtnsClickEvent(editorBtnsWrapper);
+    constructor(todoWriteReference) {        
+        const {
+            formWrapper,
+            formItems: { subject, content, cancelBtn },
+            editorWrapper,
+            editorOptions,
+        } = todoWriteReference;
+                
+        this.formWrapper = _.$(formWrapper);
+        this.formItems = {
+            subject: _.$(subject, this.formWrapper),    // 임시 (subject)
+            content: _.$(content, this.formWrapper),
+            cancelBtn: _.$(cancelBtn, this.formWrapper),
+        };
+        this.editorWrapper = _.$(editorWrapper);
+        this.editorOptions = editorOptions;
     };
 
+    init = () => {
+        const { content, cancelBtn } = this.formItems;
+        this.setEditor(this.editorWrapper, this.editorOptions);
+        this.setWriteFormSubmitEvent(this.formWrapper, content);
+        this.setWriteFormCancelClickEvent(cancelBtn);
+    };
+
+    // Toast Editor 설정
     setEditor = (editorWrapper, editorOptions) =>
         (this.editor = new TodoWriteEditor(editorWrapper, editorOptions));
 
-    setEditorBtnsClickEvent = (editorBtnsWrapper) => {
-        _.addEvent(editorBtnsWrapper, 'click', (e) =>
-            this.editorBtnsClickEventHandler(e),
-        );
+    // 글 서버로 전송
+    setWriteFormSubmitEvent = (formWrapper, content) => {
+        _.addEvent(formWrapper, 'click', (e) => this.writeFormSubmitEventHandler(e, content));
     };
 
-    editorBtnsClickEventHandler = (e) => {
+    writeFormSubmitEventHandler = (e, content) => {
         const { target } = e;
-        if (target.tagName !== 'BUTTON') return;
+        if (target.type !== 'submit') return;        
+        content.value = this.editor.getHtml().trimEnd();
+    };
 
-        // test..
-        switch (target.id) {
-            case 'todo-writeConfirm':
-                console.log(this.editor.getHtml());
-                break;
+    // 작성 취소
+    setWriteFormCancelClickEvent = (cancelBtn) => {
+        _.addEvent(cancelBtn, 'click', (e) => this.writeFormCancelClickEventHandler(e, cancelBtn));
+    };
 
-            case 'todo-writeCancel':
-                location.href = "/todo";
-                break;
-
-            default:
-                break;
-        }
+    writeFormCancelClickEventHandler = (e, cancelBtn) => {
+        const { target } = e;
+        if (target !== cancelBtn) return;
+        location.href = "/todo";
     };
 }
 

@@ -21,11 +21,11 @@ class AuthController {
     }
 
     init = () => {
-        this.setFormSubmitEvent(this.formWrapper);        
+        this.setAuthFormSubmitEvent(this.formWrapper);        
     };
 
     // Login | Register - 서버로 전송 (Submit) (+ 계정확인 | 아이디 중복확인, 비밀번호 체크)
-    setFormSubmitEvent = (formWrapper) => {        
+    setAuthFormSubmitEvent = (formWrapper) => {        
         _.addEvent(formWrapper, 'submit', (e) => {
             this.authType === 'login'
                 ? this.loginSubmitEventHandler(e)

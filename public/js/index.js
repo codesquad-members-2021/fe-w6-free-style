@@ -17,26 +17,29 @@ const REFERENCE = {
         },
         errSection: 'p.auth--error',
     },
-    // path: /todo  (이 페이지는 예외적으로 2부분으로 나눔)
+    // path: /todo
     todoPost: {
-        posting: {
-            wrapper: _.$('#todo-posting'),
-            subjectInput: 'input#todoSubject',
-            goWriteBtn: 'button#goWrite',            
+        postingWrapper: '#todo-posting',
+        postingItems: {
+            subject: 'input#subject',
+            addBtn: 'button#add',
         },
-        postlist: {
-            wrapper: _.$('#todo-postlist'),
-        },
+        postlistWrapper: '#todo-postlist',
     },
     // path: /todo/write
     todoWrite: {
-        editorWrapper: _.$('#toast-editor'),
+        formWrapper: 'form#todo-writeForm',
+        formItems: {            
+            subject: 'input#subject',
+            content: 'input#content',
+            cancelBtn: 'button#cancel',            
+        },
+        editorWrapper: 'div#toast-editor',
         editorOptions: {
             height: '600px',
             initialEditType: 'markdown',
             previewStyle: 'vertical',
-        },
-        editorBtnsWrapper: _.$('#todo-editorBtns'),
+        },        
     },
 };
 

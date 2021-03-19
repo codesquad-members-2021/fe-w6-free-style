@@ -16,5 +16,11 @@ database.sequelize = sequelize;
 database.Sequelize = Sequelize;
 
 database.User = require('./user.js')(sequelize, Sequelize);
+database.Todo = require('./todo.js')(sequelize, Sequelize);
+
+// 관계 정의
+database.User.hasMany(database.Todo);
+database.Todo.belongsTo(database.User);  // TodoModel에 userid 컬럼 추가 (user.userid가 아닌 user.id가 들어옴)
+
 
 module.exports = database;

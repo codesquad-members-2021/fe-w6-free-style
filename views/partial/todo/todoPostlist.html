@@ -1,24 +1,29 @@
 <div id="todo-postlist">
     <div class="container" id="accordion">
-        <% for(let i = 0; i < 20; i++) { %>
-        <div class="card my-2">                       
-            <div class="mb-0">
-                <button
-                    class="btn btn-link text-left collapsed"
-                    data-toggle="collapse"
-                    data-target="#collapse<%= i%>"
+        <% if (todoData.length > 0) { %> 
+            <% todoData.forEach((data, i) => {
+            const { subject, content } = data; %>
+            <div class="card my-2">
+                <div class="mb-0">
+                    <button
+                        class="btn btn-link text-left collapsed"
+                        data-toggle="collapse"
+                        data-target="#collapse<%= i %>"
+                    >
+                        <%= subject %>
+                    </button>
+                </div>
+                <div
+                    id="collapse<%= i %>"
+                    class="collapse border-top"
+                    data-parent="#accordion"
                 >
-                    Collapsible Group Item <%= i%>
-                </button>
-            </div>                       
-            <div
-                id="collapse<%= i%>"
-                class="collapse border-top"
-                data-parent="#accordion"
-            >
-                <div class="px-3 py-2">기미기미</div>
+                    <div class="px-3 py-2"><%= content %></div>
+                </div>
             </div>
-        </div>
+            <% }) %>
+        <% } else { %> 
+            
         <% } %>
     </div>
 </div>

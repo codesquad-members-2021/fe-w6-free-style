@@ -1,39 +1,38 @@
 import _ from '../util.js';
-import TodoPostList from './TodoPostList.js';
 
 class TodoPostController {
     constructor(todoPostReference) {
         const {
-            posting: { wrapper, subjectInput, goWriteBtn },
-            postlist,
+            postingWrapper,
+            postingItems: { subject, addBtn },
+            postlistWrapper,
         } = todoPostReference;
 
-        this.postingReference = {
-            wrapper,
-            subjectInput: _.$(subjectInput, wrapper),
-            goWriteBtn: _.$(goWriteBtn, wrapper),
+        this.postingWrapper = _.$(postingWrapper);
+        this.postingItems = {
+            subject: _.$(subject, this.postingWrapper),
+            addBtn: _.$(addBtn, this.postingWrapper)
         };
-
-        // this.postlistReference = postlist;
+        this.postlistWrapper = _.$(postlistWrapper);        
     }
 
     init = () => {
-        const { subjectInput, goWriteBtn } = this.postingReference;
-        this.setPostingBtnClickEvent(subjectInput, goWriteBtn);
+        const { subject, addBtn } = this.postingItems;
+        this.setPostingAddBtnClickEvent(subject, addBtn);
     };
 
     // [Posting] Add 버튼 클릭 이벤트
-    setPostingBtnClickEvent = (subjectInput, goWriteBtn) => {
-        _.addEvent(goWriteBtn, 'click', () =>
-            this.postingBtnClickEventHandler(subjectInput),
+    setPostingAddBtnClickEvent = (subject, addBtn) => {
+        _.addEvent(addBtn, 'click', () =>
+            this.postingAddBtnClickEventHandler(subject),
         );
     };
 
-    postingBtnClickEventHandler = (subjectInput) => {
+    postingAddBtnClickEventHandler = (subject) => {
         // form의 POST 요청으로 할까했지만 굳이..
         const movePath = '/todo/write';
-        location.href = subjectInput.value
-            ? `${movePath}?subject=${subjectInput.value}`
+        location.href = subject.value
+            ? `${movePath}?subject=${subject.value}`
             : movePath;
     };
 }
