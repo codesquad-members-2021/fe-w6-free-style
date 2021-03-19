@@ -16,6 +16,9 @@ router.post('/getUserTodoData', isUserNotInSession('/auth/login'), async(req, re
         const todoData = await Todo.findAll({ 
             where: { userId },
             attributes: [ 'subject', 'content' ],
+            order: [
+                ['createdAt', 'DESC'],
+            ],
         });
         
         return res.status(200).json({
