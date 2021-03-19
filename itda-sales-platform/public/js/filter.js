@@ -30,6 +30,13 @@ const filterStoreBySeller = (ev, store) => {
     }
 }
 
+const filterStoreByPrice = (priceBar, priceVal, store) => {
+    const value = Math.floor(parseInt(priceBar.value)/ 1000) * 1000;
+    priceVal.textContent = `${value} 원`;
+    let newStore = store.filter((product) => parseInt(product.price) * 1000 <= value);
+    display(newStore, container);
+}
+
 const lookUpProduct = async (store, form, nameInput) => {
     await _.addEvent(form, 'input', () => {
         const inputValue = nameInput.value;
@@ -67,12 +74,7 @@ const setUpPrice = (store) => {
     priceBar.min = 0;
     priceVal.textContent = `${maxPrice} 원`;
 
-    _.addEvent(priceBar, 'input', () => {
-        const value = Math.floor(parseInt(priceBar.value)/ 1000) * 1000;
-        priceVal.textContent = `${value} 원`;
-        let newStore = store.filter((product) => parseInt(product.price) * 1000 <= value);
-        display(newStore, container);
-    })
+    _.addEvent(priceBar, 'input', () => filterStoreByPrice(priceBar, priceVal, store))
 }
 
 export { setUpSearch, setUpSellers, setUpPrice };
