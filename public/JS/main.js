@@ -30,3 +30,5 @@ const roulette = _.$('.roulette')
 _.on(foldButton, 'click', ()=>{
 	_.ct(roulette,'unseen')
 })
+
+console.log(document.body)

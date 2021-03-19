@@ -1,6 +1,15 @@
 .unseen {
 	display: none;
 }
+button{
+	background-color: transparent;
+	border-radius: 5px;
+	border: 1px solid black;
+}
+input{
+	border-radius: 3px;
+	border: 1px solid black;
+}
 .user {
 	margin-top: 1rem;
 	margin-left: 1rem;
@@ -69,6 +78,7 @@
 		z-index: 4;
 		padding: 0.5rem;
 		width: 18rem;
+		align-items: center;
 		justify-content: space-evenly;
 	}
 }
