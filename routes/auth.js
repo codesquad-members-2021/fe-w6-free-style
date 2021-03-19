@@ -2,36 +2,31 @@
 // Passport 시도했다가 확실한 이해불가. 나중에 다시하기
 
 const express = require('express');
+const { isUserInSession } = require('./util.js');
 const router = express.Router();
 const { User } = require('../models');
 
 // Login
 // auth: [GET, /auth/login ]
-router.get('/login', (req, res) => {
-    if (req.session.user)
-        return res.redirect('/todo');
-
+router.get('/login', isUserInSession('/todo'), (req, res) => {
     res.render('login', { title: 'MD Todo list' });
 });
 
 // auth: [POST, /auth/login ]
-router.post('/login', async (req, res) => {
+router.post('/login', isUserInSession('/todo'), async (req, res) => {
     const { userid, userpwd } = req.body;
+    
+    try {
+        const checkUser = await User.findOne({ where: { userid, userpwd } });
+        if (!checkUser)
+            return res.redirect('login');
 
-    if (!req.session.user) {
-        try {
-            const checkUser = await User.findOne({ where: { userid, userpwd } });
-            if (!checkUser)
-                return res.redirect('login');
-
-            req.session.user = { id: checkUser.id, userid: checkUser.userid };
-            return res.redirect('/todo');
-        } catch (error) {
-            console.error(error);
-        }
-    } else {
+        req.session.user = { id: checkUser.id, userid: checkUser.userid };
         return res.redirect('/todo');
+    } catch (error) {
+        console.error(error);
     }
+    
 });
 
 // auth: [POST, /auth/userCheck ], 로그인 전 계정 확인.
@@ -69,34 +64,29 @@ router.get('/logout', (req, res) => {
 
 // Register
 // auth: [GET, /auth/register ]
-router.get('/register', (req, res) => {
-    if (req.session.user)
-        return res.redirect('/todo');
+router.get('/register', isUserInSession('/todo'), (req, res) => {
     res.render('register', {  title: 'MD Todo list' });
 });
 
 // auth: [POST, /auth/register ]
-router.post('/register', async (req, res) => {
+router.post('/register', isUserInSession('/todo'), async (req, res) => {
     const { userid, userpwd } = req.body;
 
-    if (!req.session.user) {
-        try {
-            const exUser = await User.findOne({ where: { userid } });
-            if (exUser)
-                return res.redirect('register');
-    
-            const createUser = await User.create({ userid, userpwd });
-            if (!createUser)
-                return res.redirect('register');
-            
-            req.session.user = { id: createUser.id, userid: createUser.userid };
-            return res.redirect('/todo');
-        } catch (error) {
-            console.error(error);
-        }
-    } else {
+    try {
+        const exUser = await User.findOne({ where: { userid } });
+        if (exUser)
+            return res.redirect('register');
+
+        const createUser = await User.create({ userid, userpwd });
+        if (!createUser)
+            return res.redirect('register');
+        
+        req.session.user = { id: createUser.id, userid: createUser.userid };
         return res.redirect('/todo');
-    } 
+    } catch (error) {
+        console.error(error);
+    }
+
 });
 
 // auth: [POST, /auth/isDuplicateID ], 아이디 중복확인
