@@ -10,4 +10,5 @@ _.addEvent(closeCartBtn, 'click', () => _.removeClass(cartOverlay, "show"));
 
 const openCart = () => _.addClass(cartOverlay, 'show');
 const addToCart = (id) => openCart();
+
 export { openCart, addToCart };
