@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => (
+const userModel = (sequelize, DataTypes) => (
     sequelize.define('user', {
         userid: {
             type: DataTypes.STRING(40),
@@ -14,3 +14,6 @@ module.exports = (sequelize, DataTypes) => (
         paranoid: true,
     })
 );
+
+
+module.exports = userModel;

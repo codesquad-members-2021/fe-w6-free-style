@@ -5,6 +5,11 @@
 
 // Nav
 .todo__nav {
+    &__welcome {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
     &__pt-56 {
         padding-top: 56px;
     }
