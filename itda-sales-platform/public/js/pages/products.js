@@ -7,7 +7,9 @@ import { store } from '../store.js';
 import display from '../display.js';
 import { _ } from '../utill.js';
 
+const loading = _.$('.page-loading');
 display(store, _.$('.products-container'));
+loading.style.display = 'none';
 
 //filter 관련부분
 
