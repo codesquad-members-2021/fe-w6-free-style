@@ -49,13 +49,13 @@ class SelectEvent {
     this._clearBorder(BORDER_STYLE.SOLID);
     this._setFirstSelectData(target);
     this._setLastSelectData(target);
-    this._setSelectData(this.firstSelect, this.lastSelect);
+    this._setSelectData();
     this._selectCell();
   }
   _dragSelectMouseover(target) {
     this._clearSelectCell();
     this._setLastSelectData(target);
-    this._setSelectData(this.firstSelect, this.lastSelect);
+    this._setSelectData();
     this._selectCell();
   }
   _dragSelectMouseup() {
@@ -87,24 +87,17 @@ class SelectEvent {
   }
   _selectCell() {
     const selectData = this.sheetModel.getSelectData();
-    selectData.forEach(({ cell, input }) => {
-      this._addStyle(cell, 'selected');
-      this._addStyle(input, 'selected');
-    });
+    selectData.forEach(({ cell, input }) => this._addStyle('selected', cell, input));
   }
   //select cell들 .selected 클래스 제거
   _clearSelectCell() {
     const selectData = this.sheetModel.getSelectData();
     if (!selectData.length) return;
-    selectData.forEach(({ cell, input }) => {
-      this._removeStyle(cell, 'selected');
-      this._removeStyle(input, 'selected');
-    });
+    selectData.forEach(({ cell, input }) => this._removeStyle('selected', cell, input));
   }
   _clearOriginSelectCell() {
     this.originSelectData.forEach(({ cell, input }) => {
-      this._removeStyle(cell, 'selected');
-      this._removeStyle(input, 'selected');
+      this._removeStyle('selected', cell, input);
       this._removeBorder(cell, BORDER_STYLE.SOLID);
     });
   }
@@ -159,10 +152,10 @@ class SelectEvent {
     const sideIndex = this._getSideIndex();
     selectData.forEach(({ cell }) => {
       const { column, row } = this._getLocation(cell);
-      if (column * 1 === sideIndex.left) this._addStyle(cell, `left-${style}`);
-      if (column * 1 === sideIndex.right) this._addStyle(cell, `right-${style}`);
-      if (row * 1 === sideIndex.top) this._addStyle(cell, `top-${style}`);
-      if (row * 1 === sideIndex.bottom) this._addStyle(cell, `bottom-${style}`);
+      if (column * 1 === sideIndex.left) this._addStyle(`left-${style}`, cell);
+      if (column * 1 === sideIndex.right) this._addStyle(`right-${style}`, cell);
+      if (row * 1 === sideIndex.top) this._addStyle(`top-${style}`, cell);
+      if (row * 1 === sideIndex.bottom) this._addStyle(`bottom-${style}`, cell);
     });
   }
   _getSideIndex() {
@@ -222,11 +215,11 @@ class SelectEvent {
     if (style === BORDER_STYLE.SOLID) node.classList.remove(...solidBorderList);
     if (style === BORDER_STYLE.DOT) node.classList.remove(...dotBorderList);
   }
-  _addStyle(node, style) {
-    node.classList.add(style);
+  _addStyle(style, ...nodes) {
+    nodes.forEach((node) => node.classList.add(style));
   }
-  _removeStyle(node, style) {
-    node.classList.remove(style);
+  _removeStyle(style, ...nodes) {
+    nodes.forEach((node) => node.classList.remove(style));
   }
   _toggleSelectStatus() {
     this.isSelectMousedown = !this.isSelectMousedown;
@@ -250,12 +243,11 @@ class SelectEvent {
     }
   }
   _setCellNameBox() {
+    if (!this.firstColumn || !this.lastColumn) return;
     const { column: firstColumn, row: firstRow } = this._getLocation(this.firstSelect.cell);
     const { column: lastColumn, row: lastRow } = this._getLocation(this.lastSelect.cell);
     const firstCellName = parseCellName(firstColumn, firstRow);
     const lastCellName = parseCellName(lastColumn, lastRow);
-    console.log(firstCellName);
-    console.log(lastCellName);
     if (firstCellName === lastCellName) this.cellNameBox.innerHTML = firstCellName;
     else this.cellNameBox.innerHTML = `${firstCellName}:${lastCellName}`;
   }
