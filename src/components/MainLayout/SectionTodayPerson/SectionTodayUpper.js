@@ -2,22 +2,14 @@ import React, { useEffect, useState } from 'react';
 import TodayLeft from './TodayLeft';
 import TodayRight from './TodayRight';
 import axios from 'axios';
+import { todayCenterData, todayRightData } from '../../const';
 
 function SectionTodayUpper() {
-  const todayCenterData = {
-    textCenter: ['어제', '1주전'],
-    number: [0, 0],
-  };
-  const todayRightData = {
-    textRight: ['2주전', '1달전'],
-    number: [0, 0],
-  };
+  const [todayCenter, setTodayCenter] = useState(todayCenterData);
+  const [todayRight, setTodayRight] = useState(todayRightData);
 
-  const [todoayCenter, setTodayCenter] = useState(todayCenterData);
-  const [todoayRight, setTodayRight] = useState(todayRightData);
-
-  const { textCenter } = todoayCenter;
-  const { textRight } = todoayRight;
+  const { textCenter } = todayCenter;
+  const { textRight } = todayRight;
 
   async function fetchData() {
     const request = `/domestic-init.json`;
@@ -44,8 +36,8 @@ function SectionTodayUpper() {
   return (
     <div className="Section__Today__Upper flex-row flex">
       <TodayLeft />
-      <TodayRight text={todoayCenter.textCenter} number={todoayCenter.number} />
-      <TodayRight text={todoayRight.textRight} number={todoayRight.number} />
+      <TodayRight text={todayCenter.textCenter} number={todayCenter.number} />
+      <TodayRight text={todayRight.textRight} number={todayRight.number} />
     </div>
   );
 }

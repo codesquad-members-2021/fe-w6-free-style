@@ -25,4 +25,18 @@ const personBox = [
   },
 ];
 
-export default personBox;
+const todayLeft = {
+  title: '오늘 확진자수',
+  unit: '명',
+};
+
+const todayCenterData = {
+  textCenter: ['어제', '1주전'],
+  number: [0, 0],
+};
+const todayRightData = {
+  textRight: ['2주전', '1달전'],
+  number: [0, 0],
+};
+
+export { personBox, todayLeft, todayCenterData, todayRightData };

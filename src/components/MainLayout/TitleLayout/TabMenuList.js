@@ -3,8 +3,8 @@ import React from 'react';
 function TabMenuList({ menu }) {
   return (
     <div className="Tab__Menu--Box Tab__Flex flex flex-row">
-      {menu.map((item, idx) => (
-        <TabMenu menu={item.menu} svg={item.svg} key={idx} />
+      {menu.map(({ menu, svg }, idx) => (
+        <TabMenu menu={menu} svg={svg} key={idx} />
       ))}
     </div>
   );
