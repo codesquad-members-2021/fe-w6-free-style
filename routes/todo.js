@@ -110,4 +110,24 @@ router.post('/getUserTodoData', isUserNotInSession('/auth/login'), async(req, re
     }
 });
 
+// todo: [POST, /todo/startDelete ] (글 삭제 실행 후 성공여부 반환)
+router.post('/startDelete', isUserNotInSession('/auth/login'), async (req, res) => {
+    const { id: userId } = req.session.user;
+    const { todoId } = req.body;
+
+    try {
+        await Todo.destroy( { where: {id: todoId, userId } });
+        return res.status(200).json({
+            result: true,
+            message: 'OK',
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            result: false,
+            message: '서버에 오류가 있습니다.',
+        });
+    }
+});
+
 module.exports = router;

@@ -15,6 +15,21 @@
     }
 }
 
+// Post List (todo Main)
+.todo__postlist {
+    &__delete--btn {
+        background: none;        
+        border: none;
+        padding: 0;
+        font: inherit;        
+        outline: inherit;
+    }
+
+    &__delete--btn:hover {
+        color: #596066 !important;
+    }
+}
+
 // Footer
 .todo__footer {    
     &__text {

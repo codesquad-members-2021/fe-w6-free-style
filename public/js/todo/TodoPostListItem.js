@@ -1,4 +1,5 @@
 import _ from '../util.js';
+import { fetchData } from '../dataUtil.js';
 import TodoViewer from './toast/TodoViewer.js';
 
 class TodoPostListItem {
@@ -22,12 +23,15 @@ class TodoPostListItem {
     }
 
     init = (options, data, parentWrapper = this.parentWrapper) => {
-        const { idx } = data;
+        const { id, idx } = data;
         const { viewerAllWrapperId } = options;
         this.setviewerAllWrapperId = (viewerAllWrapperId + idx);
 
         this.setHtml = this.createHtml(this.viewerAllWrapperId, options, data);
         this.insertIntoParentWrapper(parentWrapper, this.html);
+
+        const deleteBtn = _.$(`#${this.viewerAllWrapperId} #todoDelete`);
+        this.setPostListItemDelBtnClickEvent(deleteBtn, id);
 
         this.setViewer = this.createViewer(options, data);
     };
@@ -50,9 +54,9 @@ class TodoPostListItem {
                     <a href="/todo/update?userId=${userDisplayId}&todoId=${id}" class="text-secondary text-decoration-none">
                         <i class="far fa-edit"></i>
                     </a>
-                    <a href="#delete" class="text-secondary text-decoration-none">
+                    <button class="todo__postlist__delete--btn text-secondary" id="todoDelete">
                         <i class="far fa-trash-alt"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
             <div
@@ -82,6 +86,39 @@ class TodoPostListItem {
 
     insertIntoParentWrapper = (parentWrapper, itemHtml, position = 'beforeend') =>
         parentWrapper.insertAdjacentHTML(position, itemHtml);
+
+    // todo 삭제 버튼 클릭 이벤트
+    setPostListItemDelBtnClickEvent = (deleteBtn, todoId) => {
+        _.addEvent(deleteBtn, 'click', () =>
+            this.postListItemDelBtnClickEventHandler(todoId),
+        );
+    };
+
+    postListItemDelBtnClickEventHandler = async (todoId) => {
+        if (!confirm('해당 글을 삭제하시겠습니까?')) return;
+
+        try {
+            const todoDelete = await this.getTodoDeleteResult(todoId);
+            const { status } = todoDelete;
+            if (status !== 200) 
+                return alert('삭제 할 수 없습니다.');
+
+            return location.href = '/todo';
+        } catch (error) {            
+            console.error(error);            
+        }
+    };
+
+    getTodoDeleteResult  = async (todoId) => {
+        const url = '/todo/startDelete';
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ todoId }),
+        };
+        return await fetchData(url, options);
+    };
+
 }
 
 export default TodoPostListItem;
