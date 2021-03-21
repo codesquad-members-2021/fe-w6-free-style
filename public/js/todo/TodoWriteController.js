@@ -44,14 +44,10 @@ class TodoWriteController {
 
     // 작성 취소
     setWriteFormCancelClickEvent = (cancelBtn) => {
-        _.addEvent(cancelBtn, 'click', (e) => this.writeFormCancelClickEventHandler(e, cancelBtn));
+        _.addEvent(cancelBtn, 'click', () => this.writeFormCancelClickEventHandler());
     };
 
-    writeFormCancelClickEventHandler = (e, cancelBtn) => {
-        const { target } = e;
-        if (target !== cancelBtn) return;
-        location.href = "/todo";
-    };
+    writeFormCancelClickEventHandler = () => (location.href = "/todo");
 }
 
 export default TodoWriteController;

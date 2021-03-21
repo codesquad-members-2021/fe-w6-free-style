@@ -2,32 +2,43 @@ import _ from '../util.js';
 import TodoViewer from './toast/TodoViewer.js';
 
 class TodoPostListItem {
-    constructor(data, postlistItems) {
+    constructor(parentWrapper) {
+        this.parentWrapper = parentWrapper;
         this.html = '';
-        this.viewerWrapId = '';
-        this.viewer = null;
-        this.createItem(data, postlistItems);
+        this.viewerAllWrapperId = '';
+        this.viewer = null;        
     }
 
-    createItem = (data, postlistItems) => {
+    set setviewerAllWrapperId(viewerAllWrapperId) {
+        this.viewerAllWrapperId = viewerAllWrapperId;
+    }
+
+    set setHtml(html) {
+        this.html = html;
+    }
+
+    set setViewer(viewer) {
+        this.viewer = viewer;
+    }
+
+    init = (options, data, parentWrapper = this.parentWrapper) => {
         const { idx } = data;
-        const { setViewerWrapIdName } = postlistItems;
-        this.setViewerWrapId(setViewerWrapIdName + idx);
+        const { viewerAllWrapperId } = options;
+        this.setviewerAllWrapperId = (viewerAllWrapperId + idx);
 
-        const html = this.createHtml(data, postlistItems);
-        this.setHtml(html);
+        this.setHtml = this.createHtml(this.viewerAllWrapperId, options, data);
+        this.insertIntoParentWrapper(parentWrapper, this.html);
 
-        // viewer 설정 확정은 List에서 (TodoPostList Wrapper에 들어간 후에 설정해야 하기에)
-        // this.setViewer(postlistItems, content);
+        this.setViewer = this.createViewer(options, data);
     };
 
-    createHtml = (data, postlistItems) => {
+    createHtml = (viewerAllWrapperId, options, data) => {
+        const { viewerWrapperId } = options;
         const { idx, subject } = data;
-        const { setViewerIdName } = postlistItems;
 
         const html = `
-        <div class="card my-2" id="${this.viewerWrapId}">
-            <div class="mb-0">
+        <div class="card my-2" id="${viewerAllWrapperId}">
+            <div class="mb-0 d-flex align-items-center">
                 <button
                     class="btn btn-link text-left collapsed"
                     data-toggle="collapse"
@@ -35,32 +46,42 @@ class TodoPostListItem {
                 >
                     ${subject}
                 </button>
+                <div class="ml-auto mr-3 ft--15">
+                    <a href="#edit" class="text-secondary text-decoration-none">
+                        <i class="far fa-edit"></i>
+                    </a>
+                    <a href="#delete" class="text-secondary text-decoration-none">
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+                </div>
             </div>
             <div
                 id="collapse${idx}"
                 class="collapse border-top"
                 data-parent="#accordion"
             >
-                <div class="px-3 py-2" id="${setViewerIdName}"></div>
+                <div class="px-3 py-2" id="${viewerWrapperId}"></div>
             </div>
         </div>
         `;
         return html;
     };
 
-    setViewerWrapId = (viewerWrapId) => (this.viewerWrapId = viewerWrapId);
-    setHtml = (html) => (this.html = html);
-    setViewer = (postlistItems, data) => {
+    createViewer = (options, data) => {
         const { content } = data;
+        const { viewerWrapperId, viewerOptions: viewerTmp } = options;
 
-        const { setViewerIdName, viewerOptions: viewerTmp } = postlistItems;
-        const viewerWrapper = _.$(`#${this.viewerWrapId} #${setViewerIdName}`);
+        const viewerWrapper = _.$(`#${this.viewerAllWrapperId} #${viewerWrapperId}`);
         const viewerOptions = {
             ...viewerTmp,
             content,
         };
-        this.viewer = new TodoViewer(viewerWrapper, viewerOptions);
+
+        return new TodoViewer(viewerWrapper, viewerOptions);
     };
+
+    insertIntoParentWrapper = (parentWrapper, itemHtml, position = 'beforeend') =>
+        parentWrapper.insertAdjacentHTML(position, itemHtml);
 }
 
 export default TodoPostListItem;

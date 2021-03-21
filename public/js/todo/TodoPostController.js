@@ -6,8 +6,8 @@ class TodoPostController {
         const {
             postingWrapper,
             postingItems: { subject, addBtn },
-            postlistWrapper,
-            postlistItems,
+            postListWrapper,
+            postListItemOptions,
         } = todoPostReference;
 
         this.postingWrapper = _.$(postingWrapper);
@@ -17,15 +17,15 @@ class TodoPostController {
         };
 
         // TodoPostList에서 쓰임
-        this.postlistWrapper = _.$(postlistWrapper);
-        this.postlistItems = postlistItems;
+        this.postListWrapper = _.$(postListWrapper);
+        this.postListItemOptions = postListItemOptions;
         // -----        
     }
 
     init = () => {
         const { subject, addBtn } = this.postingItems;
         this.setPostingAddBtnClickEvent(subject, addBtn);  
-        this.setTodoPostList(this.postlistWrapper, this.postlistItems);
+        this.setTodoPostList(this.postListWrapper, this.postListItemOptions);
     };
 
     // [Posting] Add 버튼 클릭 이벤트
@@ -44,8 +44,8 @@ class TodoPostController {
     };
 
     // [Postlist] TodoPostList (+TodoPostListItem) 세팅 
-    setTodoPostList = (postlistWrapper, postlistItems) => {        
-        new TodoPostList(postlistWrapper, postlistItems).init();
+    setTodoPostList = (postListWrapper, postListItemOptions) => {        
+        new TodoPostList(postListWrapper, postListItemOptions).init();
     }; 
         
 
