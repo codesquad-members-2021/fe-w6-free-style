@@ -5,52 +5,56 @@ import { personBox } from '../../const';
 function PersonTypeList() {
   const [data, setData] = useState(personBox);
 
-  async function fetchData() {
-    const request = `/domestic-init.json`;
-    const response = await axios.get(request);
-    const data = response.data.stats;
-    const {
-      cases: [caseNumber, caseChange],
-      deaths: [deathsNumber, deathsChange],
-      recovered: [recoveredNumber, recoveredChange],
-      tests: [testsNumber, testsChange],
-    } = data;
+  const useFetch = () => {
+    async function fetchData() {
+      const request = `/domestic-init.json`;
+      const response = await axios.get(request);
+      const data = response.data.stats;
+      const {
+        cases: [caseNumber, caseChange],
+        deaths: [deathsNumber, deathsChange],
+        recovered: [recoveredNumber, recoveredChange],
+        tests: [testsNumber, testsChange],
+      } = data;
 
-    setData([
-      {
-        name: '확진자',
-        number: caseNumber,
-        change: caseChange,
-        color: 'rgb(235, 83, 116)',
-        background: 'rgba(235, 83, 116, 0.082)',
-      },
-      {
-        name: '사망자',
-        number: deathsNumber,
-        change: deathsChange,
-        color: 'rgb(136, 136, 136)',
-        background: 'rgb(39, 43, 56)',
-      },
-      {
-        name: '완치자',
-        number: recoveredNumber,
-        change: recoveredChange,
-        color: 'rgb(23, 138, 23)',
-        background: 'rgba(22, 171, 22, 0.16)',
-      },
-      {
-        name: '검사자',
-        number: testsNumber,
-        change: testsChange,
-        color: 'rgb(86, 115, 235)',
-        background: 'rgba(86, 115, 235, 0.082)',
-      },
-    ]);
-  }
+      setData([
+        {
+          name: '확진자',
+          number: caseNumber,
+          change: caseChange,
+          color: 'rgb(235, 83, 116)',
+          background: 'rgba(235, 83, 116, 0.082)',
+        },
+        {
+          name: '사망자',
+          number: deathsNumber,
+          change: deathsChange,
+          color: 'rgb(136, 136, 136)',
+          background: 'rgb(39, 43, 56)',
+        },
+        {
+          name: '완치자',
+          number: recoveredNumber,
+          change: recoveredChange,
+          color: 'rgb(23, 138, 23)',
+          background: 'rgba(22, 171, 22, 0.16)',
+        },
+        {
+          name: '검사자',
+          number: testsNumber,
+          change: testsChange,
+          color: 'rgb(86, 115, 235)',
+          background: 'rgba(86, 115, 235, 0.082)',
+        },
+      ]);
+    }
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+    useEffect(() => {
+      fetchData();
+    }, []);
+  };
+
+  useFetch();
 
   return (
     <div className="Person__Type__List flex-row center">
