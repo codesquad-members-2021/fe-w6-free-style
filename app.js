@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 
 
 app.listen(3000, function () {
-   console.log('started')
+   console.log('🎉started')
 })
 
 app.use(express.static('public'))
@@ -17,8 +17,6 @@ app.use(bodyParser.urlencoded({
 app.set('view engine', 'ejs')
 app.use(router) //main접속시 main_router로 이동
 
-
-
 var db = mongoose.connection;
 db.on('error', console.error);
 db.once('open', function () {
@@ -28,5 +26,6 @@ db.once('open', function () {
 
 mongoose.connect('mongodb://localhost/mongodb_tutorial', {
    useNewUrlParser: true,
-   useUnifiedTopology: true
+   useUnifiedTopology: true,
+   useFindAndModify: false
 })

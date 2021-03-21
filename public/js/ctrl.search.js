@@ -3,12 +3,13 @@ import {
 } from "./utill.js";
 import {
    makeCard
-} from "./tpl.news.js";
+} from "./make.cardtpl.js";
 import {
-   sendAjax
-} from "./send.ajax.js";
-
-
+   requestfetch
+} from "./fetch.js";
+import {
+   refreshWindow
+} from "./refresh.js";
 
 export const searchEvent = () => {
    const searchWindow = _.$('.search_window');
@@ -24,8 +25,9 @@ export const searchEvent = () => {
    })
 
    searchBtn.addEventListener('click', () => {
+      refreshWindow();
       const inputData = searchWindow.value;
-      sendAjax('http://localhost:3000/news/naver_news', inputData, makeCard);
+      const url = 'http://localhost:3000/news/naver_news';
+      requestfetch('POST', url, inputData, makeCard);
    })
-
 }

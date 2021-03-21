@@ -1,15 +1,19 @@
 var express = require('express');
-var app = express();
 var router = express.Router();
-
-const request = require('request');
-const cheerio = require("cheerio");
 const News = require('../model/main_schema');
 
-console.log('linked')
+router.post('/save', async (req, res) => {
+   const {
+      _id,
+      save,
+      comment
+   } = req.body.value;
 
-router.post('/save', (req, res) => {
-   console.log("??", req.body)
+   const update = {
+      keep: save,
+      comment: comment
+   }
+   await News.findByIdAndUpdate(_id, update);
 })
 
 module.exports = router;
