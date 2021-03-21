@@ -13,9 +13,10 @@ class TodoPostList {
 
     setPostListItems = async (postListWrapper, postListItemOptions) => {
         const todoData = await this.getUserTodoData();
+        const userDisplayId = todoData.userDisplayId;
 
         todoData.data.forEach((dataTmp, idx) => {
-            const data = { ...dataTmp, idx };
+            const data = { ...dataTmp, idx, userDisplayId };
             new TodoPostListItem(postListWrapper).init(postListItemOptions, data);
         });
     };

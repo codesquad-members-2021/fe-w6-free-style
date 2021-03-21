@@ -33,13 +33,13 @@ const REFERENCE = {
             }
         }
     },
-    // path: /todo/write
+    // path: /todo/write & /todo/update
     todoWrite: {
         formWrapper: 'form#todo-writeForm',
         formItems: {            
             subject: 'input#subject',
             content: 'input#content',
-            cancelBtn: 'button#cancel',            
+            cancelBtn: 'button#cancel',
         },
         editorWrapper: 'div#toast-editor',
         editorOptions: {
@@ -62,7 +62,8 @@ switch (PATHNAME) {
         new TodoPostController(todoPost).init();
         break;
     case '/todo/write':
-        new TodoWriteController(todoWrite).init();
+    case '/todo/update':
+        new TodoWriteController(todoWrite, PATHNAME).init();
         break;
     default:
         break;

@@ -4,13 +4,16 @@ class TodoEditor {
     constructor(editorWrapper, editorOptions) {
         this.editorWrapper = editorWrapper;
 
-        const { height, initialEditType, previewStyle } = editorOptions;
+        const { height, initialEditType, previewStyle, content } = editorOptions;
+
         this.editor = new Editor({
             el: this.editorWrapper,
             height,
             initialEditType,
             previewStyle,
         });
+
+        content && this.editor.setHtml(content);
     }
 
     getHtml = () => this.editor.getHtml();

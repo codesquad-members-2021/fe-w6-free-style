@@ -34,7 +34,7 @@ class TodoPostListItem {
 
     createHtml = (viewerAllWrapperId, options, data) => {
         const { viewerWrapperId } = options;
-        const { idx, subject } = data;
+        const { id, idx, subject, userDisplayId } = data;
 
         const html = `
         <div class="card my-2" id="${viewerAllWrapperId}">
@@ -47,7 +47,7 @@ class TodoPostListItem {
                     ${subject}
                 </button>
                 <div class="ml-auto mr-3 ft--15">
-                    <a href="#edit" class="text-secondary text-decoration-none">
+                    <a href="/todo/update?userId=${userDisplayId}&todoId=${id}" class="text-secondary text-decoration-none">
                         <i class="far fa-edit"></i>
                     </a>
                     <a href="#delete" class="text-secondary text-decoration-none">
