@@ -24,23 +24,22 @@ const REFERENCE = {
             subject: 'input#subject',
             addBtn: 'button#add',
         },
-        postlistWrapper: '#todo-postlist #accordion',
-        postlistItems: {
-            // setViewer~ (TodoPostList에서 Item  Html만들때 사용 (id 설정))
-            setViewerWrapIdName: 'viewer',
-            setViewerIdName: 'toast-viewer',
+        postListWrapper: '#todo-postlist #accordion',
+        postListItemOptions: {            
+            viewerAllWrapperId: 'viewer',
+            viewerWrapperId: 'toast-viewer',
             viewerOptions: {
                 height: 'auto',                
             }
         }
     },
-    // path: /todo/write
+    // path: /todo/write & /todo/update
     todoWrite: {
         formWrapper: 'form#todo-writeForm',
         formItems: {            
             subject: 'input#subject',
             content: 'input#content',
-            cancelBtn: 'button#cancel',            
+            cancelBtn: 'button#cancel',
         },
         editorWrapper: 'div#toast-editor',
         editorOptions: {
@@ -63,7 +62,8 @@ switch (PATHNAME) {
         new TodoPostController(todoPost).init();
         break;
     case '/todo/write':
-        new TodoWriteController(todoWrite).init();
+    case '/todo/update':
+        new TodoWriteController(todoWrite, PATHNAME).init();
         break;
     default:
         break;

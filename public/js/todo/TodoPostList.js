@@ -2,24 +2,22 @@ import { fetchData } from '../dataUtil.js';
 import TodoPostListItem from './TodoPostListItem.js';
 
 class TodoPostList {
-    constructor(postlistWrapper, postlistItems) {
-        this.postlistWrapper = postlistWrapper;
-        this.postlistItems = postlistItems;
+    constructor(postListWrapper, postListItemOptions) {
+        this.postListWrapper = postListWrapper;
+        this.postListItemOptions = postListItemOptions;
     }
 
     init = () => {
-        this.setPostListItems(this.postlistItems);
+        this.setPostListItems(this.postListWrapper, this.postListItemOptions);
     };
 
-    setPostListItems = async (postlistItems) => {
+    setPostListItems = async (postListWrapper, postListItemOptions) => {
         const todoData = await this.getUserTodoData();
+        const userDisplayId = todoData.userDisplayId;
 
         todoData.data.forEach((dataTmp, idx) => {
-            const data = { ...dataTmp, idx };
-
-            const item = new TodoPostListItem(data, postlistItems);
-            this.postlistWrapper.insertAdjacentHTML('beforeend', item.html);
-            item.setViewer(postlistItems, data);
+            const data = { ...dataTmp, idx, userDisplayId };
+            new TodoPostListItem(postListWrapper).init(postListItemOptions, data);
         });
     };
 
