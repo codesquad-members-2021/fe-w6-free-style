@@ -1,5 +1,7 @@
 const express = require('express');
+const Article = require('./../models/article');
 const router = express.Router();
+
 
 router.get('/login', (req, res) => {
     res.render("logins/login");
@@ -18,15 +20,22 @@ router.get('/login_process', (req, res) => {
     res.render("logins/process");
 })
 
-router.post('/login_process', (req, res) => {
+function authIsOwner(req, res) {
+    if (req.session.is_logined) return true;
+    else return false;
+}
+
+router.post('/login_process', async (req, res) => {
     const post = req.body;
     const password = post.pwd;
+
     if(password === authData.password) {
-        res.send("welcome");
+        req.session.is_logined = true,
+        req.session.nickname = authData.nickname;
+        await res.redirect("/");
     } else {
-        res.send("wrong!");
+        res.render("logins/fail");
     }
-    // res.redirect('/');
 })
 
 module.exports = router;

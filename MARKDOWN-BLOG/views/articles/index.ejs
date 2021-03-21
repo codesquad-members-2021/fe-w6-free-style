@@ -14,7 +14,15 @@
     <div class="container">
         <h1 class="mb-4 mt-4">Glog</h1>
         <a href="/articles/new" class="btn btn-success">New Article</a>
-        <a href="/auth/login" class="btn btn-primary">Login</a>
+       
+        <% if(authStatus) { %> 
+            <a href="/" class="btn btn-primary">Log out
+            <% } %></a>
+
+        <% if(!authStatus) { %> 
+            <a href="/auth/login" class="btn btn-primary">Login
+            <% } %></a>
+        
         <% articles.forEach(article=> { %>
             <div class="card mt-4">
                 <div class="card-body">
